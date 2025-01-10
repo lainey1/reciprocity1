@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('image_url', sa.String(length=255), nullable=False),
+    sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('caption', sa.String(length=255), nullable=True),
     sa.Column('is_preview', sa.Boolean(), nullable=False),
     sa.Column('uploaded_at', sa.DateTime(), nullable=False),

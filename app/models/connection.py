@@ -14,6 +14,7 @@ class Connection(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     connected_user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     connection_type = db.Column(db.String(20), nullable=False)  # 'Family' or 'Friend'
+    status = db.Column(db.String(20), nullable=False, default="pending")  # 'pending', 'accepted', 'rejected'
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
 
     # Relationships
@@ -26,5 +27,6 @@ class Connection(db.Model):
             'user_id': self.user_id,
             'connected_user_id': self.connected_user_id,
             'connection_type': self.connection_type,
+            'status': self.status,
             'created_at': self.created_at.isoformat()
         }
