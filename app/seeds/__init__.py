@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .connections import seed_connections, undo_connections
 from .collections import seed_collections, undo_collections
 from .recipes import seed_recipes, undo_recipes
+from .recipe_images import seed_recipe_images, undo_recipe_images
 
 
 from app.models.db import db, environment, SCHEMA
@@ -24,10 +25,12 @@ def seed():
         undo_connections()
         undo_recipes()
         undo_collections()
+        undo_recipe_images()
     seed_users()
     seed_connections()
     seed_recipes()
     seed_collections()
+    seed_recipe_images()
     # Add other seed functions here
 
 
@@ -38,4 +41,5 @@ def undo():
     undo_connections()
     undo_recipes()
     undo_collections()
+    undo_recipe_images()
     # Add other undo functions here
