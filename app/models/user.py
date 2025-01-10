@@ -4,6 +4,8 @@ from .db import db, environment, SCHEMA
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+from .connection import Connection
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -19,8 +21,11 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.Text, nullable=True)
     profile_image_url = db.Column(db.String(255), nullable=True)
     location = db.Column(db.String(100), nullable=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc)),
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc)),
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
+
+    connections = db.relationship('Connection', backref='user', foreign_keys=[Connection.user_id], lazy=True)
+    connected_users = db.relationship('Connection', backref='connected_user', foreign_keys=[Connection.connected_user_id], lazy=True)
 
     @property
     def password(self):
