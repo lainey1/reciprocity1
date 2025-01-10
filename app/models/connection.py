@@ -17,9 +17,9 @@ class Connection(db.Model):
     status = db.Column(db.String(20), nullable=False, default="pending")  # 'pending', 'accepted', 'rejected'
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
 
-    # Relationships
-
-
+    # Define back_populates
+    user = db.relationship('User', foreign_keys=[user_id], back_populates='connections')
+    connected_user = db.relationship('User', foreign_keys=[connected_user_id], back_populates='connected_users')
 
     def to_dict(self):
         return {

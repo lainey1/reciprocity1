@@ -1,7 +1,7 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template, redirect, url_for
 from flask_login import login_required, current_user
 from app.models import db, User
-from app.forms import UpdateProfileForm
+from app.forms import UpdateUserForm, DeleteUserForm
 
 user_routes = Blueprint('users', __name__)
 
@@ -45,7 +45,7 @@ def update_profile(user_id):
 
 
     # if profile owner, create instance of UserProfileForm class
-    form = UpdateProfileForm()
+    form = UpdateUserForm()
 
     # manually sets the CSRF token in the form from the request's cookies.
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -76,3 +76,36 @@ def update_profile(user_id):
         'message': 'Invalid user data',
         'errors': form.errors
     }), 400
+
+
+@user_routes.route('/delete_profile', methods=["GET", "POST"])
+@login_required
+def delete_profile():
+    """
+    Delete the user's profile by user ID.
+    """
+    form = DeleteUserForm()
+
+    # manually sets the CSRF token in the form from the request's cookies.
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        print("Delete action triggered")  # Debugging output
+        if form.delete.data:
+            # Get the current user
+            user_to_delete = User.query.get(current_user.id)
+
+
+            # Delete the user from the database
+            if user_to_delete:
+                db.session.delete(user_to_delete)
+                db.session.commit()
+
+                # return redirect(url_for('home'))  ##when available Redirect to home or login page after deletion
+
+        # elif form.cancel.data:
+        #     ## when available Redirect to the user's profile page if they cancel the deletion
+        #     return redirect(url_for('users.user', id=current_user.id))
+
+    # print("Form errors:", form.errors)  # Debugging output
+    return render_template("delete_profile.html", form=form)

@@ -1,4 +1,4 @@
-# /app/models/user.py
+# //models/user.py
 from datetime import datetime, timezone
 
 from .db import db, environment, SCHEMA
@@ -25,8 +25,21 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
-    connections = db.relationship('Connection', backref='user', foreign_keys=[Connection.user_id], lazy=True)
-    connected_users = db.relationship('Connection', backref='connected_user', foreign_keys=[Connection.connected_user_id], lazy=True)
+    # DEBUGGED: Define relationships with explicit foreign_keys
+    connections = db.relationship(
+        'Connection',
+        cascade="all, delete-orphan", # FIX: remember to use delete-orphon
+        foreign_keys='Connection.user_id',  # FIX: Specify the foreign key to avoid parent/child confusion
+        back_populates='user',
+        lazy=True
+    )
+    connected_users = db.relationship(
+        'Connection',
+        foreign_keys='Connection.connected_user_id',  # FIX: Specify the foreign key to avoid parent/child confusion
+        cascade="all, delete-orphan", # FIX: Specify the foreign key to avoid parent/child confusion
+        back_populates='connected_user',
+        lazy=True
+    )
 
     @property
     def password(self):
@@ -46,7 +59,7 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'first_name': self.first_name,
             'bio': self.bio,
-            'self.profile_image_url': self.profile_image_url,
+            'profile_image_url': self.profile_image_url,
             'location': self.location,
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
