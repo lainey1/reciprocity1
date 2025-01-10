@@ -1,7 +1,5 @@
 from flask import Blueprint, request
 
-from datetime import datetime
-
 from flask_login import current_user, login_user, logout_user, login_required
 
 from app.forms import LoginForm
@@ -57,6 +55,7 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
+            first_name=form.data['first_name'],
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']
@@ -71,8 +70,6 @@ def sign_up():
             name="FamilyRecipes",
             description="A collection of family recipes and memories.",
             user_id=user.id,
-            created_at = datetime.now(datetime.timezone.utc),
-            updated_at = datetime.now(datetime.timezone.utc)
         )
 
         db.session.add(family_collection)

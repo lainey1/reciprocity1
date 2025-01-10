@@ -6,22 +6,30 @@ from sqlalchemy.sql import text
 def seed_users():
     # Adds demo users, recipes, and related models
     demo = User(
-        username='demo', email='demo@aa.io', password='password', first_name='Demo',
-        bio='This is a demo user.', profile_image_url='http://example.com/demo-profile.jpg', location='Demo City')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name='Marnie',
-        bio='This is Marnie’s profile.', profile_image_url='http://example.com/marnie-profile.jpg', location='Marnie City')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name='Bobbie',
-        bio='Bobbie’s bio goes here.', profile_image_url='http://example.com/bobbie-profile.jpg', location='Bobbie City')
+        username="the_ratatouille", email="remy@gasteaus.com", password="password", first_name="Demo",
+        bio="I discovered my love for cooking by reading Anyone Can Cook by my idol, Auguste Gusteau.",
+        profile_image_url="https://static.wikia.nocookie.net/pixar/images/5/56/Ratatouille-remy2.jpg/revision/latest/top-crop/width/200/height/150?cb=20110512131040", location="Paris, France"
+    )
+    alfredo = User(
+        username="i_am_linguini", email="alfredo@gasteaus.com", password="password", first_name="Alfredo",
+        bio="I enjoy cooking recipes handed down to me by good friend Remy",
+        profile_image_url="https://funkymbti.com/wp-content/uploads/2021/12/alfredo.jpg", location="Paris, France"
+    )
+    colette = User(
+        username="anyone_can_cook", email="colette@aa.io", password="password", first_name="Collette",
+        bio="I know every recipe of Anyone Can Cook by heart.", profile_image_url="https://funkymbti.com/wp-content/uploads/2021/12/collette.jpg", location="Paris, France"
+    )
     lainey = User(
-        username='lainey', email='lainey@email.com', password='mango', first_name='Lainey',
-        bio='Lainey&;apos bio goes here.', profile_image_url='http://example.com/bobbie-profile.jpg', location='San Francisco')
+        username="lainey", email="lainey@email.com", password="mango", first_name="Lainey",
+        bio="My go to family recipe is my grandma’s chicken adobo.",
+        profile_image_url="http://example.com/bobbie-profile.jpg", location="San Francisco, United States"
+    )
+
 
 
     db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    db.session.add(alfredo)
+    db.session.add(colette)
     db.session.add(lainey)
     db.session.commit()
 
