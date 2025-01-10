@@ -1,3 +1,4 @@
+# /app/models/user.py
 from datetime import datetime, timezone
 
 from .db import db, environment, SCHEMA
@@ -18,9 +19,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
+    location = db.Column(db.String(100), nullable=True)
     bio = db.Column(db.Text, nullable=True)
     profile_image_url = db.Column(db.String(255), nullable=True)
-    location = db.Column(db.String(100), nullable=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
