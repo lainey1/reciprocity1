@@ -19,8 +19,10 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.Text, nullable=True)
     profile_image_url = db.Column(db.String(255), nullable=True)
     location = db.Column(db.String(100), nullable=True)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc)),
-    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc)),
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
+
+
 
     @property
     def password(self):
