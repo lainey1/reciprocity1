@@ -1,1 +1,48 @@
-/* TODO: Add sitewide styles */
+/* Global Font Styles */
+body,
+html,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  color: #465775;
+  background-color: #230903;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: #230903;
+}
+
+p,
+span,
+button,
+input,
+textarea {
+  font-weight: 400; /* Regular weight for body text */
+  color: #2a3439; /* Muted color for text */
+}
+
+/* Page Container */
+.page-container {
+  display: flex;
+  max-width: 1300px;
+  background-color: #d8c8a9;
+  /* background-image: url("https://www.transparenttextures.com/patterns/light-paper-fibers.png"); */
+  background-image: url("../public/lined-paper.png");
+  background-repeat: repeat; /* Repeat the texture */
+  background-size: auto; /* Adjust size to your preference */
+  min-height: 100vh;
+  margin: 0 auto; /* Centers the container */
+  padding: 0 15px;
+}

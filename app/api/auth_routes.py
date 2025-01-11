@@ -1,8 +1,11 @@
 from flask import Blueprint, request
-from app.models import User, db
+
+from flask_login import current_user, login_user, logout_user, login_required
+
 from app.forms import LoginForm
 from app.forms import SignUpForm
-from flask_login import current_user, login_user, logout_user, login_required
+from app.models import User, db
+from ..models import Collection
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -52,14 +55,34 @@ def sign_up():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
+            first_name=form.data['first_name'],
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']
         )
         db.session.add(user)
         db.session.commit()
+        # Log the user in
         login_user(user)
-        return user.to_dict()
+
+        # Create a default family
+        family_collection = Collection(
+            name="FamilyRecipes",
+            description="A collection of family recipes and memories.",
+            user_id=user.id,
+        )
+
+        db.session.add(family_collection)
+        db.session.commit()
+
+        # Return the user data and collection data
+        return {
+             **user.to_dict(), # ** syntax is used to unpack a dictionary
+             "family_collection": family_collection.to_dict()
+        }
+
+
+        # return user.to_dict() ## without the family collection
     return form.errors, 401
 
 

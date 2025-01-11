@@ -1,18 +1,34 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import reciprocity_banner from "../../../public/reciprocity_banner.png";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+    <nav id="nav-bar">
+      {/* Logo Section */}
+      <div id="logo-banner">
+        <Link to="/" className="logo-link">
+          <img src={reciprocity_banner} alt="Reciprocity Logo" />
+        </Link>
+      </div>
 
-      <li>
+      {/* Search Bar */}
+      {/* <div id="search-bar-container">
+        <SearchBar />
+      </div> */}
+
+      {/* Navigation Actions */}
+      <div id="actions-container">
+        <Link to="/about" className="nav-link">
+          About
+        </Link>
+        {/* <Link to="/restaurants" className="nav-link">
+          Restaurants
+        </Link> */}
         <ProfileButton />
-      </li>
-    </ul>
+      </div>
+    </nav>
   );
 }
 
