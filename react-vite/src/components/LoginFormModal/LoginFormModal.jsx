@@ -6,7 +6,8 @@ import "./LoginForm.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
+  const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
@@ -16,13 +17,22 @@ function LoginFormModal() {
 
     const serverResponse = await dispatch(
       thunkLogin({
-        email,
+        // email,
+        email_or_username: emailOrUsername,
         password,
       })
     );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
+    //   if (serverResponse) {
+    //     setErrors(serverResponse);
+    //   } else {
+    //     closeModal();
+    //   }
+    // };
+
+    // If there are errors from the server, set them in the state
+    if (serverResponse.errors) {
+      setErrors(serverResponse.errors);
     } else {
       closeModal();
     }
@@ -33,11 +43,14 @@ function LoginFormModal() {
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Email
+          {/* Email */}
+          Email or Username
           <input
             type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            // value={email}
+            value={emailOrUsername}
+            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmailOrUsername(e.target.value)}
             required
           />
         </label>

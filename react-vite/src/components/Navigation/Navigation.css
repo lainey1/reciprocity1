@@ -10,15 +10,21 @@
   z-index: 1000;
 }
 
+#logo-banner-recipes {
+  display: flex;
+  align-items: center;
+}
+
 #logo-banner img {
-  height: 150px;
+  max-height: 80px; /* Ensure logo size is reasonable */
+  width: auto;
 }
 
 .nav-link {
   text-decoration: none;
   font-size: 1.25em;
 
-  color: #230903;
+  color: #0c2324;
   margin-right: 1em;
 
   &:hover {
@@ -67,22 +73,22 @@
   z-index: 1;
   min-width: 12.5rem;
   margin-top: 200px;
-  padding-bottom: 1rem;
+  padding: 1rem 0;
   background: #9c9f77;
-  border-radius: 0.625rem;
-  box-shadow: rgba(100, 100, 111, 0.25) 0px 7px 15px 0px;
+  border-radius: 1em;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   text-align: left;
 }
 
 .profile-menu-dropdown > li {
   list-style-type: none;
-  color: #230903;
+  color: #0c2324;
   padding: 15px;
 
   &:hover {
     cursor: pointer;
-    background-color: #465775;
-    opacity: 0.5;
+    background-color: #f4a6a6;
+    opacity: 0.7;
   }
 }
 

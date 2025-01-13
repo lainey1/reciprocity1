@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
+import Layout from "./Layout";
 import LandingPage from "../components/LandingPage";
 import About from "../components/About/About";
 import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
-
-import Layout from "./Layout";
+import AllRecipes from "../components/AllRecipes/AllRecipes";
+import RecipeDetails from "../components/RecipeDetails/RecipeDetails";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <LandingPage />,
+      },
+      {
+        path: "recipes",
+        element: <AllRecipes />,
+      },
+      {
+        path: "/recipes/:id",
+        element: <RecipeDetails />,
       },
       {
         path: "about",

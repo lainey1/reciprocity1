@@ -6,10 +6,16 @@ import "./Navigation.css";
 function Navigation() {
   return (
     <nav id="nav-bar">
-      {/* Logo Section */}
-      <div id="logo-banner">
-        <Link to="/" className="logo-link">
-          <img src={reciprocity_banner} alt="Reciprocity Logo" />
+      <div id="logo-banner-recipes">
+        {/* Logo Section */}
+        <div id="logo-banner">
+          <Link to="/" className="logo-link">
+            <img src={reciprocity_banner} alt="Reciprocity Logo" />
+          </Link>
+        </div>
+
+        <Link to="/recipes" className="nav-link">
+          All Recipes
         </Link>
       </div>
 
