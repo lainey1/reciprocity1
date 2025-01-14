@@ -1,37 +1,55 @@
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
 import reciprocity_banner from "../../../public/reciprocity_banner.png";
+// import HamburgerButton from "./HamburgerButton";
 import ProfileButton from "./ProfileButton";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import { LoginFormModal, SignupFormModal } from "../AuthenticationForms";
+
 import "./Navigation.css";
 
 function Navigation() {
+  const user = useSelector((store) => store.session.user);
+
   return (
     <nav id="nav-bar">
-      <div id="logo-banner-recipes">
-        {/* Logo Section */}
-        <div id="logo-banner">
-          <Link to="/" className="logo-link">
-            <img src={reciprocity_banner} alt="Reciprocity Logo" />
-          </Link>
-        </div>
+      {/* Logo Section */}
+      <Link to="/" className="logo-link">
+        <img src={reciprocity_banner} alt="Reciprocity Logo" id="logo-banner" />
+      </Link>
 
-        <Link to="/recipes" className="nav-link">
-          All Recipes
-        </Link>
-      </div>
+      {/* Hamburger Icon for mobile */}
+      {/* <HamburgerButton /> */}
 
       {/* Search Bar */}
       {/* <div id="search-bar-container">
         <SearchBar />
       </div> */}
 
-      {/* Navigation Actions */}
-      <div id="actions-container">
+      {/* Navigation Links */}
+      <div id="nav-links">
+        <Link to="/recipes" className="nav-link">
+          All Recipes
+        </Link>
         <Link to="/about" className="nav-link">
           About
         </Link>
-        {/* <Link to="/restaurants" className="nav-link">
-          Restaurants
-        </Link> */}
+        {!user && (
+          <>
+            <OpenModalMenuItem
+              itemText="Log In"
+              id="login-button"
+              modalComponent={<LoginFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="Sign Up"
+              id="signup-button"
+              modalComponent={<SignupFormModal />}
+            />
+          </>
+        )}
+
         <ProfileButton />
       </div>
     </nav>

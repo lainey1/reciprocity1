@@ -4,10 +4,17 @@ from wtforms.validators import InputRequired, Optional, Length, ValidationError
 
 POPULAR_CUISINES = [
     ('American', 'American'),
-    ('African', 'African'),
+    ('Argentinian', 'Argentinian'),
+    ('Brazilian', 'Brazilian'),
+    ('British', 'British'),
+    ('Caribbean', 'Caribbean'),
     ('Chinese', 'Chinese'),
+    ('Colombian', 'Colombian'),
+    ('Ethiopian', 'Ethiopian'),
+    ('Filipino', 'Filipino'),
     ('French', 'French'),
     ('Fusion', 'Fusion'),
+    ('German', 'German'),
     ('Greek', 'Greek'),
     ('Indian', 'Indian'),
     ('Italian', 'Italian'),
@@ -16,11 +23,17 @@ POPULAR_CUISINES = [
     ('Mediterranean', 'Mediterranean'),
     ('Mexican', 'Mexican'),
     ('Middle Eastern', 'Middle Eastern'),
+    ('Moroccan', 'Moroccan'),
+    ('Nigerian', 'Nigerian'),
+    ('Peruvian', 'Peruvian'),
+    ('South African', 'South African'),
     ('Spanish', 'Spanish'),
     ('Thai', 'Thai'),
     ('Vietnamese', 'Vietnamese'),
     ('Other', 'Other'),
 ]
+
+
 
 # Ingredient and Instruction Form to encapsulate individual fields
 class IngredientForm(FlaskForm):
@@ -36,7 +49,7 @@ class InstructionForm(FlaskForm):
 
 class CreateRecipeForm(FlaskForm):
     # Basic recipe information
-    name = StringField('name', validators=[Length(min=1, max=100)])
+    name = StringField('name', validators=[Length(max=100)])
     yield_servings = IntegerField("servings")
     prep_time = IntegerField("prep time")
     cook_time = IntegerField("cook time")
@@ -44,7 +57,7 @@ class CreateRecipeForm(FlaskForm):
 
     # Select cuisine from list defined above
     cuisine = SelectField('cuisine', choices=POPULAR_CUISINES)
-    short_description = StringField("create a tagline for your recipe", validators=[Length(min=3, max=150)])
+    short_description = StringField("create a tagline for your recipe")
 
     # Description field
     description = TextAreaField('share a favorite memory, story, or who this recipe reminds you about', validators=[Length(max=500)])

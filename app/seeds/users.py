@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 def seed_users():
     # Adds demo users, recipes, and related models
     demo = User(
-        username="little_chef", email="remy@gasteaus.com", password="password", first_name="Demo",
+        username="little_chef", email="remy@gasteaus.com", password="password", first_name="Remy",
         bio="I discovered my love for cooking by reading Anyone Can Cook by my idol, Auguste Gusteau.",
         profile_image_url="https://static.wikia.nocookie.net/pixar/images/5/56/Ratatouille-remy2.jpg/revision/latest/top-crop/width/200/height/150?cb=20110512131040", location="Paris, France"
     )

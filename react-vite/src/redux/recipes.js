@@ -1,6 +1,7 @@
 // action types
 const SET_RECIPES = "recipes/setRecipes";
 const SET_RECIPE = "recipes/setRecipe";
+const ADD_RECIPE = "recipes/addRecipe";
 const SET_LOADING = "recipes/setLoading";
 const SET_ERRORS = "recipes/setError";
 
@@ -12,6 +13,11 @@ const setRecipes = (recipes) => ({
 
 const setRecipe = (recipe) => ({
   type: SET_RECIPE,
+  payload: recipe,
+});
+
+const addRecipe = (recipe) => ({
+  type: ADD_RECIPE,
   payload: recipe,
 });
 
@@ -65,6 +71,33 @@ export const thunkFetchRecipeById = (id) => async (dispatch) => {
   }
 };
 
+export const thunkCreateRecipe = (recipeData) => async (dispatch) => {
+  dispatch(setLoading(true));
+
+  try {
+    const response = await fetch("/api/recipes/new", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(recipeData),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(addRecipe(data)); // Dispatch action to update store with new recipe
+      return data;
+    } else {
+      const errors = await response.json();
+      dispatch(setErrors(errors)); // Dispatch errors if creation failed
+    }
+  } catch (err) {
+    console.error("Error creating recipe:", err);
+    dispatch(setErrors({ message: "Error submitting form" }));
+  }
+  dispatch(setLoading(false));
+};
+
 // initial state
 const initialState = {
   loading: false,
@@ -78,6 +111,12 @@ function recipesReducer(state = initialState, { type, payload }) {
       return { ...state, recipes: payload };
     case SET_RECIPE:
       return { ...state, recipe: payload, error: null };
+    case ADD_RECIPE:
+      return {
+        ...state,
+        recipes: [...(state.recipes || []), payload],
+        error: null,
+      };
     case SET_LOADING:
       return { ...state, loading: payload };
     case SET_ERRORS:

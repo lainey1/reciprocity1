@@ -17,7 +17,7 @@ updated_at_time = datetime.fromisoformat("2024-12-16T10:00:00+00:00").astimezone
 def seed_recipes():
     recipe1 = Recipe(
         id=1,
-        name="Disney's Ratatouille",
+        name="Remy's Ratatouille",
         yield_servings=4,
         prep_time=20,
         cook_time=45,
@@ -57,7 +57,7 @@ def seed_recipes():
         tags="vegetarian, healthy, French, classic",
         # tags=["vegetarian", "healthy", "French", "classic"],
         owner_id=1,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -86,14 +86,14 @@ def seed_recipes():
         tags="vegetarian, stir-fry, healthy",
         # tags=["vegetarian", "stir-fry", "healthy"],
         owner_id=2,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe3 = Recipe(
         id=3,
-        name="Chicken Alfredo",
+        name="Mama's Chicken Alfredo",
         yield_servings=4,
         prep_time=15,
         cook_time=20,
@@ -117,7 +117,7 @@ def seed_recipes():
         tags="pasta, creamy, chicken, Italian",
         # tags=["pasta", "creamy", "chicken", "Italian"],
         owner_id=3,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -149,7 +149,7 @@ def seed_recipes():
         tags="breakfast, healthy, avocado, easy",
         # tags=["breakfast", "healthy", "avocado", "easy"],
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -180,14 +180,14 @@ def seed_recipes():
         tags="burger, gourmet, American",
         # tags=["vegetarian", "healthy", "French", "classic"],
         owner_id=3,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe6 = Recipe(
         id=6,
-        name="Chicken Adobo Filipino",
+        name="Grandma's Chicken Adobo",
         yield_servings=4,
         prep_time=10,
         cook_time=45,
@@ -214,14 +214,14 @@ def seed_recipes():
         ]),
         tags="Filipino, savory, chicken",
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe7 = Recipe(
         id=7,
-        name="Cannoli",
+        name="Gina's Cannoli",
         yield_servings=6,
         prep_time=25,
         cook_time=10,
@@ -244,14 +244,14 @@ def seed_recipes():
         ]),
         tags="dessert, Italian, sweet",
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe8 = Recipe(
         id=8,
-        name="Sinigang",
+        name="Lisa's Sinigang",
         yield_servings=4,
         prep_time=15,
         cook_time=60,
@@ -279,14 +279,14 @@ def seed_recipes():
         ]),
         tags="Filipino, soup, savory, tangy",
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe9 = Recipe(
         id=9,
-        name="Fried Filipino Plantains",
+        name="Dad's Fried Filipino Plantains",
         yield_servings=4,
         prep_time=5,
         cook_time=10,
@@ -307,14 +307,14 @@ def seed_recipes():
         ]),
         tags="Filipino, snack, sweet, fried",
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
 
     recipe10 = Recipe(
         id=10,
-        name="Taco Soup",
+        name="Gina's Taco Soup",
         yield_servings=6,
         prep_time=15,
         cook_time=30,
@@ -341,7 +341,7 @@ def seed_recipes():
         ]),
         tags="soup, taco, savory, hearty",
         owner_id=4,
-        visibility="Public",
+        visibility="Everyone",
         created_at=created_at_time,
         updated_at=created_at_time,
     )

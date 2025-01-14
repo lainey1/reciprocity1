@@ -7,9 +7,7 @@ import "./AllRecipes.css";
 
 function AllRecipes() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes.recipes || []); // Ensure recipes is an empty array if undefined
-  console.log(recipes);
-
+  const recipes = useSelector((state) => state.recipes.recipes);
   useEffect(() => {
     dispatch(thunkFetchRecipes());
   }, [dispatch]);
@@ -38,7 +36,7 @@ function AllRecipes() {
                 </div>
                 <div className="recipe-highlight">
                   <p className="recipe-description">
-                    <p style={{ fontWeight: "bold" }}>{recipe.name}</p>{" "}
+                    <span style={{ fontWeight: "bold" }}>{recipe.name}</span>{" "}
                     {recipe.short_description}
                   </p>
                 </div>

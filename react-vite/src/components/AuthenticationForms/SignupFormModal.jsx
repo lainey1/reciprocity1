@@ -1,19 +1,17 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
+import "../Forms.css";
 
-function SignupFormPage() {
+function SignupFormModal() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,15 +34,15 @@ function SignupFormPage() {
     if (serverResponse) {
       setErrors(serverResponse);
     } else {
-      navigate("/");
+      closeModal();
     }
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="page-form-container">
       {errors.server && <p>{errors.server}</p>}
       <form onSubmit={handleSubmit}>
+        <h2>Sign Up</h2>
         <label>
           Email
           <input
@@ -87,8 +85,8 @@ function SignupFormPage() {
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
-export default SignupFormPage;
+export default SignupFormModal;
