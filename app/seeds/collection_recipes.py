@@ -1,20 +1,32 @@
-from app.models import db, Collection, environment, SCHEMA
+from app.models import db, Collection, Recipe, CollectionRecipe, environment, SCHEMA
 from sqlalchemy.sql import text
 from datetime import datetime
 
 # Seed data for collections
 def seed_collections():
-    family_collection1 = Collection(
+    collection_recipe1 = CollectionRecipe(
         id=1,
-        name="Family Recipes",
-        description="A collection of family recipes and memories.",
-        user_id=1,  # Remy
+        collection_id=1,
+        recipe_id=1,
+        owner_id=1,  # Remy
         visibility="Everyone",
-        created_at=datetime(2024, 12, 10, 9, 0, 0),
-        updated_at=datetime(2024, 12, 10, 9, 0, 0)
+        created_at=datetime(2025, 12, 10, 9, 0, 0),
     )
 
-    family_collection2 = Collection(
+    collection_recipe2 =
+    CollectionRecipe(
+        id=2,
+        collection_id=5,
+        recipe_id=2,
+        owner_id=1,  # Remy
+        visibility="Everyone",
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 12, 10, 9, 0, 0)
+
+    )
+
+
+    collection_recipe2 = Collection(
         id=2,
         name="Family Recipes",
         description="A collection of family recipes and memories.",
@@ -74,13 +86,13 @@ def seed_collections():
         updated_at=datetime(2024, 12, 15, 10, 0, 0)
     )
 
-    db.session.add(family_collection1)
-    db.session.add(family_collection2)
-    db.session.add(family_collection3)
-    db.session.add(family_collection4)
-    db.session.add(quick_n_easy)
-    db.session.add(comfort_food)
-    db.session.add(quick_breakfast)
+    db.session.add(collection_recipe1)
+    db.session.add(collection_recipe2)
+    db.session.add(collection_recipe3)
+    db.session.add(collection_recipe4)
+    db.session.add(collection_recipe5)
+    db.session.add(collection_recipe6)
+    db.session.add(collection_recipe7)
     db.session.commit()
 
 def undo_collections():

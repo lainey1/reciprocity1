@@ -4,7 +4,7 @@
   display: flex;
   border-radius: 25px;
   max-width: 500px;
-  margin: 25px auto; /* Centers the container */
+  margin: 25px auto;
   padding: 0 15px;
 }
 

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validateAllRecipeFields } from "../../utils/form_validations";
+import { validateAllRecipeFields } from "../../helpers/form_helpers";
 import { thunkCreateRecipe, thunkFetchRecipeById } from "../../redux/recipes";
 
 const CreateRecipe = () => {
@@ -13,8 +13,8 @@ const CreateRecipe = () => {
   const [formData, setFormData] = useState({
     name: "",
     yield_servings: 1,
-    prep_time: "",
-    cook_time: "",
+    prep_time: 1,
+    cook_time: 1,
     total_time: 1,
     cuisine: "American",
     short_description: "",
