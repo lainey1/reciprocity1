@@ -63,6 +63,7 @@ export const thunkFetchRecipeById = (id) => async (dispatch) => {
     }
 
     const data = await response.json();
+    console.log(data);
     dispatch(setRecipe(data.recipe));
     dispatch(setLoading(false));
   } catch (error) {
@@ -82,11 +83,14 @@ export const thunkCreateRecipe = (recipeData) => async (dispatch) => {
       },
       body: JSON.stringify(recipeData),
     });
+    // console.log("RESPONSE=======>", response);
 
     if (response.ok) {
       const data = await response.json();
+      console.log("DATA=======>", data);
       dispatch(addRecipe(data)); // Dispatch action to update store with new recipe
-      return data;
+      // console.log("DATA RESPONSE=======>", response);
+      return data.recipe;
     } else {
       const errors = await response.json();
       dispatch(setErrors(errors)); // Dispatch errors if creation failed

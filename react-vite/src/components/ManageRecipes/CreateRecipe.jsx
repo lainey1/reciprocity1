@@ -4,7 +4,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validateAllRecipeFields } from "../../helpers/form_helpers";
-import { thunkCreateRecipe, thunkFetchRecipeById } from "../../redux/recipes";
+import {
+  thunkCreateRecipe,
+  // thunkFetchRecipeById,
+  thunkFetchRecipes,
+} from "../../redux/recipes";
 
 const CreateRecipe = () => {
   const dispatch = useDispatch();
@@ -116,9 +120,10 @@ const CreateRecipe = () => {
 
       try {
         const data = await dispatch(thunkCreateRecipe(filteredFormData));
-        console.log(data);
-        dispatch(thunkFetchRecipeById(data.id));
-        navigate(`/recipes/${data.recipe.id}`);
+        dispatch(thunkFetchRecipes());
+        console.log("DATA=======>", data);
+        console.log("DATA ID", data.id);
+        navigate(`/recipes/${data.id}`);
       } catch (error) {
         console.error("Failed to update recipe:", error);
       }

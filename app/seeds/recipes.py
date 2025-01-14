@@ -16,7 +16,6 @@ updated_at_time = datetime.fromisoformat("2024-12-16T10:00:00+00:00").astimezone
 # Adds demo recipes
 def seed_recipes():
     recipe1 = Recipe(
-        id=1,
         name="Remy's Ratatouille",
         yield_servings=4,
         prep_time=20,
@@ -63,7 +62,6 @@ def seed_recipes():
     )
 
     recipe2 = Recipe(
-        id=2,
         name="Veggie Stir-Fry",
         yield_servings=2,
         prep_time=10,
@@ -92,7 +90,6 @@ def seed_recipes():
     )
 
     recipe3 = Recipe(
-        id=3,
         name="Mama's Chicken Alfredo",
         yield_servings=4,
         prep_time=15,
@@ -123,7 +120,6 @@ def seed_recipes():
     )
 
     recipe4 = Recipe(
-        id=4,
         name="Avocado Toast",
         yield_servings=2,
         prep_time=5,
@@ -155,7 +151,6 @@ def seed_recipes():
     )
 
     recipe5 = Recipe(
-        id=5,
         name="Papa's Smash Burger",
         yield_servings=4,
         prep_time=15,
@@ -186,7 +181,6 @@ def seed_recipes():
     )
 
     recipe6 = Recipe(
-        id=6,
         name="Grandma's Chicken Adobo",
         yield_servings=4,
         prep_time=10,
@@ -220,7 +214,6 @@ def seed_recipes():
     )
 
     recipe7 = Recipe(
-        id=7,
         name="Gina's Cannoli",
         yield_servings=6,
         prep_time=25,
@@ -250,7 +243,6 @@ def seed_recipes():
     )
 
     recipe8 = Recipe(
-        id=8,
         name="Lisa's Sinigang",
         yield_servings=4,
         prep_time=15,
@@ -285,7 +277,6 @@ def seed_recipes():
     )
 
     recipe9 = Recipe(
-        id=9,
         name="Dad's Fried Filipino Plantains",
         yield_servings=4,
         prep_time=5,
@@ -313,7 +304,6 @@ def seed_recipes():
     )
 
     recipe10 = Recipe(
-        id=10,
         name="Gina's Taco Soup",
         yield_servings=6,
         prep_time=15,

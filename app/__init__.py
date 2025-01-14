@@ -1,7 +1,7 @@
 # app/__init.py__ file
 
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -88,6 +88,15 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
+
+@app.errorhandler(Exception)
+def handle_global_exception(e):
+    print(f"Global Exception: {e}")
+    return jsonify({
+        "message": "An unexpected error occurred.",
+        "error": str(e)
+    }), 500
+
 
 
 @app.errorhandler(404)

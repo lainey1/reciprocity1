@@ -1,8 +1,9 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from flask import Blueprint, jsonify, current_app, request, json
 from flask_login import login_required, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from app.models import db, Recipe, RecipeImage, User
+from app.forms import CreateRecipeForm
 
 
 recipe_routes = Blueprint('recipes', __name__)
@@ -180,66 +181,76 @@ def add_recipe():
     """Route to add a new recipe."""
 
     try:
-        print("Request data:", request.json)
-    except Exception as e:
-        print(f"Error in /new route: {e}")
+        payload = request.json
 
-    payload = request.json
+        # Validate required fields are in the payload
+        required_fields = ["name", "yield_servings", "ingredients", "instructions", "visibility"]
+        missing_fields = [field for field in required_fields if field not in payload or not payload[field]]
+        if missing_fields:
+            return jsonify({
+                "message": "Missing required fields.",
+                "missing_fields": missing_fields
+            }), 400
 
-    # Validate required fields are in the payload
-    required_fields = ["name", "yield_servings", "ingredients", "instructions", "visibility"]
-    missing_fields = [field for field in required_fields if field not in payload or not payload[field]]
-    if missing_fields:
+        # Extract data from the payload
+        ingredients = payload.get("ingredients", [])
+        instructions = payload.get("instructions", [])
+        tags = payload.get("tags", "")
+
+        # Serialize ingredients and instructions
+        ingredients_json = json.dumps([{"ingredient": ingredient} for ingredient in ingredients])
+        instructions_json = json.dumps([{"instruction": instruction} for instruction in instructions])
+
+        # Handle tags
+        if isinstance(tags, str):
+            tags_string = ','.join([tag.strip() for tag in tags.split(",") if tag.strip()])
+        else:
+            tags_string = ''
+
+        # Get current time and use datetime object
+        now = datetime.now(timezone.utc)
+
+        new_recipe = Recipe(
+            name=payload.get("name"),
+            owner_id=current_user.id,
+            yield_servings=payload.get("yield_servings"),
+            prep_time=payload.get("prep_time"),
+            cook_time=payload.get("cook_time"),
+            total_time=payload.get("total_time"),
+            cuisine=payload.get("cuisine"),
+            short_description=payload.get("short_description"),
+            description=payload.get("description"),
+            tags=tags_string,
+            ingredients=ingredients_json,  # Store as JSON string
+            instructions=instructions_json,  # Store as JSON string
+            visibility=payload.get("visibility"),
+            created_at=now,  # Pass datetime object directly
+            updated_at=now   # Pass datetime object directly
+        )
+
+        print(f"Attempting to add recipe with name: {new_recipe.name}")
+
+        try:
+            db.session.add(new_recipe)
+            db.session.commit()
+            print(f"Successfully added recipe with ID: {new_recipe.id}")
+        except Exception as e:
+            print(f"Failed to add recipe {new_recipe.name}: {str(e)}")
+            db.session.rollback()
+            raise
+
         return jsonify({
-            "message": "Missing required fields.",
-            "missing_fields": missing_fields
-        }), 400
+            "message": "Recipe created successfully!",
+            "recipe": new_recipe.to_dict()
+        }), 201
 
-    # Extract data from the payload
-    name = payload.get("name")
-    yield_servings = payload.get("yield_servings")
-    prep_time = payload.get("prep_time", "")
-    cook_time = payload.get("cook_time", "")
-    total_time = payload.get("total_time", "")
-    cuisine = payload.get("cuisine", "Unknown")
-    short_description = payload.get("short_description", "")
-    description = payload.get("description", "")
-    ingredients = payload.get("ingredients", [])
-    instructions = payload.get("instructions", [])
-    tags = payload.get("tags", "")
-    visibility = payload.get("visibility", "Everyone")
-
-    # Serialize ingredients and instructions
-    ingredients_json = json.dumps([{"ingredient": ingredient} for ingredient in ingredients])
-    instructions_json = json.dumps([{"instruction": instruction} for instruction in instructions])
-    tags_string = ','.join([tag.strip() for tag in tags.split(",") if tag.strip()])
-
-    # Create and save the new recipe
-    new_recipe = Recipe(
-        name=name,
-        owner_id=current_user.id,
-        yield_servings=yield_servings,
-        prep_time=prep_time,
-        cook_time=cook_time,
-        total_time=total_time,
-        cuisine=cuisine,
-        short_description=short_description,
-        description=description,
-        tags=tags_string,
-        ingredients=ingredients_json,  # Store as JSON string
-        instructions=instructions_json,  # Store as JSON string
-        visibility=visibility,
-        created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow()
-    )
-    db.session.add(new_recipe)
-    db.session.commit()
-
-    return jsonify({
-        "message": "Recipe created successfully!",
-        "recipe": new_recipe.to_dict()
-    }), 201
-
+    except Exception as e:
+        db.session.rollback()  # Rollback changes if error occurs
+        print(f"Error in /new route: {e}")  # Log the error
+        return jsonify({
+            "message": "Failed to create recipe",
+            "error": str(e)
+        }), 500
 
 
 @recipe_routes.route('/<int:recipe_id>/edit', methods=["PUT"])

@@ -6,7 +6,6 @@ from sqlalchemy.sql import text
 def seed_recipe_images():
 
     recipe_image1 = RecipeImage(
-        id=1,
         image_url="https://data.thefeedfeed.com/static/2021/09/21/1632264639614a61bf03b09.jpg",
         is_preview=True,
         recipe_id=1,
@@ -16,7 +15,6 @@ def seed_recipe_images():
 
 
     recipe_image2 = RecipeImage(
-        id=2,
         image_url="https://www.seriouseats.com/thmb/K8bvy-AQYLQ3PzqZuQlfbuS6A0c=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__images__20110106-shack-comparison20-200620copy-4c20bdc6d2a446fcab30a400d1a5323f.jpg",
         is_preview=True,
         recipe_id=5,
@@ -25,7 +23,6 @@ def seed_recipe_images():
     )
 
     recipe_image3 = RecipeImage(
-        id=3,
         image_url="https://thealmondeater.com/wp-content/uploads/2023/04/healthy-fettuccine-alfredo_web-6.jpg",
         is_preview=True,
         recipe_id=3,  # Associated with "Chicken Alfredo"
@@ -34,7 +31,6 @@ def seed_recipe_images():
     )
 
     recipe_image4 = RecipeImage(
-        id=4,
         image_url="https://www.allrecipes.com/thmb/F1rucOY3FQT5Ic0oyxdLoqU_yKc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/222006-disneys-ratatouille-DDMFS-4x3-36eb15843ab548a79e7aab761dac92e1.jpg",
         is_preview=False,
         recipe_id=1,
@@ -43,7 +39,6 @@ def seed_recipe_images():
     )
 
     recipe_image5 = RecipeImage(
-        id=5,
         image_url="https://www.onceuponachef.com/images/2017/02/Asian-Vegetable-Stir-Fry-3-1700x1223.jpg",
         is_preview=True,
         recipe_id=2,  # Associated with "Veggie Stir-Fry"
@@ -52,7 +47,6 @@ def seed_recipe_images():
     )
 
     recipe_image6 = RecipeImage(
-        id=6,
         image_url="https://thewoksoflife.com/wp-content/uploads/2022/02/vegetable-stir-fry-3.jpg",
         is_preview=False,
         recipe_id=2,
@@ -61,7 +55,6 @@ def seed_recipe_images():
     )
 
     recipe_image7 = RecipeImage(
-        id=7,
         image_url="https://www.seriouseats.com/thmb/aEYbrnuKQ3Ge7T5sd3A0BWQGPLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/20210607-CLASSICSMASHEDBURGS-JANJIGIAN-seriouseats-10-8af40a4a1698459c99e7f3c0df7f6a0f.jpg",
         is_preview=True,
         recipe_id=5,  # Associated with "Papa's Smash Burger"
@@ -70,7 +63,6 @@ def seed_recipe_images():
     )
 
     recipe_image8 = RecipeImage(
-        id=8,
         image_url="https://www.onceuponachef.com/images/2017/02/stir-fry3-1.jpg",
         is_preview=False,
         recipe_id=2,  # Associated with "Veggie Stir-Fry"
@@ -79,7 +71,6 @@ def seed_recipe_images():
     )
 
     recipe_image9 = RecipeImage(
-        id=9,
         image_url="https://www.onceuponachef.com/images/2017/02/stir-fry4-1.jpg",
         is_preview=False,
         recipe_id=2,  # Associated with "Veggie Stir-Fry"
@@ -88,7 +79,6 @@ def seed_recipe_images():
     )
 
     recipe_image10 = RecipeImage(
-        id=10,
         image_url="https://panlasangpinoy.com/wp-content/uploads/2024/04/Filipino-Chicken-Adobo-Recipe.jpg",
         is_preview=True,
         recipe_id=6,  # Associated with "Chicken Adobo Filipino"
@@ -97,7 +87,6 @@ def seed_recipe_images():
     )
 
     recipe_image11 = RecipeImage(
-        id=11,
         image_url="https://assets.bonappetit.com/photos/5bedd7a0c09fe84a28774cb4/16:9/w_1280,c_limit/cannoli-1.jpg",
         is_preview=True,
         recipe_id=7,  # Associated with "Cannoli"
@@ -106,7 +95,6 @@ def seed_recipe_images():
     )
 
     recipe_image12 = RecipeImage(
-        id=12,
         image_url="https://panlasangpinoy.com/wp-content/uploads/2022/08/pork-and-chicken-sinigang.jpg",
         is_preview=True,
         recipe_id=8,  # Associated with "Sinigang"
@@ -115,7 +103,6 @@ def seed_recipe_images():
     )
 
     recipe_image13 = RecipeImage(
-        id=13,
         image_url="https://panlasangpinoy.com/wp-content/uploads/2011/10/Minatamis-na-Saging.jpg",
         is_preview=True,
         recipe_id=9,  # Associated with "Fried Filipino Plantains"
@@ -124,7 +111,6 @@ def seed_recipe_images():
     )
 
     recipe_image14 = RecipeImage(
-        id=14,
         image_url="https://www.simplyrecipes.com/thmb/Y4DfBsIM1s6fhprPbhLSKpKDn_A=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Simply-Recipes-Stovetop-Taco-Soup-LEAD-06-1f65b29b91734a439d46671c3de894c5.jpg",
         is_preview=True,
         recipe_id=10,  # Associated with "Taco Soup"
@@ -133,7 +119,6 @@ def seed_recipe_images():
     )
 
     recipe_image15 = RecipeImage(
-        id=15,
         image_url="https://panlasangpinoy.com/wp-content/uploads/2024/04/Chicken-Adobo-Cooking-Steps.jpg",
         is_preview=False,
         recipe_id=6,  # Associated with "Chicken Adobo Filipino"
@@ -142,7 +127,6 @@ def seed_recipe_images():
     )
 
     recipe_image16 = RecipeImage(
-        id=16,
         image_url="https://panlasangpinoy.com/wp-content/uploads/2024/04/Pinoy-adobo.jpg",
         is_preview=False,
         recipe_id=6,  # Associated with "Chicken Adobo Filipino"
