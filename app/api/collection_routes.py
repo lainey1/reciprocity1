@@ -12,12 +12,26 @@ collection_routes = Blueprint('collections', __name__)
 @collection_routes.route('/', methods=["GET"])
 def collections():
     """
-    Query to get all collections and return them in a list of collection dictionaries.
+    Query to get all collections.
+
+        - If the user is authenticated, they can view:
+        - Collections publicly visible to "Everyone."
+        - Their own private collections.
+
+    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
+
     """
 
     try:
-        # Fetch all collections
-        collections = Collection.query.all()
+        # Check if user is authenticated
+        if current_user.is_authenticated:
+            # Fetch public collections or collections owned by the logged-in user
+            collections = Collection.query.filter(
+                (Collection.visibility == "Everyone") | (Collection.user_id == current_user.id)).all()
+
+        # Fetch public collections only if not logged in
+        else:
+            collections = Collection.query.filter(Collection.visibility == 'Everyone').all()
 
         # If no collections found, return an empty list with a success message
         if not collections:
@@ -52,24 +66,30 @@ def collections():
         }), 200
 
     except SQLAlchemyError as e:
-        # Log the error for debugging purposes
-        current_app.logger.error(f"Database query error: {str(e)}")
-        return jsonify({
-            'message': 'An error occurred while fetching collections. Please try again later.'
-        }), 500
+            # Log the error for debugging purposes
+            current_app.logger.error(f"Database query error: {str(e)}")
+            return jsonify({
+                'message': 'An error occurred while fetching collections. Please try again later.'
+            }), 500
 
     except Exception as e:
-        # Catch any other unexpected errors
-        current_app.logger.error(f"Unexpected error: {str(e)}")
-        return jsonify({
-            'message': 'An unexpected error occurred. Please try again later.'
-        }), 500
+            # Catch any other unexpected errors
+            current_app.logger.error(f"Unexpected error: {str(e)}")
+            return jsonify({
+                'message': 'An unexpected error occurred. Please try again later.'
+            }), 500
 
 
 @collection_routes.route('/<int:id>', methods=['GET'])
 def get_collection_by_id(id):
     """
-    Get a single collection by its ID.
+    Query to get a single collection by its ID.
+
+    - If the user is authenticated, they can view:
+        - Collections publicly visible to "Everyone."
+        - Their own private collections.
+
+    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
     """
 
     try:
@@ -81,6 +101,10 @@ def get_collection_by_id(id):
             return jsonify({
                 'message': f'Collection with ID {id} not found.'
             }), 404
+
+        # Check if the current user is the collections's owner or if visibility is 'Everyone'
+        if collection.user_id != current_user.id and collection.visibility != "Everyone":
+            return jsonify({'message': 'You are not authorized to view this collection. Please log in as the owner.'}), 403
 
         # Convert collection to dictionary
         collection_data = collection.to_dict()
@@ -112,7 +136,16 @@ def get_collection_by_id(id):
 
 @collection_routes.route('/owner/<int:owner_id>', methods=['GET'])
 def collections_by_owner(owner_id):
-    """Query to get all collections by owner id and return them as a list of collection dictionaries"""
+    """
+    Query to retrieve all collections for a specific owner ID.
+
+    - If the user is authenticated, they can view:
+    - Collections publicly visible to "Everyone."
+    - Their own private collections.
+
+    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
+
+    """
 
     try:
         # Fetch all collections owned by the user
@@ -138,7 +171,7 @@ def collections_by_owner(owner_id):
 
             # Return the data as JSON
         return jsonify({
-            'recipes_owned_by_user': owners_collections_list
+            'collections_owned_by_user': owners_collections_list
         }), 200
 
     except SQLAlchemyError as e:
@@ -159,7 +192,10 @@ def collections_by_owner(owner_id):
 @collection_routes.route('/new', methods=["POST"])
 @login_required
 def add_collection():
-    """Route to add a new collection."""
+    """
+    Route to add a new collection.
+    - User must be logged in.
+    """
 
     try:
         payload = request.json
@@ -214,7 +250,10 @@ def add_collection():
 @collection_routes.route('/<int:collection_id>/edit', methods=["PUT"])
 @login_required
 def update_collection(collection_id):
-    """Route to update a collection by ID."""
+    """
+    Route to update collection by ID.
+    - User must be owner.
+    """
 
     # Fetch collection by ID
     collection = Collection.query.get(collection_id)
@@ -260,7 +299,10 @@ def update_collection(collection_id):
 
 @collection_routes.route('/<int:id>', methods=['DELETE'])
 def delete_recipe(id):
-    """ Delete a collection by ID from the database. """
+    """
+    Delete collection by ID. User must be owner.
+
+    """
     collection = Collection.query.get(id)
 
     if not collection:
