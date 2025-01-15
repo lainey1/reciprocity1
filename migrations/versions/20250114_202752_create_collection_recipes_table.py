@@ -5,12 +5,12 @@ Revises: ce1039f3e457
 Create Date: 2025-01-14 20:27:52.577363
 
 """
+import os
 from alembic import op
 import sqlalchemy as sa
 
-import os
+
 environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
 revision = '68f505b30806'

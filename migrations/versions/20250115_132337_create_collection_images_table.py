@@ -1,19 +1,20 @@
-"""collection images
+"""create collection images table
 
-Revision ID: 4adc397b6e2e
+Revision ID: 33fff09bf61d
 Revises: 68f505b30806
-Create Date: 2025-01-14 22:18:23.472763
+Create Date: 2025-01-15 13:23:37.825442
 
 """
+import os
 from alembic import op
 import sqlalchemy as sa
 
-import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '4adc397b6e2e'
+revision = '33fff09bf61d'
 down_revision = '68f505b30806'
 branch_labels = None
 depends_on = None
@@ -29,7 +30,7 @@ def upgrade():
     sa.Column('image_url', sa.String(), nullable=False),
     sa.Column('caption', sa.String(length=255), nullable=True),
     sa.Column('uploaded_at', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['collection_id'], ['recipes.id'], ),
+    sa.ForeignKeyConstraint(['collection_id'], ['collections.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
     schema=schema

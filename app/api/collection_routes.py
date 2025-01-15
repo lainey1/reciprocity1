@@ -1,16 +1,19 @@
 from datetime import datetime, timezone
-from flask import Blueprint, jsonify, current_app, request, json
-from flask_login import login_required, current_user
-from sqlalchemy.exc import SQLAlchemyError
-from app.models import db, Collection, User
 
+from flask import Blueprint, current_app, json, jsonify, request
+from flask_login import current_user, login_required
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.models import Collection, User, db
 
 collection_routes = Blueprint('collections', __name__)
 
 
 @collection_routes.route('/', methods=["GET"])
 def collections():
-    """Query to get all collections and return them in a list of collection dictionaries."""
+    """
+    Query to get all collections and return them in a list of collection dictionaries.
+    """
 
     try:
         # Fetch all collections
@@ -65,7 +68,10 @@ def collections():
 
 @collection_routes.route('/<int:id>', methods=['GET'])
 def get_collection_by_id(id):
-    """Get a single collection by its ID."""
+    """
+    Get a single collection by its ID.
+    """
+
     try:
         # Fetch the collection by ID
         collection = Collection.query.get(id)

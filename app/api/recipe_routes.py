@@ -1,9 +1,10 @@
 from datetime import datetime, timezone
-from flask import Blueprint, jsonify, current_app, request, json
-from flask_login import login_required, current_user
-from sqlalchemy.exc import SQLAlchemyError
-from app.models import db, Recipe, RecipeImage, User
 
+from flask import Blueprint, current_app, json, jsonify, request
+from flask_login import current_user, login_required
+from sqlalchemy.exc import SQLAlchemyError
+
+from app.models import Recipe, RecipeImage, User, db
 
 recipe_routes = Blueprint('recipes', __name__)
 

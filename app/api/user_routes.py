@@ -1,7 +1,9 @@
-from flask import Blueprint, jsonify, request, render_template, redirect, url_for
-from flask_login import login_required, current_user
-from app.models import db, User
-from app.forms import UpdateUserForm, DeleteUserForm
+from flask import (Blueprint, jsonify, redirect, render_template, request,
+                   url_for)
+from flask_login import current_user, login_required
+
+from app.forms import DeleteUserForm, UpdateUserForm
+from app.models import User, db
 
 user_routes = Blueprint('users', __name__)
 

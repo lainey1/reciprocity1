@@ -1,13 +1,9 @@
-from flask import Blueprint, request, jsonify
-
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import Blueprint, jsonify, request
+from flask_login import current_user, login_user, logout_user
 from werkzeug.security import check_password_hash
 
-
-from app.forms import LoginForm
-from app.forms import SignUpForm
-from app.models import User, db
-from ..models import Collection
+from app.forms import LoginForm, SignUpForm
+from app.models import Collection, User, db
 
 auth_routes = Blueprint('auth', __name__)
 
