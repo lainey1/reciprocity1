@@ -18,6 +18,9 @@ class Collection(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False)
 
+    # Relationships
+    collection_images = db.relationship('CollectionImage', backref='collection', lazy=True)
+
     def to_dict(self):
         return {
             'id': self.id,

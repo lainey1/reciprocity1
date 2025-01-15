@@ -31,10 +31,10 @@ def seed_recipe_images():
     )
 
     recipe_image4 = RecipeImage(
-        image_url="https://www.allrecipes.com/thmb/F1rucOY3FQT5Ic0oyxdLoqU_yKc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/222006-disneys-ratatouille-DDMFS-4x3-36eb15843ab548a79e7aab761dac92e1.jpg",
+        image_url="https://bellyfull.net/wp-content/uploads/2021/02/Chicken-Alfredo-blog-4.jpg",
         is_preview=False,
-        recipe_id=1,
-        user_id=1, # Remy
+        recipe_id=3,
+        user_id=3, # Colette
         caption="A close-up of the creamy and comforting chicken alfredo."
     )
 

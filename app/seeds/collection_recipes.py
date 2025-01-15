@@ -1,15 +1,16 @@
-from app.models import db, Collection, Recipe, CollectionRecipe, environment, SCHEMA
+from app.models import db, CollectionRecipe, environment, SCHEMA
 from sqlalchemy.sql import text
 from datetime import datetime
 
 # Seed data for collections
-def seed_collections():
+def seed_collection_recipes():
     collection_recipe1 = CollectionRecipe(
         collection_id=1,
         recipe_id=1,
         owner_id=1,  # Remy
         visibility="Everyone",
-        created_at=datetime(2025, 12, 10, 9, 0, 0),
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
     collection_recipe2 = CollectionRecipe(
@@ -18,64 +19,136 @@ def seed_collections():
         owner_id=1,  # Remy
         visibility="Everyone",
         created_at=datetime(2025, 1, 10, 9, 0, 0),
-        updated_at=datetime(2025, 12, 10, 9, 0, 0)
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
 
     )
 
-
-    collection_recipe2 = Collection(
-        name="Family Recipes",
-        description="A collection of family recipes and memories.",
-        user_id=2,  # Alfredo
+    collection_recipe3 = CollectionRecipe(
+        collection_id=3,
+        recipe_id=3,
+        owner_id=3,  # Colette
         visibility="Everyone",
-        created_at=datetime(2024, 12, 11, 8, 30, 0),
-        updated_at=datetime(2024, 12, 11, 8, 30, 0)
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
-    family_collection3 = Collection(
-        name="Family Recipes",
-        description="A collection of family recipes and memories.",
-        user_id=3,  # Colette
+    collection_recipe4 = CollectionRecipe(
+        collection_id=6,
+        recipe_id=3,
+        owner_id=2,  # Alfredo
         visibility="Everyone",
-        created_at=datetime(2024, 12, 12, 9, 0, 0),
-        updated_at=datetime(2024, 12, 12, 9, 0, 0)
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
-    family_collection4 = Collection(
-        name="Family Recipes",
-        description="A collection of family recipes and memories.",
-        user_id=4,  # Lainey
+    collection_recipe5 = CollectionRecipe(
+        collection_id=7,
+        recipe_id=4,
+        owner_id=2,  # Alfredo
         visibility="Everyone",
-        created_at=datetime(2024, 12, 13, 10, 0, 0),
-        updated_at=datetime(2024, 12, 13, 10, 0, 0)
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
-    quick_n_easy = Collection(
-        name="Quick & Easy",
-        description="Recipes for busy weeknights, easy to prepare and delicious.",
-        user_id=1,  # Remy
+    collection_recipe6 = CollectionRecipe(
+        collection_id=7,
+        recipe_id=4,
+        owner_id=2,  # Alfredo
         visibility="Everyone",
-        created_at=datetime(2024, 12, 12, 8, 30, 0),
-        updated_at=datetime(2024, 12, 12, 8, 30, 0)
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
-    comfort_food = Collection(
-        name="Comfort Food",
-        description="A collection of warm and hearty recipes for cozy nights.",
-        user_id=2,  # Alfredo
+    collection_recipe7 = CollectionRecipe(
+        collection_id=5,
+        recipe_id=4,
+        owner_id=1,  # Remy
         visibility="Everyone",
-        created_at=datetime(2024, 12, 14, 9, 0, 0),
-        updated_at=datetime(2024, 12, 14, 9, 0, 0)
+        created_at=datetime(2025, 1, 10, 9, 0, 0),
+        updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
 
-    quick_breakfast = Collection(
-        name="Quick Breakfasts",
-        description="Quick and easy breakfast recipes to kickstart your day.",
-        user_id=2,  # Alfredo
-        visibility="Everyone",
-        created_at=datetime(2024, 12, 15, 10, 0, 0),
-        updated_at=datetime(2024, 12, 15, 10, 0, 0)
+    collection_recipe8 = CollectionRecipe(
+            collection_id=3,
+            recipe_id=5,
+            owner_id=3,  # Colette
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
+
+    collection_recipe9 = CollectionRecipe(
+            collection_id=4,
+            recipe_id=6,
+            owner_id=4,  # Lainey
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe10 = CollectionRecipe(
+            collection_id=5,
+            recipe_id=6,
+            owner_id=1,  # Remy
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe11 = CollectionRecipe(
+            collection_id=4,
+            recipe_id=7,
+            owner_id=4,  # Lainey
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe12 = CollectionRecipe(
+            collection_id=4,
+            recipe_id=8,
+            owner_id=4,  # Lainey
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe13 = CollectionRecipe(
+            collection_id=4,
+            recipe_id=9,
+            owner_id=1,  # Lainey
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe14 = CollectionRecipe(
+            collection_id=4,
+            recipe_id=10,
+            owner_id=4,  # Lainey
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe15 = CollectionRecipe(
+            collection_id=5,
+            recipe_id=10,
+            owner_id=1,  # Remy
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
+    collection_recipe16 = CollectionRecipe(
+            collection_id=6,
+            recipe_id=10,
+            owner_id=2,  # Alfredo
+            visibility="Everyone",
+            created_at=datetime(2025, 1, 10, 9, 0, 0),
+            updated_at=datetime(2025, 1, 10, 9, 0, 0)
+    )
+
 
     db.session.add(collection_recipe1)
     db.session.add(collection_recipe2)
@@ -84,9 +157,18 @@ def seed_collections():
     db.session.add(collection_recipe5)
     db.session.add(collection_recipe6)
     db.session.add(collection_recipe7)
+    db.session.add(collection_recipe8)
+    db.session.add(collection_recipe9)
+    db.session.add(collection_recipe10)
+    db.session.add(collection_recipe11)
+    db.session.add(collection_recipe12)
+    db.session.add(collection_recipe13)
+    db.session.add(collection_recipe14)
+    db.session.add(collection_recipe15)
+    db.session.add(collection_recipe16)
     db.session.commit()
 
-def undo_collections():
+def undo_collection_recipes():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.collections RESTART IDENTITY CASCADE;")
     else:

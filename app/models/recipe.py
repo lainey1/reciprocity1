@@ -29,11 +29,11 @@ class Recipe(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False)
 
     # Relationships
+    recipe_collections = db.relationship('CollectionRecipe', backref='recipe', lazy=True)
     # recipe_images = db.relationship('RecipeImage', backref='recipe', lazy=True)
     # recipe_pins = db.relationship('RecipePin', backref='recipe', lazy=True)
     # recipe_reviews = db.relationship('RecipeReview', backref='recipe', lazy=True)
-    # recipe_collections = db.relationship('CollectionRecipe', backref='recipe', lazy=True)
-    # family_recipes = db.relationship('FamilyRecipe', backref='recipe', lazy=True)
+
 
     def to_dict(self):
         recipe_dict = {
