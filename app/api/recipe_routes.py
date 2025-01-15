@@ -49,7 +49,7 @@ def recipes():
             recipe_dictionary['ingredients'] = json.loads(recipe.ingredients) if recipe.ingredients else []
             recipe_dictionary['instructions'] = json.loads(recipe.instructions) if recipe.instructions else []
 
-            # Fetch owner information (assuming User model exists and has a 'username' field)
+            # Fetch owner information
             owner = User.query.get(recipe.owner_id)
             if owner:
                 recipe_dictionary['owner'] = owner.username  # Or any other field from the User model
@@ -63,14 +63,14 @@ def recipes():
         }), 200
 
     except SQLAlchemyError as e:
-        # Log the error (for debugging purposes) and return a generic error message
+        # Database debugging line
         current_app.logger.error(f"Database query error: {str(e)}")
         return jsonify({
             'message': 'An error occurred while fetching recipes. Please try again later.'
         }), 500
 
     except Exception as e:
-        # Catch any other unexpected errors
+        # Server debugging line
         current_app.logger.error(f"Unexpected error: {str(e)}")
         return jsonify({
             'message': 'An unexpected error occurred. Please try again later.'
