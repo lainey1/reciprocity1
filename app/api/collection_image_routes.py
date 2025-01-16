@@ -33,8 +33,6 @@ def all_images():
         }), 500
 
 
-
-
 @collection_images_routes.route('/collection/<int:collection_id>', methods=['GET'])
 @login_required
 def get_collection_image(collection_id):

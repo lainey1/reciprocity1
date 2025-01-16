@@ -6,6 +6,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Recipe, RecipeImage, User, db
 
+
 recipe_routes = Blueprint('recipes', __name__)
 
 
