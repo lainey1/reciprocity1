@@ -368,7 +368,6 @@ def add_recipe_to_collection(collection_id):
         recipe_id = data.get('recipe_id')
         visibility = data.get('visibility', 'Everyone')  # Default to 'Everyone'
 
-
         if not recipe_id:
             return jsonify({"message": "Missing 'recipe_id' in the request payload."}), 400
 
@@ -379,7 +378,6 @@ def add_recipe_to_collection(collection_id):
             return jsonify({
                 "message": f"Invalid visibility. Must be one of {allowed_visibilities}."
             }), 400
-
 
         # Check if the recipe exists
         recipe = Recipe.query.get(recipe_id)

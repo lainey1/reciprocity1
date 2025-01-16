@@ -1,0 +1,1314 @@
+{
+	"info": {
+		"_postman_id": "57961238-bdec-4003-bcc6-149f80c2a924",
+		"name": "reciprocity",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38540805"
+	},
+	"item": [
+		{
+			"name": "Log In a User with Email",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "ImE2Y2FmMjU4Yjk5ZjNmNTQ0MmE2OTkwZmVlMzgzMDgwNGZhOTdhZjMi.Z3Os1A.kEjbLu7sVTfsTXXi-G3LXCwXRDM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email_or_username\": \"remy@gasteaus.com\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log In a User with Username",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "ImE2Y2FmMjU4Yjk5ZjNmNTQ0MmE2OTkwZmVlMzgzMDgwNGZhOTdhZjMi.Z3Os1A.kEjbLu7sVTfsTXXi-G3LXCwXRDM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email_or_username\": \"little_chef\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR - User Doesn't Exist",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "ImE2Y2FmMjU4Yjk5ZjNmNTQ0MmE2OTkwZmVlMzgzMDgwNGZhOTdhZjMi.Z3Os1A.kEjbLu7sVTfsTXXi-G3LXCwXRDM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email_or_username\": \"little\",\n    \"password\": \"mango\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR - Body Validation Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "ImE2Y2FmMjU4Yjk5ZjNmNTQ0MmE2OTkwZmVlMzgzMDgwNGZhOTdhZjMi.Z3Os1A.kEjbLu7sVTfsTXXi-G3LXCwXRDM",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email_or_username\": \"little_chef\",\n    \"password\": \"mango\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Log Out",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/logout",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"anton.ego@gourmand.com\",\n    \"username\": \"ego\",\n    \"first_name\": \"Anton\",\n    \"password\": \"ratatouille\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR - Sign Up - Duplicate Credential",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"anton.egogourmand.com\",\n    \"username\": \"\",\n    \"first_name\": \"\",\n    \"password\": \"rat\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR - Sign Up - Body Validation Copy",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"\",\n  \"username\": \"\",\n  \"first_name\": \"\",\n  \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Profile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"location\": \"San Francisco, CA\",\n    \"favorite_cuisine\": \"Italian\",\n    \"headline\": \"Foodie and tech enthusiast exploring the best eats in town!\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/:user_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						":user_id"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Taco Fiesta",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit User Profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Remy\",\n    \"location\": \"San Francisco, CA\",\n    \"bio\": \"I discovered my love for cooking by reading Anyone Can Cook by my idol, Auguste Gusteau and was a secret chef at Gatsteau's.I am now the exec chef and found of La Ratatouille.\",\n    \"profile_image_url\": \"https://www.toonarific.com/wp-content/uploads/2024/10/Alfredo-Linguini-Ratatouille.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ERROR - Edit User Profile - Not Profile Owner",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"Remy\",\n    \"location\": \"San Francisco, CA\",\n    \"bio\": \"I discovered my love for cooking by reading Anyone Can Cook by my idol, Auguste Gusteau and was a secret chef at Gatsteau's.I am now the exec chef and found of La Ratatouille.\",\n    \"profile_image_url\": \"https://www.toonarific.com/wp-content/uploads/2024/10/Alfredo-Linguini-Ratatouille.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Profile Form",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/users/delete_profile",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"delete_profile"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "delete",
+							"value": "Delete",
+							"type": "text"
+						},
+						{
+							"key": "cancel",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/users/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"1"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Recipes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "XSRF-TOKEN",
+						"value": "{{xsrftoken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/recipes",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipes by Owner",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/recipes/owner/:owner_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes",
+						"owner",
+						":owner_id"
+					],
+					"variable": [
+						{
+							"key": "owner_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/recipes/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Recipe",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Grandma's Apple Pie\",\n    \"yield_servings\": 8,\n    \"prep_time\": 30,\n    \"cook_time\": 60,\n    \"total_time\": 90,\n    \"cuisine\": \"American\",\n    \"short_description\": \"A timeless classic with a flaky crust and cinnamon-spiced apples.\",\n    \"description\": \"This recipe reminds me of holidays at Grandma's house. The smell of cinnamon and apples brings back cherished memories of family gatherings.\",\n    \"ingredients\": [\n        {\"ingredient\": \"2 cups all-purpose flour\"},\n        {\"ingredient\": \"1/2 cup unsalted butter, chilled and cubed\"},\n        {\"ingredient\": \"1/4 cup ice water\"},\n        {\"ingredient\": \"6 Granny Smith apples, peeled and sliced\"},\n        {\"ingredient\": \"3/4 cup granulated sugar\"},\n        {\"ingredient\": \"1 teaspoon ground cinnamon\"},\n        {\"ingredient\": \"1/4 teaspoon ground nutmeg\"},\n        {\"ingredient\": \"1 tablespoon lemon juice\"}\n    ],\n    \"instructions\": [\n        {\"instruction\": \"Preheat the oven to 375°F (190°C).\"},\n        {\"instruction\": \"In a large bowl, mix flour and butter until crumbly.\"},\n        {\"instruction\": \"Gradually add ice water until dough forms a ball. Divide in half and roll out.\"},\n        {\"instruction\": \"Place one rolled-out dough into a 9-inch pie pan.\"},\n        {\"instruction\": \"In a separate bowl, mix apples, sugar, cinnamon, nutmeg, and lemon juice.\"},\n        {\"instruction\": \"Pour apple mixture into the pie crust and cover with the second crust.\"},\n        {\"instruction\": \"Seal edges, cut slits in the top crust, and bake for 50-60 minutes.\"},\n        {\"instruction\": \"Cool before serving.\"}\n    ],\n    \"tags\": \"dessert, pie, holiday, family, traditional\",\n    \"visibility\": \"public\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipes/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes",
+						"new"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Recipe",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"recipe\": {\n        \"name\": \"Remy's Ratatouille\",\n        \"short_description\": \"This classic dish won over the heart of the great critic, Anton Ego. Long and narrow vegetables work best. Serve with crusty bread or over a bed of brown rice, couscous, or pasta.\",\n        \"cook_time\": 45,\n        \"cuisine\": \"French\",\n        \"description\": \"A visually stunning and delicious dish of layered vegetables baked in a savory tomato sauce.\",\n        \"id\": 1,\n        \"ingredients\": [\n            {\n                \"ingredient\": \"1 (6 ounce) can tomato paste\"\n            },\n            {\n                \"ingredient\": \"1/2 onion, chopped\"\n            },\n            {\n                \"ingredient\": \"1/4 cup minced garlic\"\n            },\n            {\n                \"ingredient\": \"3/4 cup water\"\n            },\n            {\n                \"ingredient\": \"4 tablespoons olive oil, divided\"\n            },\n            {\n                \"ingredient\": \"Salt and ground black pepper to taste\"\n            },\n            {\n                \"ingredient\": \"1 small eggplant, trimmed and very thinly sliced\"\n            },\n            {\n                \"ingredient\": \"1 zucchini, trimmed and very thinly sliced\"\n            },\n            {\n                \"ingredient\": \"1 yellow squash, trimmed and very thinly sliced\"\n            },\n            {\n                \"ingredient\": \"1 red bell pepper, cored and very thinly sliced\"\n            },\n            {\n                \"ingredient\": \"1 yellow bell pepper, cored and very thinly sliced\"\n            },\n            {\n                \"ingredient\": \"1 teaspoon fresh thyme leaves, or to taste\"\n            },\n            {\n                \"ingredient\": \"3 tablespoons mascarpone cheese\"\n            }\n        ],\n        \"instructions\": [\n            {\n                \"instruction\": \"Preheat the oven to 375 degrees F (190 degrees C).\"\n            },\n            {\n                \"instruction\": \"Spread tomato paste onto the bottom of a 10-inch square baking dish.\"\n            },\n            {\n                \"instruction\": \"Sprinkle with onion and garlic.\"\n            },\n            {\n                \"instruction\": \"Stir in water and 1 tablespoon olive oil until thoroughly combined.\"\n            },\n            {\n                \"instruction\": \"Season with salt and pepper.\"\n            },\n            {\n                \"instruction\": \"Arrange alternating slices of eggplant, zucchini, yellow squash, red bell pepper, and yellow bell pepper, starting at the outer edge of the dish and working concentrically towards the center.\"\n            },\n            {\n                \"instruction\": \"Overlap slices slightly to display colors.\"\n            },\n            {\n                \"instruction\": \"Drizzle vegetables with remaining 3 tablespoons olive oil; season with salt and pepper.\"\n            },\n            {\n                \"instruction\": \"Sprinkle with thyme leaves.\"\n            },\n            {\n                \"instruction\": \"Cover vegetables with a piece of parchment paper cut to fit inside.\"\n            },\n            {\n                \"instruction\": \"Bake in the preheated oven until vegetables are roasted and tender, about 45 minutes.\"\n            },\n            {\n                \"instruction\": \"Serve with dollops of mascarpone cheese.\"\n            }\n        ],\n        \"prep_time\": 20,\n        \n        \"tags\": \"vegetarian, healthy, French, classic\",\n        \"total_time\": 65,\n        \"visibility\": \"Everyone\",\n        \"yield_servings\": 4\n    }\n}"
+				},
+				"url": {
+					"raw": "{{url}}/recipes/1/edit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes",
+						"1",
+						"edit"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "\"Grandma's Apple Pie\"",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipes/:restaurant_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipes",
+						":restaurant_id"
+					],
+					"variable": [
+						{
+							"key": "restaurant_id",
+							"value": "11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Collections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collections/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Collections by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collections/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Collections by Owner ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collections/owner/:owner_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"owner",
+						":owner_id"
+					],
+					"variable": [
+						{
+							"key": "owner_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Filipino\",\n    \"description\": \"Learning how to cook Filipino food.\",\n    \"visibility\": \"Everyone\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collections/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Collection Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Filipino\",\n    \"description\": \"Learning how to cook Filipino food.\",\n    \"visibility\": \"Everyone\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collections/new",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Collection",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sarap\",\n    \"description\": \"Learning how to cook Filipino food.\",\n    \"visibility\": \"Everyone\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collections/8/edit",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"8",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Collection by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collections/8",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Recipe Images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/recipe_images",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipe_images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe Image by Recipe ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/recipe_images/recipes/:recipe_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipe_images",
+						"recipes",
+						":recipe_id"
+					],
+					"variable": [
+						{
+							"key": "recipe_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Recipe Image",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"example.url\",\n    \"caption\": \"image caption\",\n    \"is_preview\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipe_images/recipe/:recipe_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipe_images",
+						"recipe",
+						":recipe_id"
+					],
+					"variable": [
+						{
+							"key": "recipe_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe Image",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"example.url\",\n    \"caption\": \"image caption\",\n    \"is_preview\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipe_images/recipe/:recipe_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipe_images",
+						"recipe",
+						":recipe_id"
+					],
+					"variable": [
+						{
+							"key": "recipe_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Recipe Image Copy",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"example.url\",\n    \"caption\": \"image caption\",\n    \"is_preview\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/recipe_images/:image_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"recipe_images",
+						":image_id"
+					],
+					"variable": [
+						{
+							"key": "image_id",
+							"value": "18"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Collection Images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collection_images",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collection_images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Collection Image by Collection ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/collection_images/collection/:collection_id",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collection_images",
+						"collection",
+						":collection_id"
+					],
+					"variable": [
+						{
+							"key": "collection_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Collection Image by Collection ID Copy",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"https://example.com/new-image.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collection_images/collection/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collection_images",
+						"collection",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Collection Image by Collection ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"https://example.com/new-image.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collection_images/collection/1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collection_images",
+						"collection",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Recipe to Collection",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"recipe_id\": 5,\n    \"visibility\": \"Everyone\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collections/1/add_recipe",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"1",
+						"add_recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Recipe by Collection ID",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_url\": \"https://example.com/new-image.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/collections/1/remove_recipe",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"collections",
+						"1",
+						"remove_recipe"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
