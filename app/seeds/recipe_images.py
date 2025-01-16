@@ -134,6 +134,14 @@ def seed_recipe_images():
         caption="Classic Filipino chicken adobo, simmered to perfection."
     )
 
+    recipe_image17 = RecipeImage(
+        image_url="https://www.allrecipes.com/thmb/bkXoArv3mjCmhOHKPBkaQUR48dg=/0x512/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/222006-disneys-ratatouille-DDMFS-4x3-36eb15843ab548a79e7aab761dac92e1.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
 
 
     # Add the recipe images to the session
@@ -153,6 +161,7 @@ def seed_recipe_images():
     db.session.add(recipe_image14)
     db.session.add(recipe_image15)
     db.session.add(recipe_image16)
+    db.session.add(recipe_image17)
     db.session.commit()
 
 def undo_recipe_images():

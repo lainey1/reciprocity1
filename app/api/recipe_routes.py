@@ -6,11 +6,11 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Recipe, RecipeImage, User, db
 
-
 recipe_routes = Blueprint('recipes', __name__)
 
 
 from flask_login import current_user
+
 
 @recipe_routes.route('/', methods=["GET"])
 def recipes():
@@ -96,9 +96,12 @@ def get_recipe_by_id(id):
         # Convert recipe to dictionary
         recipe_data = recipe.to_dict()
 
-        # Fetch its preview image
-        preview_image = RecipeImage.query.filter_by(recipe_id=recipe.id, is_preview=True).first()
-        recipe_data['preview_image'] = preview_image.image_url if preview_image else None
+        # Fetch images for the restaurant
+        recipe_images = RecipeImage.query.filter_by(recipe_id=recipe.id).all()
+        images = [image.to_dict() for image in recipe_images]
+
+        # Add images to recipe dictionary
+        recipe_data['images'] = images
 
         # Fetch owner information
         owner = User.query.get(recipe.owner_id)

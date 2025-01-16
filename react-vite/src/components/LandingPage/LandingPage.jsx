@@ -1,4 +1,4 @@
-import landing_image from "../../../public/landing_image.png";
+import landing_image from "../../../public/Landing_Page.png";
 
 import "./LandingPage.css";
 

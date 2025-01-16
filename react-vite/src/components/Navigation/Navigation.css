@@ -96,6 +96,10 @@
   margin: 5px;
 }
 
+#profile-details-text > p {
+  margin: 0px;
+}
+
 #profile-details-text {
   margin: 20px 10px 10px 0px;
 }
