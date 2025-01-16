@@ -44,7 +44,6 @@ export const thunkFetchRecipes = () => async (dispatch) => {
 
     const data = await response.json();
     dispatch(setRecipes(data));
-    // console.log(data);
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setErrors(error.message));

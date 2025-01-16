@@ -83,15 +83,23 @@ def get_recipe_by_id(id):
         # Fetch the recipe by ID
         recipe = Recipe.query.filter_by(id=id).first()
 
+        print("RECIPE ===>", recipe)
+
         # Check if the recipe exists
         if not recipe:
             return jsonify({
                 'message': f'Recipe with ID {id} not found.'
             }), 404
 
-        # Check if the current user is the recipe's owner or if visibility is 'Everyone'
-        if recipe.owner_id != current_user.id and recipe.visibility != "Everyone":
+        # Check if the user is not logged in (current_user is None) and if visibility is not 'Everyone'
+        if current_user is None and recipe.visibility != "Everyone":
             return jsonify({'message': 'You are not authorized to view this recipe. Please log in as the owner.'}), 403
+
+        print("RECIPE OWNER ====>", current_user)
+
+        # Check if the user is logged in but not the owner and the visibility is not 'Everyone'
+        # if recipe.owner_id != current_user.id and recipe.visibility != "Everyone":
+        #     return jsonify({'message': 'You are not authorized to view this recipe. Please log in as the owner.'}), 403
 
         # Convert recipe to dictionary
         recipe_data = recipe.to_dict()

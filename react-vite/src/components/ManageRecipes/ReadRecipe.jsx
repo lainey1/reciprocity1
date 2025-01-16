@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import logo from "../../../public/reciprocity_logo.png";
-import "./RecipeDetails.css";
+import "./ReadRecipe.css";
 
 const RecipeDetails = () => {
   const { id } = useParams(); // Retrieve the recipe ID from the route parameters
@@ -61,73 +61,71 @@ const RecipeDetails = () => {
       <div>
         {recipe ? (
           <div className="recipe-info">
-            <div className="left-side">
-              <div className="recipe-header">
-                <h2 className="recipe-name">{recipe.name}</h2>
-                <p>
-                  <em>Created by: {recipe.owner}</em>
-                </p>
-                <br />
-              </div>
-
-              <div className="image-slider">
-                <button className="prev-button" onClick={handlePreviousImage}>
-                  &#60;
-                </button>
-                <div className="image-container">
-                  <img
-                    src={recipe.images[currentImageIndex].image_url}
-                    alt={`Recipe image ${currentImageIndex + 1}`}
-                  />
+            <h2 className="recipe-name">{recipe.name}</h2>
+            <span className="detail-main">
+              <div className="left-side">
+                <div className="image-slider">
+                  <button className="prev-button" onClick={handlePreviousImage}>
+                    &#60;
+                  </button>
+                  <div className="image-container">
+                    <img
+                      src={recipe.images[currentImageIndex].image_url}
+                      alt={`Recipe image ${currentImageIndex + 1}`}
+                    />
+                  </div>
+                  <button className="next-button" onClick={handleNextImage}>
+                    &#62;
+                  </button>
                 </div>
-                <button className="next-button" onClick={handleNextImage}>
-                  &#62;
-                </button>
-              </div>
 
-              <div className="recipe-highlights">
-                <br />
-                <p>
-                  <strong>Cuisine:</strong> {recipe.cuisine}
-                </p>
-
-                <p>
-                  <strong>Yield:</strong> {recipe.yield_servings} servings
-                </p>
-                <p>
-                  <strong>Prep Time:</strong> {recipe.prep_time} minutes
-                </p>
-                <p>
-                  <strong>Cook Time:</strong> {recipe.cook_time} minutes
-                </p>
-                <p>
-                  <strong>Total Time:</strong> {recipe.total_time} minutes
-                </p>
-                {recipe.tags && (
+                <div className="recipe-highlights">
                   <p>
-                    <strong>Tags:</strong> {recipe.tags}
+                    <em>Created by: {recipe.owner}</em>
                   </p>
-                )}
+                  <hr />
+                  <p>
+                    <strong>Cuisine:</strong> {recipe.cuisine}
+                  </p>
+
+                  <p>
+                    <strong>Yield:</strong> {recipe.yield_servings} servings
+                  </p>
+                  <p>
+                    <strong>Prep Time:</strong> {recipe.prep_time} minutes
+                  </p>
+                  <p>
+                    <strong>Cook Time:</strong> {recipe.cook_time} minutes
+                  </p>
+                  <p>
+                    <strong>Total Time:</strong> {recipe.total_time} minutes
+                  </p>
+                  {recipe.tags && (
+                    <p>
+                      <strong>Tags:</strong> {recipe.tags}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div className="right-side">
-              <h3>Description</h3>
-              <p>{recipe.description}</p>
-              <h3>Ingredients</h3>
-              <ul className="ingredients-list">
-                {recipe.ingredients.map((item, index) => (
-                  <li key={index}>{item.ingredient}</li>
-                ))}
-              </ul>
+              <div className="right-side">
+                <h3>Description</h3>
+                <p>{recipe.description}</p>
+                <h3>Ingredients</h3>
+                <ul className="ingredients-list">
+                  {recipe.ingredients.map((item, index) => (
+                    <li key={index}>{item.ingredient}</li>
+                  ))}
+                </ul>
 
-              <h3>Instructions</h3>
-              <ol className="instructions-list">
-                {recipe.instructions.map((step, index) => (
-                  <li key={index}>{step.instruction}</li>
-                ))}
-              </ol>
-            </div>
+                <h3>Instructions</h3>
+                <ol className="instructions-list">
+                  {recipe.instructions.map((step, index) => (
+                    <li key={index}>{step.instruction}</li>
+                  ))}
+                </ol>
+              </div>
+            </span>
           </div>
         ) : (
           <p>Recipe not found.</p>

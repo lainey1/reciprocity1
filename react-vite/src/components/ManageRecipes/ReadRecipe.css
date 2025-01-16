@@ -9,10 +9,14 @@
 
 .recipe-info {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+}
+
+.detail-main {
+  display: flex;
 }
 
 .left-side {
@@ -29,16 +33,20 @@
 .right-side {
   flex: 1;
   padding: 0;
-  margin-top: 125px;
-  margin-right: 25px;
-  margin-bottom: 25px;
+  padding-right: 25px;
+  padding-bottom: 25px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-/* Horizontal lines under sections */
+.left-side h2 {
+  font-size: 2em;
+  color: #465775;
+}
+
 .right-side h3 {
+  color: #465775;
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -55,8 +63,9 @@
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background-color: #9c9f77;
+  background-color: #9c9f775f;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
 }
 
 .image-container img {
@@ -67,10 +76,11 @@
 
 /* Navigation buttons */
 button {
-  background-color: transparent;
+  background-color: #465775;
   border: none;
+  border-radius: 50%;
   font-size: 2rem;
-  color: #000;
+  color: white;
   cursor: pointer;
 }
 
@@ -137,6 +147,11 @@ button:focus {
     padding: 30px;
     margin: 5% 15%;
   }
+
+  .detail-main {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 /* For tablets and smaller screens */
@@ -146,6 +161,10 @@ button:focus {
     margin: 5%;
   }
   .recipe-info {
+    flex-direction: column;
+  }
+  .detail-main {
+    display: flex;
     flex-direction: column;
   }
 

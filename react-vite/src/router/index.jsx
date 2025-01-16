@@ -7,7 +7,7 @@ import {
   SignupFormModal,
 } from "../components/AuthenticationForms";
 import AllRecipes from "../components/AllRecipes/AllRecipes";
-import RecipeDetails from "../components/RecipeDetails/RecipeDetails";
+import ReadRecipe from "../components/ManageRecipes/ReadRecipe";
 import CreateRecipe from "../components/ManageRecipes/CreateRecipe";
 
 export const router = createBrowserRouter([
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/recipes/:id",
-        element: <RecipeDetails />,
+        element: <ReadRecipe />,
       },
       {
         path: "/recipes/new",
