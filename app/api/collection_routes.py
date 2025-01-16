@@ -3,11 +3,19 @@ from datetime import datetime, timezone
 from flask import Blueprint, current_app, json, jsonify, request
 from flask_login import current_user, login_required
 from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import validates
 
-from app.models import Collection, User, db
+from app.models import Collection, CollectionImage, CollectionRecipe, Recipe, User, db
 
 collection_routes = Blueprint('collections', __name__)
 
+
+@validates('visibility')
+def validate_visibility(self, key, value):
+    allowed_values = ['Everyone', 'Connections', 'Only You']
+    if value not in allowed_values:
+        raise ValueError(f"Invalid visibility: {value}. Must be one of {allowed_values}.")
+    return value
 
 @collection_routes.route('/', methods=["GET"])
 def collections():
@@ -56,6 +64,13 @@ def collections():
             owner = User.query.get(collection.user_id)
             if owner:
                 collection_dictionary['owner'] = owner.username  # Or any other field from the User model
+
+            # Grab its collection image
+            collection_image = CollectionImage.query.filter_by(collection_id=collection.id).first()
+            collection_image_url = collection_image.image_url if collection_image else None
+
+            # Add collection image to recipe's dictionary
+            collection_dictionary['collection_image'] = collection_image_url
 
             # Append the collection dictionary to the all collections list
             all_collections_list.append(collection_dictionary)
@@ -113,6 +128,18 @@ def get_collection_by_id(id):
         owner = User.query.get(collection.user_id)
         if owner:
             collection_data['owner'] = owner.username
+
+        # Grab its collection image
+            collection_image = CollectionImage.query.filter_by(collection_id=collection.id).first()
+            collection_image_url = collection_image.image_url if collection_image else None
+
+            # Add collection image to recipe's dictionary
+            collection_data['collection_image'] = collection_image_url
+
+        # Fetch recipes in the collection
+        collection_recipes = CollectionRecipe.query.filter_by(collection_id=id).all()
+        recipes = [Recipe.query.get(cr.recipe_id).to_dict() for cr in collection_recipes]
+        collection_data['recipes'] = recipes
 
         # Return the collection data as JSON
         return jsonify({
@@ -316,3 +343,116 @@ def delete_recipe(id):
         db.session.delete(collection)
         db.session.commit()
         return {'message': f'Collection with ID {id} deleted successfully.'}, 200
+
+
+@collection_routes.route('/<int:collection_id>/add_recipe', methods=['POST'])
+@login_required
+def add_recipe_to_collection(collection_id):
+    """
+    Add a recipe to a collection.
+    Only the owner of the collection can perform this action.
+    """
+    try:
+        # Validate collection ownership
+        collection = Collection.query.get(collection_id)
+
+        if not collection:
+            return jsonify({"message": "Collection not found."}), 404
+
+        if collection.user_id != current_user.id:
+
+            return jsonify({"message": "You are not authorized to add recipes to this collection."}), 403
+
+        # Parse recipe_id from the request payload
+        data = request.json
+        recipe_id = data.get('recipe_id')
+        visibility = data.get('visibility', 'Everyone')  # Default to 'Everyone'
+
+
+        if not recipe_id:
+            return jsonify({"message": "Missing 'recipe_id' in the request payload."}), 400
+
+        # Validate visibility
+        allowed_visibilities = ['Everyone', 'Connections', 'Only You']
+
+        if visibility not in allowed_visibilities:
+            return jsonify({
+                "message": f"Invalid visibility. Must be one of {allowed_visibilities}."
+            }), 400
+
+
+        # Check if the recipe exists
+        recipe = Recipe.query.get(recipe_id)
+        if not recipe:
+            return jsonify({"message": f"Recipe with ID {recipe_id} not found."}), 404
+
+        # Check if the recipe is already in the collection
+        existing_entry = CollectionRecipe.query.filter_by(
+            collection_id=collection_id, recipe_id=recipe_id
+        ).first()
+
+        if existing_entry:
+            return jsonify({"message": "Recipe is already in the collection."}), 400
+
+        # Add the recipe to the collection
+        new_collection_recipe = CollectionRecipe(
+            collection_id=collection_id,
+            recipe_id=recipe_id,
+            owner_id=current_user.id,
+        )
+        print("NEW COLLECTION RECIPE ======>",new_collection_recipe)
+        db.session.add(new_collection_recipe)
+        db.session.commit()
+
+        return jsonify({
+            "message": "Recipe added to collection successfully!",
+            "collection_recipe": new_collection_recipe.to_dict()
+        }), 201
+
+    except Exception as e:
+        print(f"Error adding recipe to collection: {str(e)}")
+        db.session.rollback()
+        return jsonify({"message": "An error occurred. Please try again later."}), 500
+
+
+@collection_routes.route('/<int:collection_id>/remove_recipe', methods=['DELETE'])
+@login_required
+def remove_recipe_from_collection(collection_id):
+    """
+    Remove a recipe from a collection.
+    Only the owner of the collection can perform this action.
+    """
+    try:
+        # Validate collection ownership
+        collection = Collection.query.get(collection_id)
+        if not collection:
+            return jsonify({"message": "Collection not found."}), 404
+
+        if collection.user_id != current_user.id:
+            return jsonify({"message": "You are not authorized to remove recipes from this collection."}), 403
+
+        # Parse recipe_id from the request payload
+        data = request.json
+        recipe_id = data.get('recipe_id')
+
+        if not recipe_id:
+            return jsonify({"message": "Missing 'recipe_id' in the request payload."}), 400
+
+        # Check if the recipe exists in the collection
+        collection_recipe = CollectionRecipe.query.filter_by(
+            collection_id=collection_id, recipe_id=recipe_id
+        ).first()
+
+        if not collection_recipe:
+            return jsonify({"message": "Recipe not found in the collection."}), 404
+
+        # Remove the recipe from the collection
+        db.session.delete(collection_recipe)
+        db.session.commit()
+
+        return jsonify({"message": "Recipe removed from collection successfully!"}), 200
+
+    except Exception as e:
+        current_app.logger.error(f"Error removing recipe from collection: {str(e)}")
+        db.session.rollback()
+        return jsonify({"message": "An error occurred. Please try again later."}), 500

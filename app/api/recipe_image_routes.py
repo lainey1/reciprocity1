@@ -124,64 +124,80 @@ def add_recipe_image(recipe_id):
         }), 500
 
 
-@recipe_images_routes.route('/<int:image_id>', methods=['DELETE'])
-@login_required
-def delete_image(image_id):
-    """
-    Delete a recipe image by ID
-    """
-    image = RecipeImage.query.filter_by(id=image_id).first()
-
-    if image:
-        # Ensure the user is the one who created the image or is the owner of the recipe
-        if image.user_id != current_user.id:
-            return {'message': 'You are not authorized to delete this image.'}, 403
-
-        db.session.delete(image)
-        db.session.commit()
-
-        return {'message': 'Image deleted successfully'}
-
-    return {'error': 'Image not found.'}, 404
-
-
-
 @recipe_images_routes.route('/<int:image_id>', methods=['PUT'])
 @login_required
-def update_image(image_id):
+def update_recipe_image(image_id):
     """
-    Update a recipe image by ID
+    Update an existing recipe image (only by the recipe owner).
     """
-    image = RecipeImage.query.filter_by(id=image_id).first()
+    recipe_image = RecipeImage.query.get(image_id)
 
-    if not image:
-        return jsonify({"error": "Image not found"}), 404
+    # Validate image existence
+    if not recipe_image:
+        return jsonify({'message': 'Recipe image not found'}), 404
 
-    # Ensure the user is the one who created the image or is the owner of the recipe
-    if image.user_id != current_user.id or image.recipe.owner_id != current_user.id:
-        return jsonify({'message': 'You are not authorized to update this image.'}), 403
+    # Validate recipe existence
+    recipe = Recipe.query.get(recipe_image.recipe_id)
+    if not recipe:
+        return jsonify({'message': 'Recipe not found'}), 404
 
-    form = ImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if not form.validate_on_submit():
-        return jsonify({"error": "Invalid form submission", "errors": form.errors}), 400
-
-    image_url = form.image_url.data
-    is_preview = form.is_preview.data
-
-    if image_url and not image_url.startswith(('http://', 'https://')):
-        return jsonify({"error": f"Invalid URL: {image_url}"}), 400
+    # Check if the current user is the recipe owner
+    if recipe.owner_id != current_user.id:
+        return jsonify({'message': 'You are not authorized to update this image. Only the recipe owner can perform this action.'}), 403
 
     try:
-        # Update the image attributes
-        if image_url:
-            image.url = image_url
-        if is_preview is not None:
-            image.is_preview = is_preview
+        payload = request.json
 
+        # Update fields if present in the request payload
+        if 'image_url' in payload:
+            recipe_image.image_url = payload['image_url']
+        if 'caption' in payload:
+            recipe_image.caption = payload['caption']
+        if 'is_preview' in payload:
+            recipe_image.is_preview = payload['is_preview']
+
+        # Save updates
         db.session.commit()
-        return jsonify({"message": "Image updated successfully", "image": image.to_dict()}), 200
+
+        return jsonify({
+            'message': 'Recipe image updated successfully!',
+            'recipe_image': recipe_image.to_dict()
+        }), 200
+
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": f"Error updating image: {str(e)}"}), 500
+        current_app.logger.error(f"Error updating recipe image: {str(e)}")
+        return jsonify({'message': 'Failed to update recipe image', 'error': str(e)}), 500
+
+
+@recipe_images_routes.route('/<int:image_id>', methods=['DELETE'])
+@login_required
+def delete_recipe_image(image_id):
+    """
+    Delete an existing recipe image (only by the recipe owner).
+    """
+    recipe_image = RecipeImage.query.get(image_id)
+
+    # Validate image existence
+    if not recipe_image:
+        return jsonify({'message': 'Recipe image not found'}), 404
+
+    # Validate recipe existence
+    recipe = Recipe.query.get(recipe_image.recipe_id)
+    if not recipe:
+        return jsonify({'message': 'Recipe not found'}), 404
+
+    # Check if the current user is the recipe owner
+    if recipe.owner_id != current_user.id:
+        return jsonify({'message': 'You are not authorized to delete this image. Only the recipe owner can perform this action.'}), 403
+
+    try:
+        db.session.delete(recipe_image)
+        db.session.commit()
+
+        return jsonify({'message': 'Recipe image deleted successfully!'}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting recipe image: {str(e)}")
+        return jsonify({'message': 'Failed to delete recipe image', 'error': str(e)}), 500

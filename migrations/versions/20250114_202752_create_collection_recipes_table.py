@@ -27,7 +27,7 @@ def upgrade():
     sa.Column('collection_id', sa.Integer(), nullable=False),
     sa.Column('recipe_id', sa.Integer(), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
-    sa.Column('visibility', sa.String(length=20), server_default='Public', nullable=False),
+    sa.Column('visibility', sa.String(length=20), server_default='Everyone', nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['collection_id'], ['collections.id'], ),
