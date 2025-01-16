@@ -61,9 +61,7 @@ function ProfileButton() {
                 </li>
                 <hr className="menu-separator" /> {/* Horizontal line */}
                 <li onClick={() => navigate("/recipes")}>Recipes</li>
-                <li onClick={() => logout.then(navigate("/recipes"))}>
-                  Logout
-                </li>
+                <li onClick={logout}>Logout</li>
               </>
             ) : (
               <>
