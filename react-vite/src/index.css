@@ -1,1 +1,82 @@
-/* TODO: Add sitewide styles */
+/* Global Font Styles */
+body,
+html,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  /* color: #465775; */
+  /* background-color: #230903; */
+  background-color: #d8c8a9;
+  /* background-image: url("https://www.transparenttextures.com/patterns/light-paper-fibers.png"); */
+  background-image: url("../public/lined-paper.png");
+  background-repeat: repeat;
+  background-size: auto;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: #230903;
+}
+
+p,
+span,
+button,
+input,
+textarea {
+  font-weight: 400;
+  color: #2a3439;
+}
+
+/* Page Container */
+.page-container {
+  display: flex;
+  max-width: 1300px;
+  min-height: 100vh;
+  margin: 0 auto; /* Centers the container */
+  padding: 0 15px;
+}
+
+/* Loading Spinner */
+.spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3); /* White with some transparency */
+  border-top: 4px solid #000; /* Dark color for the top of the spinner */
+  border-radius: 50%; /* Make it round */
+  width: 40px; /* Size of the spinner */
+  height: 40px;
+  animation: spin 1s linear infinite; /* Make it spin infinitely */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it on the screen */
+}
+
+.logo-spinner {
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it */
+  width: 50px; /* Adjust size as needed */
+  height: 50px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,68 @@
+.about-container {
+  display: flex;
+  flex-direction: row;
+}
+.about-image {
+  padding: 5rem 2rem;
+  background-color: #465775;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+  padding: 5rem 5rem;
+}
+
+.about-content h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.about-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.features {
+  padding-bottom: 1rem;
+  list-style-position: inside;
+}
+
+.features-item {
+  padding-bottom: 0.5rem; /*Optional: Indentation for each list item (further level of indent if needed)*/
+  color: #2a3439;
+}
+
+.tag-line {
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive Design for Smaller Screens */
+@media screen and (max-width: 768px) {
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .about-image {
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+  }
+
+  .about-image img {
+    width: 80%;
+  }
+
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+  }
+}

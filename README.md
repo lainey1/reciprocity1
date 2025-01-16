@@ -77,5 +77,4 @@ Check out the live version (site under construction) : https://reciprocity.onren
 - **Order Printed Collection Book**: Turn your digital recipe collection into a beautifully printed book, preserving your family’s culinary legacy.
 - **Ingredient Scaling**: Automatically adjust recipe quantities for different group sizes, ensuring you always cook just the right amount.
 
-
 Get ready to strengthen bonds, share traditions, and create lasting memories through Reciprocity. Bon appétit!

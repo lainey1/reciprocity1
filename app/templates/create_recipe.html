@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Recipe</title>
+  </head>
+  <body>
+    <h1>Create a New Recipe</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <label for="name">Recipe Name:</label>
+      {{ form.name() }}<br />
+      {{ form.name.errors }}
+
+      <label for="yield_servings">Servings:</label>
+      {{ form.yield_servings() }}<br />
+      {{ form.yield_servings.errors }}
+
+      <label for="prep_time">Prep Time (minutes):</label>
+      {{ form.prep_time() }}<br />
+      {{ form.prep_time.errors }}
+
+      <label for="cook_time">Cook Time (minutes):</label>
+      {{ form.cook_time() }}<br />
+      {{ form.cook_time.errors }}
+
+      <label for="total_time">Total Time (minutes):</label>
+      {{ form.total_time() }}<br />
+      {{ form.total_time.errors }}
+
+      <label for="cuisine">Cuisine:</label>
+      {{ form.cuisine() }}<br />
+      {{ form.cuisine.errors }}
+
+      <label for="short_description">Short Description:</label>
+      {{ form.short_description() }}<br />
+      {{ form.short_description.errors }}
+
+      <label for="description">Full Description:</label>
+      {{ form.description() }}<br />
+      {{ form.description.errors }}
+
+      <h3>Ingredients</h3>
+      {% for field in form.ingredients %} {{ field.ingredient.label }} {{
+      field.ingredient() }}<br />
+      {{ field.errors }} {% endfor %}
+      <button type="button" onclick="addIngredient()">Add Ingredient</button>
+
+      <h3>Instructions</h3>
+      {% for field in form.instructions %} {{ field.instruction.label }} {{
+      field.instruction() }}<br />
+      {{ field.errors }} {% endfor %}
+      <button type="button" onclick="addInstruction()">Add Instruction</button>
+
+      <label for="tags">Tags:</label>
+      {{ form.tags() }}<br />
+      {{ form.tags.errors }}
+
+      <label for="visibility">Visibility:</label>
+      {{ form.visibility() }}<br />
+      {{ form.visibility.errors }}
+
+      <button type="submit">Submit Recipe</button>
+    </form>
+  </body>
+</html>

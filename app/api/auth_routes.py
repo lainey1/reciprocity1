@@ -1,8 +1,9 @@
-from flask import Blueprint, request
-from app.models import User, db
-from app.forms import LoginForm
-from app.forms import SignUpForm
-from flask_login import current_user, login_user, logout_user, login_required
+from flask import Blueprint, jsonify, request
+from flask_login import current_user, login_user, logout_user
+from werkzeug.security import check_password_hash
+
+from app.forms import LoginForm, SignUpForm
+from app.models import Collection, User, db
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -23,15 +24,31 @@ def login():
     Logs a user in
     """
     form = LoginForm()
-    # Get the csrf_token from the request cookie and put it into the
-    # form manually to validate_on_submit can be used
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        # Add the user to the session, we are logged in!
-        user = User.query.filter(User.email == form.data['email']).first()
+
+    # Ensure CSRF token is included for validation
+    form['csrf_token'].data = request.cookies.get('csrf_token')
+
+    # Check if the form is valid
+    if not form.validate():
+        # Collect all validation error messages
+        errors = {field: error[0] for field, error in form.errors.items()}
+        return jsonify({
+            "message": "Invalid Request",
+            "errors": errors
+        }), 400
+
+    # Perform user authentication
+    user = User.query.filter(
+        (User.email == form.data['email_or_username']) |
+        (User.username == form.data['email_or_username'])
+    ).first()
+
+    if user and check_password_hash(user.password, form.data['password']):
         login_user(user)
         return user.to_dict()
-    return form.errors, 401
+
+    # Return invalid credentials error if user not authenticated
+    return {'errors': {'message': 'Invalid Request'}}, 401
 
 
 @auth_routes.route('/logout')
@@ -50,16 +67,47 @@ def sign_up():
     """
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+     # Check if the form is valid
+    if not form.validate():
+        # Collect all validation error messages
+        errors = {field: error[0] for field, error in form.errors.items()}
+        return jsonify({
+            "message": "Invalid Request",
+            "errors": errors
+        }), 400
+
     if form.validate_on_submit():
         user = User(
+            first_name=form.data['first_name'],
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password']
         )
         db.session.add(user)
         db.session.commit()
+        # Log the user in
         login_user(user)
-        return user.to_dict()
+
+        # Create a default family
+        family_collection = Collection(
+            name="FamilyRecipes",
+            description="A collection of family recipes and memories.",
+            user_id=user.id,
+        )
+
+        db.session.add(family_collection)
+        db.session.commit()
+
+        # Return the user data and collection data
+        return {
+             **user.to_dict(), # ** syntax is used to unpack a dictionary
+             "family_collection": family_collection.to_dict()
+        }
+
+
+        # return user.to_dict() ## without the family collection
+     # Return invalid credentials error if user not authenticated
     return form.errors, 401
 
 

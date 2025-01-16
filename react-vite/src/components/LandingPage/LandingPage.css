@@ -1,0 +1,35 @@
+/* Page Container */
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* Centers the container */
+  padding: 0 15px;
+}
+
+#page-banner-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  height: 50vw;
+}
+
+#reciprocity-banner-image {
+  width: 100%;
+}
+
+/* Media query for smaller screens (e.g., mobile devices) */
+@media (max-width: 767px) {
+  #page-banner-container {
+    padding: 0px;
+  }
+  #reciprocity-page-banner {
+    object-fit: contain;
+  }
+}
+
+/* Media query for tablets (width between 768px and 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #page-banner-container {
+    padding: 0px;
+  }
+}

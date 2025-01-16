@@ -1,7 +1,7 @@
 # app/__init.py__ file
 
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -9,6 +9,10 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.recipe_routes import recipe_routes
+from .api.collection_routes import collection_routes
+from .api.recipe_image_routes import recipe_images_routes
+from .api.collection_image_routes import collection_images_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -30,7 +34,12 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(recipe_routes, url_prefix='/api/recipes')
+app.register_blueprint(collection_routes, url_prefix='/api/collections')
+app.register_blueprint(recipe_images_routes, url_prefix='/api/recipe_images')
+app.register_blueprint(collection_images_routes, url_prefix='/api/collection_images')
 db.init_app(app)
+
 Migrate(app, db)
 
 # Application Security
@@ -86,6 +95,15 @@ def react_root(path):
     if path == 'favicon.ico':
         return app.send_from_directory('public', 'favicon.ico')
     return app.send_static_file('index.html')
+
+@app.errorhandler(Exception)
+def handle_global_exception(e):
+    print(f"Global Exception: {e}")
+    return jsonify({
+        "message": "An unexpected error occurred.",
+        "error": str(e)
+    }), 500
+
 
 
 @app.errorhandler(404)

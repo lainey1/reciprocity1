@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Profile</title>
+  </head>
+  <body>
+    <h1>Update Profile</h1>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+      <!-- CSRF token -->
+
+      <div>
+        <label for="first_name">First Name</label>
+        {{ form.first_name(class="form-control", placeholder="Enter your first
+        name") }}
+      </div>
+
+      <div>
+        <label for="location">Location</label>
+        {{ form.location(class="form-control", placeholder="Enter your
+        location") }}
+      </div>
+
+      <div>
+        <label for="bio">Bio</label>
+        {{ form.bio(class="form-control", placeholder="Tell us about yourself")
+        }}
+      </div>
+
+      <div>
+        <label for="profile_image_url">Profile Image URL</label>
+        {{ form.profile_image_url(class="form-control", placeholder="Enter your
+        profile image URL") }}
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+      </div>
+    </form>
+
+    <a href="{{ url_for('users.user', id=current_user.id) }}">Cancel</a>
+    <!-- Link to view profile if user cancels -->
+  </body>
+</html>
