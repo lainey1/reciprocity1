@@ -8,6 +8,7 @@ function SignupFormModal() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [first_name, setFirstName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -16,23 +17,29 @@ function SignupFormModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const newErrors = {}; // Accumulate errors in this object
+
     if (password !== confirmPassword) {
-      return setErrors({
-        confirmPassword:
-          "Confirm Password field must be the same as the Password field",
-      });
+      newErrors.confirmPassword =
+        "Confirm Password field must be the same as the Password field";
+    }
+
+    // If there are any validation errors, set them without overriding previous errors
+    if (Object.keys(newErrors).length > 0) {
+      return setErrors(newErrors);
     }
 
     const serverResponse = await dispatch(
       thunkSignup({
         email,
         username,
+        first_name,
         password,
       })
     );
 
     if (serverResponse) {
-      setErrors(serverResponse);
+      setErrors((prevErrors) => ({ ...prevErrors, ...serverResponse })); // Merge server errors
     } else {
       closeModal();
     }
@@ -63,6 +70,16 @@ function SignupFormModal() {
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
+        <label>
+          First Name
+          <input
+            type="text"
+            value={first_name}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.first_name && <p>{errors.first_name}</p>}
         <label>
           Password
           <input

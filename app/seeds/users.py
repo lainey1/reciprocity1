@@ -8,7 +8,7 @@ def seed_users():
     demo = User(
         username="little_chef", email="remy@gasteaus.com", password="password", first_name="Remy",
         bio="I discovered my love for cooking by reading Anyone Can Cook by my idol, Auguste Gusteau.",
-        profile_image_url="https://static.wikia.nocookie.net/pixar/images/5/56/Ratatouille-remy2.jpg/revision/latest/top-crop/width/200/height/150?cb=20110512131040", location="Paris, France"
+        profile_image_url="https://static.wikia.nocookie.net/pixar/images/5/56/Ratatouille-remy2.jpg", location="Paris, France"
     )
     alfredo = User(
         username="i_am_linguini", email="alfredo@gasteaus.com", password="password", first_name="Alfredo",
@@ -22,7 +22,7 @@ def seed_users():
     lainey = User(
         username="lainey", email="lainey@email.com", password="mango", first_name="Lainey",
         bio="My go to family recipe is my grandma’s chicken adobo.",
-        profile_image_url="http://example.com/bobbie-profile.jpg", location="San Francisco, United States"
+        profile_image_url="https://lainey1.github.io/static/media/headshot.5d35f2b1268bdf675d6c.jpg", location="San Francisco, United States"
     )
 
 

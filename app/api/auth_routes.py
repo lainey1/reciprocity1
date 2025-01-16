@@ -43,12 +43,15 @@ def login():
         (User.username == form.data['email_or_username'])
     ).first()
 
-    if user and check_password_hash(user.password, form.data['password']):
-        login_user(user)
-        return user.to_dict()
+    if not user:
+        return {'errors': {'email_or_username': 'No account found with this email/username'}}, 401
 
-    # Return invalid credentials error if user not authenticated
-    return {'errors': {'message': 'Invalid Request'}}, 401
+    if not check_password_hash(user.password, form.data['password']):
+        return {'errors': {'password': 'Incorrect password'}}, 401
+
+    login_user(user)
+    return user.to_dict()
+
 
 
 @auth_routes.route('/logout')
