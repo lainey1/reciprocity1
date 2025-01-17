@@ -242,23 +242,27 @@ def update_recipe(recipe_id):
     - User must be owner.
     """
 
+    ## Debugging lines:
+    # print(f"Request received on /{recipe_id}/edit with method {request.method}")
+    # data = request.get_json()
+    # print("DATA =====>", data)
+
     # Fetch recipe by ID
     recipe = Recipe.query.get(recipe_id)
-
     if not recipe:
         return jsonify({'message': 'Recipe not found'}), 404
 
     # Check if the current user is the recipe's owner
     if recipe.owner_id != current_user.id:
-        return jsonify({'message': 'You are not authorized to update this recipe. Please log in as the owner.'})
+        return jsonify({'message': 'You are not authorized to update this recipe. Please log in as the owner.'}), 403
 
     # Get data from request
     try:
-        data = request.get_json()
-        recipe_data = data.get("recipe", {})
+        recipe_data = request.get_json()
         print("Request data:", recipe_data)
     except Exception as e:
-        print(f"Error in /<int:recipe_id>/edit route: {e}")
+        print(f"Error parsing JSON in /{recipe_id}/edit route: {e}")
+        return jsonify({"message": "Failed to parse request data", "error": str(e)}), 400
 
     # Validate required fields are in the payload
     required_fields = ["name", "yield_servings", "ingredients", "instructions"]
@@ -276,11 +280,12 @@ def update_recipe(recipe_id):
     tags = recipe_data.get("tags", "")
 
     # Serialize ingredients, instructions & tags
-    ingredients_json = json.dumps([{"ingredient": ingredient["ingredient"]} for ingredient in ingredients])
-    instructions_json = json.dumps([{"instruction": instruction["instruction"]} for instruction in instructions])
+    ingredients_json = json.dumps([{"ingredient": ingredient} for ingredient in ingredients])
+    instructions_json = json.dumps([{"instruction": instruction} for instruction in instructions])
+
     tags_string = ','.join([tag.strip() for tag in tags.split(",") if tag.strip()])
 
-    # Update recipe using form data
+    # Update recipe fields
     recipe.name = recipe_data['name']
     recipe.yield_servings = recipe_data['yield_servings']
     recipe.prep_time = recipe_data.get('prep_time', 0)
@@ -290,11 +295,16 @@ def update_recipe(recipe_id):
     recipe.short_description = recipe_data.get('short_description', "")
     recipe.description = recipe_data.get('description', "")
     recipe.tags = tags_string
-    recipe.ingredients = ingredients_json  # Store as JSON string
-    recipe.instructions = instructions_json  # Store as JSON string
+    recipe.ingredients = ingredients_json
+    recipe.instructions = instructions_json
 
     # Save changes to the database
-    db.session.commit()
+    try:
+        db.session.commit()
+    except Exception as e:
+        print(f"Error updating recipe {recipe_id}: {str(e)}")
+        db.session.rollback()
+        return jsonify({"message": "Failed to update recipe", "error": str(e)}), 500
 
     return jsonify({
         "message": "Recipe updated successfully!",

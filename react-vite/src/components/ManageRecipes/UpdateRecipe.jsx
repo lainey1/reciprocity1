@@ -1,36 +1,63 @@
-// react-vite/src/components/ManageRecipes/CreateRecipe.jsx
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { thunkFetchRecipeById, thunkUpdateRecipe } from "../../redux/recipes";
+import { initialFormData, validateAllRecipeFields } from "./utils";
 
 import { FaPlus, FaMinus } from "react-icons/fa6";
 
-import { initialFormData, validateAllRecipeFields } from "./utils";
-import {
-  thunkCreateRecipe,
-  // thunkFetchRecipeById,
-  thunkFetchRecipes,
-} from "../../redux/recipes";
-
-import "./CreateRecipe.css";
-
-const CreateRecipe = () => {
+const UpdateRecipe = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { recipe_id } = useParams();
 
-  const [formData, setFormData] = useState(initialFormData);
+  // Selector
+  const recipe = useSelector((state) => state.recipes?.recipes[recipe_id]);
 
+  // set up errors list and future feature popups
   const [errors, setErrors] = useState({});
   const [flashMessage, setFlashMessage] = useState("");
   const [showFlash, setShowFlash] = useState(false);
+
+  // State Hooks to grab current recipe data from db
+  const [formData, setFormData] = useState(initialFormData);
+
+  useEffect(() => {
+    if (recipe) {
+      const updatedFormData = {
+        name: recipe.name || "",
+        yield_servings: recipe.yield_servings || "",
+        prep_time: recipe.prep_time || "",
+        cook_time: recipe.cook_time || "",
+        total_time: recipe.total_time || "",
+        cuisine: recipe.cuisine || "",
+        short_description: recipe.short_description || "",
+        description: recipe.description || "",
+        ingredients: recipe.ingredients?.map((item) => item.ingredient) || [""],
+        instructions: recipe.instructions?.map((item) => item.instruction) || [
+          "",
+        ],
+        tags: recipe.tags || "",
+      };
+
+      setFormData(updatedFormData);
+    }
+  }, [recipe]);
+
+  // Validate form and display errors
+  const validateForm = () => {
+    const fieldErrors = validateAllRecipeFields(formData);
+    setErrors(fieldErrors);
+    return Object.keys(fieldErrors).length === 0; // Return true if no errors
+  };
 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: value.trimStart(),
     }));
   };
 
@@ -77,13 +104,6 @@ const CreateRecipe = () => {
     });
   };
 
-  // Validate form and display errors
-  const validateForm = () => {
-    const fieldErrors = validateAllRecipeFields(formData);
-    setErrors(fieldErrors);
-    return Object.keys(fieldErrors).length === 0; // Return true if no errors
-  };
-
   // Handlers for Save Draft, Post Recipe, Cancel
   // Add flash message logic to saveDraft
   const saveDraft = () => {
@@ -100,7 +120,7 @@ const CreateRecipe = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      const filteredFormData = {
+      const updatedRecipeData = {
         ...formData,
         ingredients: formData.ingredients.filter(
           (ingredient) => ingredient.trim() !== ""
@@ -111,9 +131,9 @@ const CreateRecipe = () => {
       };
 
       try {
-        const data = await dispatch(thunkCreateRecipe(filteredFormData));
-        dispatch(thunkFetchRecipes());
-        navigate(`/recipes/${data.id}`);
+        await dispatch(thunkUpdateRecipe(recipe_id, updatedRecipeData));
+        dispatch(thunkFetchRecipeById(recipe_id));
+        navigate(`/recipes/${recipe_id}`);
       } catch (error) {
         console.error("Failed to update recipe:", error);
       }
@@ -137,10 +157,19 @@ const CreateRecipe = () => {
     });
   };
 
+  // Fetch recipe
+  useEffect(() => {
+    dispatch(thunkFetchRecipeById(recipe_id));
+  }, [dispatch, recipe_id]);
+
+  // useEffect(() => {
+  //   console.log("Recipe data:", recipe);
+  // }, [recipe]);
+
   return (
     <div className="form-page-container">
       <div className="form-header">
-        <h2>Create Recipe</h2>
+        <h2>Edit Recipe</h2>
       </div>
 
       <form>
@@ -343,18 +372,11 @@ const CreateRecipe = () => {
 
         <div className="form-buttons">
           <button type="button" onClick={saveDraft}>
-            Delete Button
-          </button>
-          <button type="button" onClick={saveDraft}>
             Save Draft
           </button>
           <button type="button" onClick={postRecipe}>
             Post Recipe
           </button>
-          <button type="reset" onClick={() => setFormData(initialFormData)}>
-            Reset
-          </button>
-
           <button type="button" onClick={cancel}>
             Cancel
           </button>
@@ -366,4 +388,4 @@ const CreateRecipe = () => {
   );
 };
 
-export default CreateRecipe;
+export default UpdateRecipe;

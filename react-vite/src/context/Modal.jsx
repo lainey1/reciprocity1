@@ -11,6 +11,7 @@ export function ModalProvider({ children }) {
   const [onModalClose, setOnModalClose] = useState(null);
 
   const closeModal = () => {
+    console.log("Modal closing");
     setModalContent(null); // clear the modal contents
     // If callback function is truthy, call the callback function and reset it
     // to null:
@@ -23,7 +24,11 @@ export function ModalProvider({ children }) {
   const contextValue = {
     modalRef, // reference to modal div
     modalContent, // React component to render inside modal
-    setModalContent, // function to set the React component to render inside modal
+    setModalContent: (content) => {
+      console.log("Setting modal content:", content);
+      setModalContent(content);
+    }, // function to set the React component to render inside modal
+
     setOnModalClose, // function to set the callback function called when modal is closing
     closeModal, // function to close the modal
   };

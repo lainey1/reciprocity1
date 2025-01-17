@@ -7,7 +7,9 @@ import "./AllRecipes.css";
 
 function AllRecipes() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipes = useSelector((state) => state.recipes?.recipes);
+  const recipesArr = Object.values(recipes);
+
   useEffect(() => {
     dispatch(thunkFetchRecipes());
   }, [dispatch]);
@@ -15,7 +17,7 @@ function AllRecipes() {
   return (
     <div id="all-recipes-page-container">
       <div className="recipes-grid">
-        {recipes?.map((recipe) => {
+        {recipesArr.map((recipe) => {
           return (
             <div key={recipe.id} className="recipe-tile">
               <Link to={`${recipe.id}`} className="recipe-link">

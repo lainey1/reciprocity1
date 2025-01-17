@@ -1,4 +1,18 @@
-// react-vite/src/helpers/form_helpers.js
+// react-vite/src/components/ManageRecipes/utils.js
+
+export const initialFormData = {
+  name: "",
+  yield_servings: 1,
+  prep_time: 1,
+  cook_time: 1,
+  total_time: 1,
+  cuisine: "American",
+  short_description: "",
+  description: "",
+  ingredients: [""],
+  instructions: [""],
+  tags: "",
+};
 
 const allowedCuisines = [
   "American",

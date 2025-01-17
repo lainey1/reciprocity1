@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { IoIosAdd } from "react-icons/io";
 import { FaSave, FaEdit, FaShareAlt } from "react-icons/fa";
 
 import no_image_available from "../../../public/no_image_available.png";
-
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import { thunkFetchRecipes } from "../../redux/recipes";
+import DeleteRecipeModal from "./DeleteRecipeModal";
 
 import "./ManageRecipes.css";
 
@@ -16,14 +17,23 @@ function ManageRecipes() {
 
   const recipes = useSelector((state) => state.recipes.recipes);
   const currentUser = useSelector((state) => state.session.user);
+  const recipesArr = Object.values(recipes);
 
-  const userRecipes = recipes?.filter(
+  const userRecipes = recipesArr?.filter(
     (recipe) => recipe.owner_id == currentUser.id
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [recipeToDelete, setRecipeToDelete] = useState(null);
 
   useEffect(() => {
     dispatch(thunkFetchRecipes());
   }, [dispatch]);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setRecipeToDelete(null);
+  };
 
   if (!currentUser) return <div>You must be logged in to manage recipes.</div>;
 
@@ -77,10 +87,25 @@ function ManageRecipes() {
                   </p>
                 </div>
               </Link>
+              {/* Open Delete Modal Button */}
+
+              <OpenModalButton
+                buttonText="Delete"
+                id="delete-button"
+                modalComponent={<DeleteRecipeModal recipe_id={recipe.id} />}
+              />
             </div>
           );
         })}
       </div>
+
+      {/* Conditional Modal Rendering */}
+      {isModalOpen && (
+        <DeleteRecipeModal
+          recipeId={recipeToDelete}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   );
 }

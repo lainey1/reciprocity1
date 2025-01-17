@@ -10,6 +10,7 @@ import AllRecipes from "../components/AllRecipes/AllRecipes";
 import ReadRecipe from "../components/ManageRecipes/ReadRecipe";
 import ManageRecipes from "../components/ManageRecipes/ManageRecipes";
 import CreateRecipe from "../components/ManageRecipes/CreateRecipe";
+import UpdateRecipe from "../components/ManageRecipes/UpdateRecipe";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
         element: <AllRecipes />,
       },
       {
+        path: "recipes/owner/:owner_id",
+        element: <ManageRecipes />,
+      },
+      {
         path: "/recipes/:id",
         element: <ReadRecipe />,
       },
@@ -44,8 +49,8 @@ export const router = createBrowserRouter([
         element: <CreateRecipe />,
       },
       {
-        path: "recipes/owner/:owner_id",
-        element: <ManageRecipes />,
+        path: "/recipes/:recipe_id/edit",
+        element: <UpdateRecipe />,
       },
     ],
   },
