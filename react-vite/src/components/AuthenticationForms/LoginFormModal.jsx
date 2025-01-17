@@ -3,7 +3,7 @@ import { thunkLogin } from "../../redux/session";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import "../Forms.css";
+import "./AuthenticationForms.css";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ function LoginFormModal() {
 
   return (
     <div className="page-form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form-modal">
         <h2>Log In</h2>
         <label>
           {/* Email */}

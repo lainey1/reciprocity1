@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import logo from "../../../public/reciprocity_logo.png";
+import { MdOutlineAddAPhoto } from "react-icons/md";
 import "./ReadRecipe.css";
 
 const RecipeDetails = () => {
-  const { id } = useParams(); // Retrieve the recipe ID from the route parameters
+  const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -42,14 +42,6 @@ const RecipeDetails = () => {
     );
   };
 
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
-
   if (loading) {
     return <img src={logo} alt="Loading..." className="logo-spinner" />;
   }
@@ -65,18 +57,35 @@ const RecipeDetails = () => {
             <span className="detail-main">
               <div className="left-side">
                 <div className="image-slider">
-                  <button className="prev-button" onClick={handlePreviousImage}>
-                    &#60;
-                  </button>
-                  <div className="image-container">
-                    <img
-                      src={recipe.images[currentImageIndex].image_url}
-                      alt={`Recipe image ${currentImageIndex + 1}`}
-                    />
+                  <div className="image-slider">
+                    <button
+                      className="prev-button"
+                      onClick={handlePreviousImage}
+                      disabled={!recipe.images || recipe.images.length === 0}
+                    >
+                      &#60;
+                    </button>
+                    <div className="image-container">
+                      {recipe.images && recipe.images.length > 0 ? (
+                        <img
+                          src={recipe.images[currentImageIndex].image_url}
+                          alt={`Recipe image ${currentImageIndex + 1}`}
+                        />
+                      ) : (
+                        <div className="placeholder">
+                          <MdOutlineAddAPhoto className="add-photo-icon" />
+                          <p className="add-photo-text">Add Photo</p>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      className="next-button"
+                      onClick={handleNextImage}
+                      disabled={!recipe.images || recipe.images.length === 0}
+                    >
+                      &#62;
+                    </button>
                   </div>
-                  <button className="next-button" onClick={handleNextImage}>
-                    &#62;
-                  </button>
                 </div>
 
                 <div className="recipe-highlights">
@@ -131,22 +140,6 @@ const RecipeDetails = () => {
           <p>Recipe not found.</p>
         )}
       </div>
-
-      {/* Modal for image viewer
-      {isModalOpen && (
-        <div className="modal" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={recipe.images[currentImageIndex].image_url}
-              alt={`Expanded Recipe image ${currentImageIndex + 1}`}
-              className="expanded-image"
-            />
-            <button className="close-modal" onClick={closeModal}>
-              &times; Close
-            </button>
-          </div>
-        </div>
-      )} */}
     </div>
   );
 };

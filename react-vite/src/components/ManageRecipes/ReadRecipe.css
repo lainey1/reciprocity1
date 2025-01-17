@@ -60,12 +60,12 @@
 }
 
 .image-container {
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  background-color: #9c9f775f;
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 375px;
+  height: 500px;
+  position: relative;
 }
 
 .image-container img {
@@ -74,8 +74,28 @@
   object-fit: contain;
 }
 
+.placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 375px;
+}
+
+.add-photo-icon {
+  font-size: 50px; /* Adjust size as needed */
+  color: #aaa; /* Adjust color as needed */
+}
+
+.add-photo-text {
+  font-size: 18px; /* Adjust size as needed */
+  color: #555; /* Adjust color as needed */
+  margin-top: 10px; /* Add some spacing between icon and text */
+}
+
 /* Navigation buttons */
-button {
+.add-button {
   background-color: #465775;
   border: none;
   border-radius: 50%;

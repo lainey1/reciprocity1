@@ -13,6 +13,11 @@ body {
   color: #2a3439;
 }
 
+.page-container {
+  max-width: 1300px;
+  margin: 15px;
+}
+
 .logo-spinner {
   display: block;
   margin: 0 auto;

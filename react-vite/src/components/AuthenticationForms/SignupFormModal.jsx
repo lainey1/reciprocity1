@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
-import "../Forms.css";
+import "./AuthenticationForms.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function SignupFormModal() {
   return (
     <div className="page-form-container">
       {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className="form-modal" onSubmit={handleSubmit}>
         <h2>Sign Up</h2>
         <label>
           Email

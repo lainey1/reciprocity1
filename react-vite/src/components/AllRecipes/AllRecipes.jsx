@@ -15,7 +15,7 @@ function AllRecipes() {
   return (
     <div id="all-recipes-page-container">
       <div className="recipes-grid">
-        {recipes?.recipes?.map((recipe) => {
+        {recipes?.map((recipe) => {
           return (
             <div key={recipe.id} className="recipe-tile">
               <Link to={`${recipe.id}`} className="recipe-link">

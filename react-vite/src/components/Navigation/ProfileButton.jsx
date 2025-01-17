@@ -72,7 +72,9 @@ function ProfileButton() {
                   </div>
                 </li>
                 <hr className="menu-separator" /> {/* Horizontal line */}
-                <li onClick={() => navigate("/recipes")}>All Recipes</li>
+                <li onClick={() => navigate("recipes/owner/:owner_id")}>
+                  Manage Recipes
+                </li>
                 <li onClick={logout}>Logout</li>
               </>
             ) : (

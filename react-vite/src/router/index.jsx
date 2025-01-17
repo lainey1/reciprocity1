@@ -8,6 +8,7 @@ import {
 } from "../components/AuthenticationForms";
 import AllRecipes from "../components/AllRecipes/AllRecipes";
 import ReadRecipe from "../components/ManageRecipes/ReadRecipe";
+import ManageRecipes from "../components/ManageRecipes/ManageRecipes";
 import CreateRecipe from "../components/ManageRecipes/CreateRecipe";
 
 export const router = createBrowserRouter([
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: "/recipes/new",
         element: <CreateRecipe />,
+      },
+      {
+        path: "recipes/owner/:owner_id",
+        element: <ManageRecipes />,
       },
     ],
   },

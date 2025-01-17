@@ -65,7 +65,7 @@ def recipes():
 
             all_recipes_list.append(recipe_dict)
 
-        return jsonify({'recipes': all_recipes_list}), 200
+        return jsonify(all_recipes_list), 200
 
     except SQLAlchemyError as e:
         current_app.logger.error(f"Database query error: {str(e)}")
