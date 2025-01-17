@@ -8,32 +8,16 @@ from app.models import Recipe, RecipeImage, User, db
 
 recipe_routes = Blueprint('recipes', __name__)
 
-
-from flask_login import current_user
-
-
 @recipe_routes.route('/', methods=["GET"])
 def recipes():
     """
     Query to get all recipes.
-
-    - If the user is authenticated, they can view:
-        - Recipes publicly visible to "Everyone."
-        - Their own private recipes.
-
-    - If the user is not authenticated, only publicly visible recipes ("Everyone") are returned.
     """
 
     try:
         # Check if the user is authenticated
-        if current_user.is_authenticated:
-            # Fetch public recipes or recipes owned by the logged-in user
-            recipes = Recipe.query.filter(
-                (Recipe.visibility == "Everyone") | (Recipe.owner_id == current_user.id)
-            ).all()
-        else:
-            # Only fetch public recipes if the user is not logged in
-            recipes = Recipe.query.filter_by(visibility="Everyone").all()
+        recipes = Recipe.query.all()
+
 
         # If no recipes are found, return an empty list with a success message
         if not recipes:
@@ -83,23 +67,12 @@ def get_recipe_by_id(id):
         # Fetch the recipe by ID
         recipe = Recipe.query.filter_by(id=id).first()
 
-        print("RECIPE ===>", recipe)
-
         # Check if the recipe exists
         if not recipe:
             return jsonify({
                 'message': f'Recipe with ID {id} not found.'
             }), 404
 
-        # Check if the user is not logged in (current_user is None) and if visibility is not 'Everyone'
-        if current_user is None and recipe.visibility != "Everyone":
-            return jsonify({'message': 'You are not authorized to view this recipe. Please log in as the owner.'}), 403
-
-        print("RECIPE OWNER ====>", current_user)
-
-        # Check if the user is logged in but not the owner and the visibility is not 'Everyone'
-        # if recipe.owner_id != current_user.id and recipe.visibility != "Everyone":
-        #     return jsonify({'message': 'You are not authorized to view this recipe. Please log in as the owner.'}), 403
 
         # Convert recipe to dictionary
         recipe_data = recipe.to_dict()
@@ -132,26 +105,10 @@ def get_recipe_by_id(id):
 def recipes_by_owner(owner_id):
     """
     Query to retrieve all recipes for a specific owner ID.
-
-    - If the user is authenticated, they can view:
-        - Recipes publicly visible to "Everyone."
-        - Their own private recipes.
-
-    - If the user is not authenticated, only publicly visible recipes ("Everyone") are returned.
-"""
-
+    """
     try:
-        if current_user.is_authenticated:
-            # Fetch public recipes or recipes owned by the logged-in user
-            recipes_by_owner = Recipe.query.filter(
-                (Recipe.owner_id == owner_id) &
-                ((Recipe.visibility == "Everyone") | (Recipe.owner_id == current_user.id))
-            ).all()
-        else:
-            # Only fetch public recipes for the given owner if the user is not logged in
-            recipes_by_owner = Recipe.query.filter(
-                (Recipe.owner_id == owner_id) & (Recipe.visibility == "Everyone")
-            ).all()
+
+        recipes_by_owner = Recipe.query.filter_by(owner_id=owner_id).all()
 
         # If no recipes found, return a message indicating no recipes
         if not recipes_by_owner:
@@ -209,7 +166,7 @@ def add_recipe():
         payload = request.json
 
         # Validate required fields are in the payload
-        required_fields = ["name", "yield_servings", "ingredients", "instructions", "visibility"]
+        required_fields = ["name", "yield_servings", "ingredients", "instructions"]
         missing_fields = [field for field in required_fields if field not in payload or not payload[field]]
         if missing_fields:
             return jsonify({
@@ -248,7 +205,6 @@ def add_recipe():
             tags=tags_string,
             ingredients=ingredients_json,  # Store as JSON string
             instructions=instructions_json,  # Store as JSON string
-            visibility=payload.get("visibility"),
             created_at=now,  # Pass datetime object directly
             updated_at=now   # Pass datetime object directly
         )
@@ -305,7 +261,7 @@ def update_recipe(recipe_id):
         print(f"Error in /<int:recipe_id>/edit route: {e}")
 
     # Validate required fields are in the payload
-    required_fields = ["name", "yield_servings", "ingredients", "instructions", "visibility"]
+    required_fields = ["name", "yield_servings", "ingredients", "instructions"]
     missing_fields = [field for field in required_fields if field not in recipe_data]
 
     if missing_fields:
@@ -336,7 +292,6 @@ def update_recipe(recipe_id):
     recipe.tags = tags_string
     recipe.ingredients = ingredients_json  # Store as JSON string
     recipe.instructions = instructions_json  # Store as JSON string
-    recipe.visibility = recipe_data['visibility']
 
     # Save changes to the database
     db.session.commit()

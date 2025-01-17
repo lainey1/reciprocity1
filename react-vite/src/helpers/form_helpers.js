@@ -64,11 +64,6 @@ export const validateRecipeField = (name, value) => {
         error = "Please limit the description to fewer than 500 characters.";
       }
       break;
-    case "visibility":
-      if (!["Everyone", "Only You", "Connections Only"].includes(value)) {
-        error = "Invalid visibility option.";
-      }
-      break;
     default:
       break;
   }

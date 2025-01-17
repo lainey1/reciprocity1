@@ -8,7 +8,6 @@ def seed_collection_recipes():
         collection_id=1,
         recipe_id=1,
         owner_id=1,  # Remy
-        visibility="Everyone",
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -17,7 +16,6 @@ def seed_collection_recipes():
         collection_id=5,
         recipe_id=2,
         owner_id=1,  # Remy
-        visibility="Everyone",
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
 
@@ -27,7 +25,6 @@ def seed_collection_recipes():
         collection_id=3,
         recipe_id=3,
         owner_id=3,  # Colette
-        visibility="Everyone",
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -36,7 +33,7 @@ def seed_collection_recipes():
         collection_id=6,
         recipe_id=3,
         owner_id=2,  # Alfredo
-        visibility="Everyone",
+
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -45,7 +42,7 @@ def seed_collection_recipes():
         collection_id=7,
         recipe_id=4,
         owner_id=2,  # Alfredo
-        visibility="Everyone",
+
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -54,7 +51,7 @@ def seed_collection_recipes():
         collection_id=7,
         recipe_id=4,
         owner_id=2,  # Alfredo
-        visibility="Everyone",
+
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -63,7 +60,7 @@ def seed_collection_recipes():
         collection_id=5,
         recipe_id=4,
         owner_id=1,  # Remy
-        visibility="Everyone",
+
         created_at=datetime(2025, 1, 10, 9, 0, 0),
         updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -72,7 +69,7 @@ def seed_collection_recipes():
             collection_id=3,
             recipe_id=5,
             owner_id=3,  # Colette
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -81,7 +78,7 @@ def seed_collection_recipes():
             collection_id=4,
             recipe_id=6,
             owner_id=4,  # Lainey
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -90,7 +87,7 @@ def seed_collection_recipes():
             collection_id=5,
             recipe_id=6,
             owner_id=1,  # Remy
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -99,7 +96,7 @@ def seed_collection_recipes():
             collection_id=4,
             recipe_id=7,
             owner_id=4,  # Lainey
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -108,7 +105,7 @@ def seed_collection_recipes():
             collection_id=4,
             recipe_id=8,
             owner_id=4,  # Lainey
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -117,7 +114,7 @@ def seed_collection_recipes():
             collection_id=4,
             recipe_id=9,
             owner_id=1,  # Lainey
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -126,7 +123,7 @@ def seed_collection_recipes():
             collection_id=4,
             recipe_id=10,
             owner_id=4,  # Lainey
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -135,7 +132,7 @@ def seed_collection_recipes():
             collection_id=5,
             recipe_id=10,
             owner_id=1,  # Remy
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )
@@ -144,7 +141,7 @@ def seed_collection_recipes():
             collection_id=6,
             recipe_id=10,
             owner_id=2,  # Alfredo
-            visibility="Everyone",
+
             created_at=datetime(2025, 1, 10, 9, 0, 0),
             updated_at=datetime(2025, 1, 10, 9, 0, 0)
     )

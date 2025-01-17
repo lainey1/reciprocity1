@@ -10,36 +10,15 @@ from app.models import Collection, CollectionImage, CollectionRecipe, Recipe, Us
 collection_routes = Blueprint('collections', __name__)
 
 
-@validates('visibility')
-def validate_visibility(self, key, value):
-    allowed_values = ['Everyone', 'Connections', 'Only You']
-    if value not in allowed_values:
-        raise ValueError(f"Invalid visibility: {value}. Must be one of {allowed_values}.")
-    return value
 
 @collection_routes.route('/', methods=["GET"])
 def collections():
     """
     Query to get all collections.
-
-        - If the user is authenticated, they can view:
-        - Collections publicly visible to "Everyone."
-        - Their own private collections.
-
-    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
-
     """
 
     try:
-        # Check if user is authenticated
-        if current_user.is_authenticated:
-            # Fetch public collections or collections owned by the logged-in user
-            collections = Collection.query.filter(
-                (Collection.visibility == "Everyone") | (Collection.user_id == current_user.id)).all()
-
-        # Fetch public collections only if not logged in
-        else:
-            collections = Collection.query.filter(Collection.visibility == 'Everyone').all()
+        collections = Collection.query.all()
 
         # If no collections found, return an empty list with a success message
         if not collections:
@@ -99,12 +78,6 @@ def collections():
 def get_collection_by_id(id):
     """
     Query to get a single collection by its ID.
-
-    - If the user is authenticated, they can view:
-        - Collections publicly visible to "Everyone."
-        - Their own private collections.
-
-    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
     """
 
     try:
@@ -117,8 +90,8 @@ def get_collection_by_id(id):
                 'message': f'Collection with ID {id} not found.'
             }), 404
 
-        # Check if the current user is the collections's owner or if visibility is 'Everyone'
-        if collection.user_id != current_user.id and collection.visibility != "Everyone":
+        # Check if the current user is the collections's owner'
+        if collection.user_id != current_user.id :
             return jsonify({'message': 'You are not authorized to view this collection. Please log in as the owner.'}), 403
 
         # Convert collection to dictionary
@@ -165,13 +138,6 @@ def get_collection_by_id(id):
 def collections_by_owner(owner_id):
     """
     Query to retrieve all collections for a specific owner ID.
-
-    - If the user is authenticated, they can view:
-    - Collections publicly visible to "Everyone."
-    - Their own private collections.
-
-    - If the user is not authenticated, only publicly visible collections ("Everyone") are returned.
-
     """
 
     try:
@@ -228,7 +194,7 @@ def add_collection():
         payload = request.json
 
         # Validate required fields are in the payload
-        required_fields = ["name","visibility"]
+        required_fields = ["name"]
         missing_fields = [field for field in required_fields if field not in payload or not payload[field]]
         if missing_fields:
             return jsonify({
@@ -244,7 +210,6 @@ def add_collection():
             name=payload.get("name"),
             user_id=current_user.id,
             description=payload.get("description"),
-            visibility=payload.get("visibility"),
             created_at=now,  # Pass datetime object directly
             updated_at=now   # Pass datetime object directly
         )
@@ -297,7 +262,7 @@ def update_collection(collection_id):
         data = request.get_json()
 
         # Validate required fields are in the payload
-        required_fields = ["name", "visibility"]
+        required_fields = ["name"]
         missing_fields = [field for field in required_fields if field not in data]
 
         if missing_fields:
@@ -309,7 +274,6 @@ def update_collection(collection_id):
         # Update collection using form data
         collection.name = data['name']
         collection.description = data.get('description', collection.description)  # Use existing value if not provided
-        collection.visibility = data['visibility']
 
         # Save changes to the database
         db.session.commit()
@@ -366,18 +330,9 @@ def add_recipe_to_collection(collection_id):
         # Parse recipe_id from the request payload
         data = request.json
         recipe_id = data.get('recipe_id')
-        visibility = data.get('visibility', 'Everyone')  # Default to 'Everyone'
 
         if not recipe_id:
             return jsonify({"message": "Missing 'recipe_id' in the request payload."}), 400
-
-        # Validate visibility
-        allowed_visibilities = ['Everyone', 'Connections', 'Only You']
-
-        if visibility not in allowed_visibilities:
-            return jsonify({
-                "message": f"Invalid visibility. Must be one of {allowed_visibilities}."
-            }), 400
 
         # Check if the recipe exists
         recipe = Recipe.query.get(recipe_id)

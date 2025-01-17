@@ -208,8 +208,7 @@ user's information.
         "id": 9,
         "name": "FamilyRecipes",
         "updated_at": "2025-01-11T20:39:28.691745",
-        "user_id": 6,
-        "visibility": "public"
+        "user_id": 6
       },
       "first_name": "Anton",
       "id": 6,
@@ -314,10 +313,9 @@ Returns the updated information about the current user.
   - Body:
 
     ```json
-  {
-    "message": "Only the profile owner can make changes to these details."
-  }
-
+    {
+      "message": "Only the profile owner can make changes to these details."
+    }
     ```
 
 ## RECIPES
@@ -383,7 +381,6 @@ Returns all the recipes owned (created) by the current user.
       "tags": "burger, gourmet, American",
       "image_url": "https://example.com/images/burger.jpg",
       "owner_id": 1,
-      "visibility": "Public",
       "created_at": "2024-12-16T10:00:00Z",
       "updated_at": "2024-12-16T10:00:00Z"
     },
@@ -403,7 +400,6 @@ Returns all the recipes owned (created) by the current user.
       "tags": "vegetarian, stir-fry, healthy",
       "image_url": "https://example.com/images/veggie-stirfry.jpg",
       "owner_id": 2,
-      "visibility": "Public",
       "created_at": "2024-12-16T11:00:00Z",
       "updated_at": "2024-12-16T11:00:00Z"
     }
@@ -448,7 +444,6 @@ Returns the details of a recipe specified by its id.
       "tags": "burger, gourmet, American",
       "image_url": "https://example.com/images/burger.jpg",
       "owner_id": 1,
-      "visibility": "Public",
       "created_at": "2024-12-16T10:00:00Z",
       "updated_at": "2024-12-16T10:00:00Z"
     }
@@ -500,8 +495,7 @@ Creates and returns a new recipe.
       ],
       "tags": "Italian, Pasta, Dinner",
       "image_url": "https://example.com/spaghetti.jpg",
-      "owner_id": 1,
-      "visibility": "Public"
+      "owner_id": 1
     }
     ```
 
@@ -532,7 +526,7 @@ Creates and returns a new recipe.
       "tags": "Italian, Pasta, Dinner",
       "image_url": "https://example.com/spaghetti.jpg",
       "owner_id": 1,
-      "visibility": "Public",
+
       "created_at": "2025-01-01 10:15:00",
       "deleted_at": "2025-01-07 10:15:00"
     }
@@ -640,8 +634,7 @@ Updates and returns an existing recipe.
       "ingredients": "Broccoli, bell peppers, carrots, soy sauce, sesame oil, rice",
       "instructions": "Stir-fry the vegetables in sesame oil, add soy sauce, and serve over rice.",
       "tags": "vegetarian, stir-fry, healthy",
-      "image_url": "https://example.com/images/veggie-stirfry.jpg",
-      "visibility": "Public"
+      "image_url": "https://example.com/images/veggie-stirfry.jpg"
     }
     ```
 
@@ -669,7 +662,6 @@ Updates and returns an existing recipe.
       "instructions": "Stir-fry the vegetables in sesame oil, add soy sauce, and serve over rice.",
       "tags": "vegetarian, stir-fry, healthy",
       "image_url": "https://example.com/images/veggie-stirfry.jpg",
-      "visibility": "Public",
       "created_at": "2024-12-16T12:00:00Z",
       "updated_at": "2024-12-16T12:30:00Z"
     }
@@ -1594,6 +1586,7 @@ This endpoint allows users to retrieve recipes filtered by query parameters such
   - Headers:
     - Content-Type: application/json
   - Body:
+
     ```json
     {
       "name": "Spaghetti Bolognese",
@@ -1614,7 +1607,7 @@ This endpoint allows users to retrieve recipes filtered by query parameters such
       "tags": "Italian, Pasta, Dinner",
       "image_url": "https://example.com/spaghetti.jpg",
       "owner_id": 1,
-      "visibility": "Public",
+
       "created_at": "2025-01-01 10:15:00",
       "deleted_at": "2025-01-07 10:15:00"
     }

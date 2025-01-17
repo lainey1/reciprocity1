@@ -7,7 +7,6 @@ Reciprocity is a platform designed to bring people together through the love of 
 - **Familial Feast**: Create and preserve family recipes, tagging them to specific members or branches of your family tree.
 - **Recipe Sharing**: Share recipes with friends and discover new dishes from your community.
 - **Custom Collections**: Organize your favorite recipes into tailored categories for easy access.
-- **Privacy Control**: Restrict access to your recipes and collections by setting visibility to "Everyone," "Connections Only," or "Only You," ensuring your creations are shared just the way you want.
 - **Media-Responsive Design**: Seamlessly access your recipes and features on any device, from smartphones to desktops, ensuring a smooth and user-friendly experience.
 
 ## 💻 **Tech Stack**

@@ -56,7 +56,7 @@ def seed_recipes():
         tags="vegetarian, healthy, French, classic",
         # tags=["vegetarian", "healthy", "French", "classic"],
         owner_id=1,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -84,7 +84,7 @@ def seed_recipes():
         tags="vegetarian, stir-fry, healthy",
         # tags=["vegetarian", "stir-fry", "healthy"],
         owner_id=2,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -115,7 +115,7 @@ def seed_recipes():
         tags="pasta, creamy, chicken, Italian",
         # tags=["pasta", "creamy", "chicken", "Italian"],
         owner_id=3,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -147,7 +147,7 @@ def seed_recipes():
         tags="breakfast, healthy, avocado, easy",
         # tags=["breakfast", "healthy", "avocado", "easy"],
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -177,7 +177,7 @@ def seed_recipes():
         tags="burger, gourmet, American",
         # tags=["vegetarian", "healthy", "French", "classic"],
         owner_id=3,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -210,7 +210,7 @@ def seed_recipes():
         ]),
         tags="Filipino, savory, chicken",
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -239,7 +239,7 @@ def seed_recipes():
         ]),
         tags="dessert, Italian, sweet",
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -273,7 +273,7 @@ def seed_recipes():
         ]),
         tags="Filipino, soup, savory, tangy",
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -300,7 +300,7 @@ def seed_recipes():
         ]),
         tags="Filipino, snack, sweet, fried",
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -333,7 +333,7 @@ def seed_recipes():
         ]),
         tags="soup, taco, savory, hearty",
         owner_id=4,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -375,7 +375,7 @@ def seed_recipes():
     ]),
     tags="chicken, French, classic, comfort food",
     owner_id=1,
-    visibility="Everyone",
+
     created_at=created_at_time,
     updated_at=created_at_time,
     )
@@ -412,7 +412,7 @@ def seed_recipes():
         ]),
         tags="bacon, cheese, French, brunch, savory",
         owner_id=1,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -454,7 +454,6 @@ def seed_recipes():
         ]),
         tags="soup, French, comfort food, cheese, savory",
         owner_id=1,
-        visibility="Connections Only",
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -490,7 +489,7 @@ def seed_recipes():
         ]),
         tags="dessert, French, tea time, sweet, lemon",
         owner_id=1,
-        visibility="Everyone",
+
         created_at=created_at_time,
         updated_at=created_at_time,
     )
@@ -536,7 +535,6 @@ def seed_recipes():
         ]),
         tags="beef, gourmet, British, special occasion, pastry",
         owner_id=1,
-        visibility="Connections Only",
         created_at=created_at_time,
         updated_at=created_at_time,
     )

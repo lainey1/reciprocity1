@@ -68,4 +68,3 @@ class CreateRecipeForm(FlaskForm):
 
     # Tags field: users input a comma-separated string
     tags = StringField('enter tags separated by commas')
-    visibility = StringField("visibility")

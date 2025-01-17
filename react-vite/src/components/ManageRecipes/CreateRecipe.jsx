@@ -32,7 +32,6 @@ const CreateRecipe = () => {
     ingredients: [""],
     instructions: [""],
     tags: "",
-    visibility: "Everyone",
   });
 
   const [errors, setErrors] = useState({});
@@ -148,7 +147,6 @@ const CreateRecipe = () => {
       ingredients: [""],
       instructions: [""],
       tags: "",
-      visibility: "",
     });
   };
 
@@ -366,20 +364,6 @@ const CreateRecipe = () => {
             value={formData.tags}
             onChange={handleChange}
           />
-        </label>
-
-        <label>
-          Who can view this recipe?
-          <select
-            type="text"
-            name="visibility"
-            value={formData.visibility}
-            onChange={handleChange}
-          >
-            <option value="Everyone">Everyone</option>
-            <option value="Only You">Only You</option>
-            <option value="Connections Only">Connections Only</option>
-          </select>
         </label>
       </form>
     </div>

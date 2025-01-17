@@ -14,7 +14,6 @@ class Collection(db.Model):
     name = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     description = db.Column(db.String(200), nullable=True)
-    visibility = db.Column(db.String(20), nullable=False, default='public')
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False)
 
@@ -27,7 +26,6 @@ class Collection(db.Model):
             'name': self.name,
             'user_id': self.user_id,
             'description': self.description,
-            'visibility': self.visibility,  # Include new field in the dictionary
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
         }
