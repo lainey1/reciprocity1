@@ -3,31 +3,23 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validateAllRecipeFields } from "../../helpers/form_helpers";
+
+import { FaPlus, FaMinus } from "react-icons/fa6";
+
+import { initialFormData, validateAllRecipeFields } from "./utils";
 import {
   thunkCreateRecipe,
   // thunkFetchRecipeById,
   thunkFetchRecipes,
 } from "../../redux/recipes";
 
+import "./CreateRecipe.css";
+
 const CreateRecipe = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    yield_servings: 1,
-    prep_time: 1,
-    cook_time: 1,
-    total_time: 1,
-    cuisine: "American",
-    short_description: "",
-    description: "",
-    ingredients: [""],
-    instructions: [""],
-    tags: "",
-    visibility: "Everyone",
-  });
+  const [formData, setFormData] = useState(initialFormData);
 
   const [errors, setErrors] = useState({});
   const [flashMessage, setFlashMessage] = useState("");
@@ -121,8 +113,6 @@ const CreateRecipe = () => {
       try {
         const data = await dispatch(thunkCreateRecipe(filteredFormData));
         dispatch(thunkFetchRecipes());
-        console.log("DATA=======>", data);
-        console.log("DATA ID", data.id);
         navigate(`/recipes/${data.id}`);
       } catch (error) {
         console.error("Failed to update recipe:", error);
@@ -144,15 +134,14 @@ const CreateRecipe = () => {
       ingredients: [""],
       instructions: [""],
       tags: "",
-      visibility: "",
     });
   };
 
   return (
-    <div>
-      <h1>Create a New Recipe</h1>
-
-      {showFlash && <div className="flash-message">{flashMessage}</div>}
+    <div className="form-page-container">
+      <div className="form-header">
+        <h2>Create Recipe</h2>
+      </div>
 
       <form>
         <label>
@@ -165,101 +154,106 @@ const CreateRecipe = () => {
           />
           {errors.name && <span className="error-message">{errors.name}</span>}
         </label>
-        <br />
-        <label>
-          Servings:
-          <input
-            type="number"
-            name="yield_servings"
-            value={formData.yield_servings}
-            onChange={handleNumberChange}
-          />
-          {errors.yield_servings && (
-            <span className="error-message">{errors.yield_servings}</span>
-          )}
-        </label>
-        <br />
-        <label>
-          Prep Time (minutes):
-          <input
-            type="number"
-            name="prep_time"
-            value={formData.prep_time}
-            onChange={handleNumberChange}
-          />
-          {errors.prep_time && (
-            <span className="error-message">{errors.prep_time}</span>
-          )}
-        </label>
-        <br />
-        <label>
-          Cook Time (minutes):
-          <input
-            type="number"
-            name="cook_time"
-            value={formData.cook_time}
-            onChange={handleNumberChange}
-          />
-          {errors.cook_time && (
-            <span className="error-message">{errors.cook_time}</span>
-          )}
-        </label>
-        <br />
-        <label>
-          Total Time (minutes):
-          <input
-            type="number"
-            name="total_time"
-            value={formData.total_time}
-            onChange={handleNumberChange}
-          />
-          {errors.total_time && (
-            <span className="error-message">{errors.total_time}</span>
-          )}
-        </label>
-        <br />
-        <label>
-          Cuisine:
-          <select
-            name="cuisine"
-            value={formData.cuisine}
-            onChange={handleChange}
-          >
-            <option value="">Select Cuisine</option>
-            <option value="American">American</option>
-            <option value="Argentinian">Argentinian</option>
-            <option value="Brazilian">Brazilian</option>
-            <option value="British">British</option>
-            <option value="Caribbean">Caribbean</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Colombian">Colombian</option>
-            <option value="Ethiopian">Ethiopian</option>
-            <option value="Filipino">Filipino</option>
-            <option value="French">French</option>
-            <option value="Fusion">Fusion</option>
-            <option value="German">German</option>
-            <option value="Greek">Greek</option>
-            <option value="Indian">Indian</option>
-            <option value="Italian">Italian</option>
-            <option value="Japanese">Japanese</option>
-            <option value="Korean">Korean</option>
-            <option value="Mediterranean">Mediterranean</option>
-            <option value="Mexican">Mexican</option>
-            <option value="Middle Eastern">Middle Eastern</option>
-            <option value="Moroccan">Moroccan</option>
-            <option value="Nigerian">Nigerian</option>
-            <option value="Peruvian">Peruvian</option>
-            <option value="South African">South African</option>
-            <option value="Spanish">Spanish</option>
-            <option value="Thai">Thai</option>
-            <option value="Vietnamese">Vietnamese</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.cuisine && (
-            <span className="error-message">{errors.cuisine}</span>
-          )}
-        </label>
-        <br />
+        <div className="two-columns">
+          <div className="form-column">
+            <label>
+              Prep Time (minutes):
+              <input
+                type="number"
+                name="prep_time"
+                value={formData.prep_time}
+                onChange={handleNumberChange}
+              />
+              {errors.prep_time && (
+                <span className="error-message">{errors.prep_time}</span>
+              )}
+            </label>
+
+            <label>
+              Cook Time (minutes):
+              <input
+                type="number"
+                name="cook_time"
+                value={formData.cook_time}
+                onChange={handleNumberChange}
+              />
+              {errors.cook_time && (
+                <span className="error-message">{errors.cook_time}</span>
+              )}
+            </label>
+
+            <label>
+              Total Time (minutes):
+              <input
+                type="number"
+                name="total_time"
+                value={formData.total_time}
+                onChange={handleNumberChange}
+              />
+              {errors.total_time && (
+                <span className="error-message">{errors.total_time}</span>
+              )}
+            </label>
+          </div>
+
+          <div className="form-column">
+            <label>
+              Servings:
+              <input
+                type="number"
+                name="yield_servings"
+                value={formData.yield_servings}
+                onChange={handleNumberChange}
+              />
+              {errors.yield_servings && (
+                <span className="error-message">{errors.yield_servings}</span>
+              )}
+            </label>
+
+            <label>
+              Cuisine:
+              <select
+                name="cuisine"
+                value={formData.cuisine}
+                onChange={handleChange}
+              >
+                <option value="">Select Cuisine</option>
+                <option value="American">American</option>
+                <option value="Argentinian">Argentinian</option>
+                <option value="Brazilian">Brazilian</option>
+                <option value="British">British</option>
+                <option value="Caribbean">Caribbean</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Colombian">Colombian</option>
+                <option value="Ethiopian">Ethiopian</option>
+                <option value="Filipino">Filipino</option>
+                <option value="French">French</option>
+                <option value="Fusion">Fusion</option>
+                <option value="German">German</option>
+                <option value="Greek">Greek</option>
+                <option value="Indian">Indian</option>
+                <option value="Italian">Italian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Korean">Korean</option>
+                <option value="Mediterranean">Mediterranean</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Middle Eastern">Middle Eastern</option>
+                <option value="Moroccan">Moroccan</option>
+                <option value="Nigerian">Nigerian</option>
+                <option value="Peruvian">Peruvian</option>
+                <option value="South African">South African</option>
+                <option value="Spanish">Spanish</option>
+                <option value="Thai">Thai</option>
+                <option value="Vietnamese">Vietnamese</option>
+                <option value="Other">Other</option>
+              </select>
+              {errors.cuisine && (
+                <span className="error-message">{errors.cuisine}</span>
+              )}
+            </label>
+          </div>
+        </div>
+
         <label>
           Short Description:
           <input
@@ -272,7 +266,7 @@ const CreateRecipe = () => {
             <span className="error-message">{errors.short_description}</span>
           )}
         </label>
-        <br />
+
         <label>
           Description:
           <textarea
@@ -284,10 +278,10 @@ const CreateRecipe = () => {
             <span className="error-message">{errors.description}</span>
           )}
         </label>
-        <br />
-        <h3>Ingredients</h3>
+
+        <h3>Ingredients:</h3>
         {formData.ingredients.map((ingredient, index) => (
-          <div key={index}>
+          <span key={index} className="add-delete-row">
             <input
               type="text"
               value={ingredient}
@@ -295,22 +289,24 @@ const CreateRecipe = () => {
                 handleDynamicChange(index, "ingredients", e.target.value)
               }
             />
-            <button
-              type="button"
-              onClick={() => removeField(index, "ingredients")}
-              style={{ marginLeft: "10px" }}
-            >
-              Delete
-            </button>
-          </div>
+            <span>
+              <button
+                type="button"
+                onClick={() => removeField(index, "ingredients")}
+                style={{ marginLeft: "10px" }}
+              >
+                <FaMinus />
+              </button>
+              <button type="button" onClick={() => addField("ingredients")}>
+                <FaPlus />
+              </button>
+            </span>
+          </span>
         ))}
-        <button type="button" onClick={() => addField("ingredients")}>
-          Add Ingredient
-        </button>
-        <br />
-        <h3>Instructions</h3>
+
+        <h3>Instructions:</h3>
         {formData.instructions.map((instruction, index) => (
-          <div key={index}>
+          <div key={index} className="add-delete-row">
             <input
               type="text"
               value={instruction}
@@ -318,19 +314,21 @@ const CreateRecipe = () => {
                 handleDynamicChange(index, "instructions", e.target.value)
               }
             />
-            <button
-              type="button"
-              onClick={() => removeField(index, "ingredients")}
-              style={{ marginLeft: "10px" }}
-            >
-              Delete
-            </button>
+            <span>
+              <button
+                type="button"
+                onClick={() => removeField(index, "instructions")}
+                style={{ marginLeft: "10px" }}
+              >
+                <FaMinus />
+              </button>
+              <button type="button" onClick={() => addField("instructions")}>
+                <FaPlus />
+              </button>
+            </span>
           </div>
         ))}
-        <button type="button" onClick={() => addField("instructions")}>
-          Add Instruction
-        </button>
-        <br />
+
         <label>
           Tags:
           <input
@@ -340,30 +338,29 @@ const CreateRecipe = () => {
             onChange={handleChange}
           />
         </label>
+
+        {showFlash && <div className="flash-message">{flashMessage}</div>}
+
+        <div className="form-buttons">
+          <button type="button" onClick={saveDraft}>
+            Delete Button
+          </button>
+          <button type="button" onClick={saveDraft}>
+            Save Draft
+          </button>
+          <button type="button" onClick={postRecipe}>
+            Post Recipe
+          </button>
+          <button type="reset" onClick={() => setFormData(initialFormData)}>
+            Reset
+          </button>
+
+          <button type="button" onClick={cancel}>
+            Cancel
+          </button>
+        </div>
         <br />
-        <label>
-          Who can view this recipe?
-          <select
-            type="text"
-            name="visibility"
-            value={formData.visibility}
-            onChange={handleChange}
-          >
-            <option value="Everyone">Everyone</option>
-            <option value="Only You">Only You</option>
-            <option value="Connections Only">Connections Only</option>
-          </select>
-        </label>
-        <br />
-        <button type="button" onClick={saveDraft}>
-          Save Draft
-        </button>
-        <button type="button" onClick={postRecipe}>
-          Post Recipe
-        </button>
-        <button type="button" onClick={cancel}>
-          Cancel
-        </button>
+        <hr />
       </form>
     </div>
   );

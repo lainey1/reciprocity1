@@ -134,6 +134,167 @@ def seed_recipe_images():
         caption="Classic Filipino chicken adobo, simmered to perfection."
     )
 
+    recipe_image17 = RecipeImage(
+        image_url="https://www.allrecipes.com/thmb/bkXoArv3mjCmhOHKPBkaQUR48dg=/0x512/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/222006-disneys-ratatouille-DDMFS-4x3-36eb15843ab548a79e7aab761dac92e1.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
+    recipe_image18 = RecipeImage(
+        image_url="https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-recipe.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
+    recipe_image19 = RecipeImage(
+        image_url="https://www.howtocook.recipes/wp-content/uploads/2021/05/How-to-cook-ratatouille-step-3.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
+    recipe_image20 = RecipeImage(
+        image_url="https://www.howtocook.recipes/wp-content/uploads/2021/05/Is-Ratatouille-supposed-to-be-mushy-step-6.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
+    recipe_image21 = RecipeImage(
+        image_url="https://www.howtocook.recipes/wp-content/uploads/2021/05/Ratatouille-dish-step-9.jpg",
+        is_preview=False,
+        recipe_id=1,
+        user_id=1, # Remy
+        caption=""
+    )
+
+    recipe_image22 = RecipeImage(
+            image_url="https://www.recipetineats.com/tachyon/2016/09/Coq-au-Vin_00.jpg",
+            is_preview=True,
+            recipe_id=11,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image23 = RecipeImage(
+            image_url="https://www.recipetineats.com/tachyon/2016/09/Coq-au-Vin_05.jpg",
+            is_preview=False,
+            recipe_id=11,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image24 = RecipeImage(
+            image_url="https://www.recipetineats.com/tachyon/2016/09/Coq-au-Vin_07.jpg",
+            is_preview=False,
+            recipe_id=11,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image25 = RecipeImage(
+            image_url="https://www.recipetineats.com/tachyon/2016/09/Coq-au-Vin_06.jpg",
+            is_preview=False,
+            recipe_id=11,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image26 = RecipeImage(
+            image_url="https://www.seriouseats.com/thmb/tB20cXlUyZmjdppOJBaIRFjDIIw=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/20240918-SEA-QuicheLorraine-DeliStudios-23-ff8b9aec8f604cc0a806aeb0ca4f6378.jpg",
+            is_preview=True,
+            recipe_id=12,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image27 = RecipeImage(
+            image_url="https://www.seriouseats.com/thmb/E0b-OI1m6xa3l1O9dBD3Z_rDjdM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/20240918-SEA-QuicheLorraine-DeliStudios-21-267f00cef1a044e78adc0625e60771a3.jpg",
+            is_preview=True,
+            recipe_id=12,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image28 = RecipeImage(
+            image_url="https://www.seriouseats.com/thmb/BhqL9ndeakniQHN1siUQKDyQ9L4=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/20240918-SEA-QuicheLorraine-DeliStudios-16-3d2fc4d3ad6041ab95a607e1d9ac2559.jpg",
+            is_preview=True,
+            recipe_id=12,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image29 = RecipeImage(
+            image_url="https://www.tasteatlas.com/images/recipes/edcf022021ae486cb7c6978f65ead60a.jpg",
+            is_preview=True,
+            recipe_id=13,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image30 = RecipeImage(
+            image_url="https://www.tasteatlas.com/images/recipes/af1c48fefc3b403d988e4baf1071939b.jpg",
+            is_preview=True,
+            recipe_id=13,
+            user_id=1, # Remy
+            caption=""
+        )
+
+
+    recipe_image31 = RecipeImage(
+            image_url="https://www.barleyandsage.com/wp-content/uploads/2024/04/blood-orange-madeleines4787.jpg",
+            is_preview=True,
+            recipe_id=14,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image32 = RecipeImage(
+            image_url="https://www.barleyandsage.com/wp-content/uploads/2024/04/blood-orange-madeleines4803.jpg",
+            is_preview=True,
+            recipe_id=14,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image33 = RecipeImage(
+            image_url="https://i0.wp.com/goepicurista.com/wp-content/uploads/2017/11/IMG_2357-e1510956466573.png",
+            is_preview=True,
+            recipe_id=15,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image34 = RecipeImage(
+            image_url="https://i0.wp.com/goepicurista.com/wp-content/uploads/2017/11/IMG_2292-e1510959190427.jpg",
+            is_preview=True,
+            recipe_id=15,
+            user_id=1, # Remy
+            caption=""
+        )
+
+    recipe_image35 = RecipeImage(
+            image_url="https://i0.wp.com/goepicurista.com/wp-content/uploads/2017/11/IMG_2361-e1510956667566.png",
+            is_preview=True,
+            recipe_id=15,
+            user_id=1, # Remy
+            caption=""
+        )
+
+
+    recipe_image36 = RecipeImage(
+            image_url="https://i0.wp.com/goepicurista.com/wp-content/uploads/2017/11/IMG_2371-e1510957199963.png",
+            is_preview=True,
+            recipe_id=15,
+            user_id=1, # Remy
+            caption=""
+        )
 
 
     # Add the recipe images to the session
@@ -153,6 +314,26 @@ def seed_recipe_images():
     db.session.add(recipe_image14)
     db.session.add(recipe_image15)
     db.session.add(recipe_image16)
+    db.session.add(recipe_image17)
+    db.session.add(recipe_image18)
+    db.session.add(recipe_image19)
+    db.session.add(recipe_image20)
+    db.session.add(recipe_image21)
+    db.session.add(recipe_image22)
+    db.session.add(recipe_image23)
+    db.session.add(recipe_image24)
+    db.session.add(recipe_image25)
+    db.session.add(recipe_image26)
+    db.session.add(recipe_image27)
+    db.session.add(recipe_image28)
+    db.session.add(recipe_image29)
+    db.session.add(recipe_image30)
+    db.session.add(recipe_image31)
+    db.session.add(recipe_image32)
+    db.session.add(recipe_image33)
+    db.session.add(recipe_image34)
+    db.session.add(recipe_image35)
+    db.session.add(recipe_image36)
     db.session.commit()
 
 def undo_recipe_images():

@@ -1,98 +1,98 @@
-// import { useState, useEffect, useRef } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { thunkLogout } from "../../redux/session";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { thunkLogout } from "../../redux/session";
 
-// import OpenModalMenuItem from "./OpenModalMenuItem";
-// import { LoginFormModal, SignupFormModal } from "../AuthenticationForms";
+import OpenModalMenuItem from "./OpenModalMenuItem";
+import { LoginFormModal, SignupFormModal } from "../AuthenticationForms";
 
-// function HamburgerButton() {
-//   const dispatch = useDispatch();
-//   const navigate = useNavigate();
-//   const user = useSelector((state) => state.session.user);
-//   const [showMenu, setShowMenu] = useState(false);
-//   const ulRef = useRef();
+function HamburgerButton() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-//   // Toggle the dropdown menu
-//   const toggleMenu = (e) => {
-//     e.stopPropagation();
-//     setShowMenu((prev) => !prev);
-//   };
+  const user = useSelector((store) => store.session.user);
+  const [showMenu, setShowMenu] = useState(false);
+  const ulRef = useRef();
 
-//   // Close the dropdown menu
-//   const closeMenu = () => setShowMenu(false);
+  // Toggle the dropdown menu
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+    setShowMenu(!showMenu);
+  };
 
-//   // Log out user
-//   const handleLogout = (e) => {
-//     e.preventDefault();
-//     dispatch(thunkLogout());
-//     closeMenu();
-//     navigate("/");
-//   };
+  useEffect(() => {
+    if (!showMenu) return;
 
-//   // Close menu when clicking outside
-//   useEffect(() => {
-//     if (!showMenu) return;
+    const closeMenu = (e) => {
+      if (ulRef.current && !ulRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
 
-//     const handleClickOutside = (e) => {
-//       if (ulRef.current && !ulRef.current.contains(e.target)) {
-//         closeMenu();
-//       }
-//     };
+    document.addEventListener("click", closeMenu);
 
-//     document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", closeMenu);
+  }, [showMenu]);
 
-//     return () => {
-//       document.removeEventListener("click", handleClickOutside);
-//     };
-//   }, [showMenu]);
+  const closeMenu = () => setShowMenu(false);
 
-//   // Navigate to UserProfile with active section
-//   //   const navigateToSection = (section) => {
-//   //     navigate(`/user/${user.id}?section=${section}`);
-//   //     closeMenu();
-//   //   };
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    navigate("/");
+    closeMenu();
+  };
 
-//   return (
-//     <div className="hamburger-button-container">
-//       <button onClick={toggleMenu} id="hamburger-button">
-//         ☰
-//       </button>
-//       {showMenu && (
-//         <ul className="profile-dropdown" ref={ulRef}>
-//           {user ? (
-//             <>
-//               <li
-//                 className="dropdown-item username-email"
-//                 style={{ fontWeight: "bold" }}
-//               >
-//                 Hi {user.username}! ({user.email})
-//               </li>
-//               <button
-//                 className="dropdown-item"
-//                 onClick={navigate(`/recipes`).thencloseMenu()}
-//               >
-//                 All Recipes
-//               </button>
-//             </>
-//           ) : (
-//             <>
-//               <OpenModalMenuItem
-//                 itemText="Log In"
-//                 onItemClick={closeMenu}
-//                 modalComponent={<LoginFormModal />}
-//               />
-//               <OpenModalMenuItem
-//                 itemText="Sign Up"
-//                 onItemClick={closeMenu}
-//                 modalComponent={<SignupFormModal />}
-//               />
-//             </>
-//           )}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// }
+  return (
+    <div className="hamburger-button-container">
+      <button onClick={toggleMenu} id="hamburger-button">
+        ☰
+      </button>
+      <div className="drop-down-container">
+        {showMenu && (
+          <ul className={"profile-menu-dropdown"} ref={ulRef}>
+            {user ? (
+              <>
+                <li className="profile-details no-click">
+                  <img
+                    src={user.profile_image_url || "/default-profile.png"}
+                    alt={`${user.first_name}'s profile`}
+                    className="profile-image"
+                  />
+                  <div id="profile-details-text">
+                    <p style={{ fontWeight: "bold" }}>{user.first_name}</p>
+                    <p>{user.username}</p>
+                    <p>{user.email}</p>
+                  </div>
+                </li>
+                <hr className="menu-separator" /> {/* Horizontal line */}
+                <li onClick={() => navigate("/recipes")}>All Recipes</li>
+                <li onClick={() => navigate("recipes/owner/:owner_id")}>
+                  Manage Recipes
+                </li>
+                <li onClick={logout}>Logout</li>
+              </>
+            ) : (
+              <>
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+                <OpenModalMenuItem
+                  itemText="Sign Up"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+                <hr className="menu-separator" /> {/* Horizontal line */}
+                <li onClick={() => navigate("/recipes")}>All Recipes</li>
+              </>
+            )}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
 
-// export default HamburgerButton;
+export default HamburgerButton;

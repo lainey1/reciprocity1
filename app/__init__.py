@@ -38,6 +38,7 @@ app.register_blueprint(recipe_routes, url_prefix='/api/recipes')
 app.register_blueprint(collection_routes, url_prefix='/api/collections')
 app.register_blueprint(recipe_images_routes, url_prefix='/api/recipe_images')
 app.register_blueprint(collection_images_routes, url_prefix='/api/collection_images')
+
 db.init_app(app)
 
 Migrate(app, db)

@@ -1,9 +1,11 @@
-from flask import Blueprint, current_app, jsonify
+from datetime import datetime, timezone
+
+from flask import Blueprint, current_app, json, jsonify, request
 from flask_login import current_user, login_required
 from sqlalchemy.exc import SQLAlchemyError
 
 # from app.forms import ImageForm
-from app.models import RecipeImage, Recipe
+from app.models import Recipe, RecipeImage, db
 
 recipe_images_routes = Blueprint('recipe_images', __name__)
 
@@ -33,8 +35,6 @@ def all_images():
         }), 500
 
 
-
-
 @recipe_images_routes.route('/recipes/<int:recipe_id>', methods=['GET'])
 @login_required
 def get_recipe_images(recipe_id):
@@ -57,114 +57,147 @@ def get_recipe_images(recipe_id):
         "recipe_images": [image.to_dict() for image in recipe_images]  # Include image data (with ID)
     }), 200
 
-@recipe_images_routes.route('/recipe/<int:recipe_id>/images', methods=['POST'])
+
+@recipe_images_routes.route('/recipe/<int:recipe_id>', methods=['POST'])
 @login_required
-def upload_image(recipe_id):
+def add_recipe_image(recipe_id):
     """
-    Handle image upload for a specific recipe.
+    Route to add new recipe image.
+    - User must be logged in and owner.
     """
+    # Fetch recipe by ID
     recipe = Recipe.query.get(recipe_id)
 
-    # Validate recipe existence
     if not recipe:
-        return jsonify({"error": "Recipe not found"}), 404
+        return jsonify({'message': 'Recipe not found'}), 404
 
-    # Handle POST request to upload images
-    form = ImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    # Validate form submission
-    if not form.validate_on_submit():
-        return jsonify({"error": "Invalid form submission", "errors": form.errors}), 400
-
-    # Check for image data
-    image_url = form.image_url.data
-    is_preview = form.is_preview.data
-
-    if not image_url:
-        return jsonify({"error": "No image uploaded"}), 400
-
-    # Process and save images
     try:
-        if not image_url.startswith(('http://', 'https://')):
-            return jsonify({"error": f"Invalid URL: {image_url}"}), 400
+        payload = request.json
 
-        restaurant_image = RecipeImage(
-            recipe_id=recipe.id,
+        # Check if the current user is the recipe's owner
+        if recipe.owner_id != current_user.id:
+            return jsonify({'message': 'You are not authorized to update this recipe. Please log in as the owner.'})
+
+        # Validate required fields are in the payload
+        required_fields = ["image_url"]
+        missing_fields = [field for field in required_fields if field not in payload or not payload[field]]
+        if missing_fields:
+            return jsonify({
+                "message": "Missing required fields.",
+                "missing_fields": missing_fields
+            }), 400
+
+        # Get current time and use datetime object
+        now = datetime.now(timezone.utc)
+
+        new_recipe_image = RecipeImage(
+            image_url=payload.get("image_url"),
+            recipe_id=recipe_id,
             user_id=current_user.id,
-            url=image_url,
-            is_preview=is_preview
+            caption=payload.get("caption"),
+            is_preview=payload.get("is_preview"),
+            uploaded_at=now,  # Pass datetime object directly
         )
 
-        db.session.add(restaurant_image)
-        db.session.commit()
+        print(f"Attempting to add recipe image url: {new_recipe_image.image_url} to {recipe.name}")
 
-        return jsonify({"message": "Image uploaded successfully", "image": restaurant_image.to_dict()}), 201
+        try:
+            db.session.add(new_recipe_image)
+            db.session.commit()
+            print(f"Successfully added recipe image with ID: {new_recipe_image.id}")
+        except Exception as e:
+            print(f"Failed to add recipe {new_recipe_image.name}: {str(e)}")
+            db.session.rollback()
+            raise
+
+        return jsonify({
+            "message": "Recipe image created successfully!",
+            "recipe": new_recipe_image.to_dict()
+        }), 201
 
     except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": f"Error saving images: {str(e)}"}), 500
-
-
-
-@recipe_images_routes.route('/<int:image_id>', methods=['DELETE'])
-@login_required
-def delete_image(image_id):
-    """
-    Delete a recipe image by ID
-    """
-    image = RecipeImage.query.filter_by(id=image_id).first()
-
-    if image:
-        # Ensure the user is the one who created the image or is the owner of the recipe
-        if image.user_id != current_user.id:
-            return {'message': 'You are not authorized to delete this image.'}, 403
-
-        db.session.delete(image)
-        db.session.commit()
-
-        return {'message': 'Image deleted successfully'}
-
-    return {'error': 'Image not found.'}, 404
-
+        db.session.rollback()  # Rollback changes if error occurs
+        print(f"Error in /new route: {e}")  # Log the error
+        return jsonify({
+            "message": "Failed to create recipe image",
+            "error": str(e)
+        }), 500
 
 
 @recipe_images_routes.route('/<int:image_id>', methods=['PUT'])
 @login_required
-def update_image(image_id):
+def update_recipe_image(image_id):
     """
-    Update a recipe image by ID
+    Update an existing recipe image (only by the recipe owner).
     """
-    image = RecipeImage.query.filter_by(id=image_id).first()
+    recipe_image = RecipeImage.query.get(image_id)
 
-    if not image:
-        return jsonify({"error": "Image not found"}), 404
+    # Validate image existence
+    if not recipe_image:
+        return jsonify({'message': 'Recipe image not found'}), 404
 
-    # Ensure the user is the one who created the image or is the owner of the recipe
-    if image.user_id != current_user.id or image.recipe.owner_id != current_user.id:
-        return jsonify({'message': 'You are not authorized to update this image.'}), 403
+    # Validate recipe existence
+    recipe = Recipe.query.get(recipe_image.recipe_id)
+    if not recipe:
+        return jsonify({'message': 'Recipe not found'}), 404
 
-    form = ImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if not form.validate_on_submit():
-        return jsonify({"error": "Invalid form submission", "errors": form.errors}), 400
-
-    image_url = form.image_url.data
-    is_preview = form.is_preview.data
-
-    if image_url and not image_url.startswith(('http://', 'https://')):
-        return jsonify({"error": f"Invalid URL: {image_url}"}), 400
+    # Check if the current user is the recipe owner
+    if recipe.owner_id != current_user.id:
+        return jsonify({'message': 'You are not authorized to update this image. Only the recipe owner can perform this action.'}), 403
 
     try:
-        # Update the image attributes
-        if image_url:
-            image.url = image_url
-        if is_preview is not None:
-            image.is_preview = is_preview
+        payload = request.json
 
+        # Update fields if present in the request payload
+        if 'image_url' in payload:
+            recipe_image.image_url = payload['image_url']
+        if 'caption' in payload:
+            recipe_image.caption = payload['caption']
+        if 'is_preview' in payload:
+            recipe_image.is_preview = payload['is_preview']
+
+        # Save updates
         db.session.commit()
-        return jsonify({"message": "Image updated successfully", "image": image.to_dict()}), 200
+
+        return jsonify({
+            'message': 'Recipe image updated successfully!',
+            'recipe_image': recipe_image.to_dict()
+        }), 200
+
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": f"Error updating image: {str(e)}"}), 500
+        current_app.logger.error(f"Error updating recipe image: {str(e)}")
+        return jsonify({'message': 'Failed to update recipe image', 'error': str(e)}), 500
+
+
+@recipe_images_routes.route('/<int:image_id>', methods=['DELETE'])
+@login_required
+def delete_recipe_image(image_id):
+    """
+    Delete an existing recipe image (only by the recipe owner).
+    """
+    recipe_image = RecipeImage.query.get(image_id)
+
+    # Validate image existence
+    if not recipe_image:
+        return jsonify({'message': 'Recipe image not found'}), 404
+
+    # Validate recipe existence
+    recipe = Recipe.query.get(recipe_image.recipe_id)
+    if not recipe:
+        return jsonify({'message': 'Recipe not found'}), 404
+
+    # Check if the current user is the recipe owner
+    if recipe.owner_id != current_user.id:
+        return jsonify({'message': 'You are not authorized to delete this image. Only the recipe owner can perform this action.'}), 403
+
+    try:
+        db.session.delete(recipe_image)
+        db.session.commit()
+
+        return jsonify({'message': 'Recipe image deleted successfully!'}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.error(f"Error deleting recipe image: {str(e)}")
+        return jsonify({'message': 'Failed to delete recipe image', 'error': str(e)}), 500

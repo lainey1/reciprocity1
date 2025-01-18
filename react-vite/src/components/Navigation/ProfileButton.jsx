@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
 
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../AuthenticationForms/LoginFormModal";
 import SignupFormModal from "../AuthenticationForms/SignupFormModal";
+import logo from "../../../public/reciprocity_logo.png";
 
 function ProfileButton() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
+  const [showMenu, setShowMenu] = useState(false);
+
   const ulRef = useRef();
 
   const toggleMenu = (e) => {
@@ -47,23 +48,43 @@ function ProfileButton() {
   return (
     <>
       <button onClick={toggleMenu} id="profile-dropdown-button">
-        <FaUserCircle id="icon-user" />
+        <img
+          src={user.profile_image_url || logo}
+          alt={`${user.first_name}'s profile`}
+          className="profile-image"
+        />
       </button>
       <div className="drop-down-container">
         {showMenu && (
           <ul className={"profile-menu-dropdown"} ref={ulRef}>
             {user ? (
               <>
-                <li className="profile-details no-click">
-                  <p>{user.first_name}</p>
-                  <p>{user.username}</p>
-                  <p>{user.email}</p>
+                <li
+                  className="profile-details no-click"
+                  onClick={() =>
+                    navigate("/user/:user_id?section=created_recipes")
+                  }
+                >
+                  <img
+                    src={user.profile_image_url || logo}
+                    alt={`${user.first_name}'s profile`}
+                    className="profile-image"
+                  />
+                  <div id="profile-details-text">
+                    <p style={{ fontWeight: "bold" }}>{user.first_name}</p>
+                    <p>{user.username}</p>
+                    <p>{user.email}</p>
+                  </div>
                 </li>
                 <hr className="menu-separator" /> {/* Horizontal line */}
-                <li onClick={() => navigate("/recipes")}>Recipes</li>
-                <li onClick={() => logout.then(navigate("/recipes"))}>
-                  Logout
+                <li
+                  onClick={() =>
+                    navigate("/user/:user_id?section=created_recipes")
+                  }
+                >
+                  Manage Recipes
                 </li>
+                <li onClick={logout}>Logout</li>
               </>
             ) : (
               <>

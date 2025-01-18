@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import reciprocity_banner from "../../../public/reciprocity_banner.png";
-// import HamburgerButton from "./HamburgerButton";
+import HamburgerButton from "./HamburgerButton";
 import ProfileButton from "./ProfileButton";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import { LoginFormModal, SignupFormModal } from "../AuthenticationForms";
@@ -19,8 +19,8 @@ function Navigation() {
         <img src={reciprocity_banner} alt="Reciprocity Logo" id="logo-banner" />
       </Link>
 
-      {/* Hamburger Icon for mobile */}
-      {/* <HamburgerButton /> */}
+      {/*Hamburger Icon for mobile */}
+      <HamburgerButton />
 
       {/* Search Bar */}
       {/* <div id="search-bar-container">
@@ -35,7 +35,7 @@ function Navigation() {
         <Link to="/about" className="nav-link">
           About
         </Link>
-        {!user && (
+        {!user ? (
           <>
             <OpenModalMenuItem
               itemText="Log In"
@@ -48,9 +48,9 @@ function Navigation() {
               modalComponent={<SignupFormModal />}
             />
           </>
+        ) : (
+          <ProfileButton />
         )}
-
-        <ProfileButton />
       </div>
     </nav>
   );

@@ -13,7 +13,7 @@ def user_exists(form, field):
     ).first()
 
     if not user:
-        raise ValidationError('Email provided not found.')
+        raise ValidationError('Email or username provided not found.')
 
 
 def password_matches(form, field):
