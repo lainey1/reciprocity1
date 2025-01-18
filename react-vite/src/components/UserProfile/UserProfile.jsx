@@ -74,10 +74,7 @@ function UserProfile() {
 
       {/* Main Content */}
       <div className="main-content">
-        {activeSection === "profile" && <ProfileOverview user={currentUser} />}
         {activeSection === "created_recipes" && <ManageRecipes />}
-        {activeSection === "restaurants" && <ManageRestaurants />}
-        {activeSection === "reservations" && <ManageReservations />}
       </div>
     </div>
   );

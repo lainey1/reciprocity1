@@ -1,5 +1,7 @@
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
+const UPDATE_USER = "session/updateUser";
+const DELETE_USER = "session/deleteUser";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -8,6 +10,16 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
+});
+
+const updateUser = (user) => ({
+  type: UPDATE_USER,
+  payload: user,
+});
+
+const deleteUser = (user) => ({
+  type: DELETE_USER,
+  payload: user,
 });
 
 export const thunkAuthenticate = () => async (dispatch) => {
@@ -80,6 +92,35 @@ export const thunkLogout = () => async (dispatch) => {
   dispatch(removeUser());
 };
 
+export const thunkUpdateProfile = (user_id, userData) => async (dispatch) => {
+  console.log("USER ID====>", user_id);
+  console.log("USER DATA====>", userData);
+  const res = await fetch(`/api/users/${user_id}/`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const updatedProfile = await res.json();
+  dispatch(updateUser(updatedProfile));
+  return updatedProfile;
+};
+
+export const deleteProfileThunk = (userId) => async (dispatch) => {
+  try {
+    const response = await fetch(`/api/users/${userId}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      dispatch(deleteUser(userId));
+    }
+  } catch (err) {
+    console.error("Error deleting restaurant:", err);
+  }
+};
+
 const initialState = { user: null };
 
 function sessionReducer(state = initialState, action) {
@@ -88,6 +129,13 @@ function sessionReducer(state = initialState, action) {
       return { ...state, user: action.payload };
     case REMOVE_USER:
       return { ...state, user: null };
+
+    case UPDATE_USER:
+      return { ...state, user: { ...state.user, ...action.payload } };
+
+    case DELETE_USER:
+      return { ...state, user: null };
+
     default:
       return state;
   }

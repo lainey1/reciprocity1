@@ -27,12 +27,32 @@ class Recipe(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False)
 
-    # Relationships
-    recipe_collections = db.relationship('CollectionRecipe', backref='recipe', lazy=True)
-    # recipe_images = db.relationship('RecipeImage', backref='recipe', lazy=True)
-    # recipe_pins = db.relationship('RecipePin', backref='recipe', lazy=True)
-    # recipe_reviews = db.relationship('RecipeReview', backref='recipe', lazy=True)
 
+    # Relationships with cascade delete
+    recipe_collections = db.relationship(
+        'CollectionRecipe',
+        backref='recipe',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+    recipe_images = db.relationship(
+        'RecipeImage',
+        backref='recipe',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+    # recipe_pins = db.relationship(
+    #     'RecipePin',
+    #     backref='recipe',
+    #     lazy=True,
+    #     cascade='all, delete-orphan'
+    # )
+    # recipe_reviews = db.relationship(
+    #     'RecipeReview',
+    #     backref='recipe',
+    #     lazy=True,
+    #     cascade='all, delete-orphan'
+    # )
 
     def to_dict(self):
         recipe_dict = {

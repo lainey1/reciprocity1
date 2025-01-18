@@ -142,6 +142,7 @@ export const thunkUpdateRecipe =
 
 export const thunkDeleteRecipe = (id) => async (dispatch) => {
   dispatch(setLoading(true));
+  console.log(id);
 
   try {
     const response = await fetch(`/api/recipes/${id}`, {
@@ -214,9 +215,12 @@ function recipesReducer(state = initialState, { type, payload }) {
       };
 
     case DELETE_RECIPE: {
-      const newState = { ...state.recipes };
-      delete newState[payload]; // Delete recipe by id
-      return newState;
+      const newRecipes = { ...state.recipes };
+      delete newRecipes[payload]; // Delete recipe by id
+      return {
+        ...state,
+        recipes: newRecipes,
+      };
     }
 
     case SET_LOADING:
