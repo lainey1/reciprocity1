@@ -39,7 +39,6 @@ function ManageRecipes() {
 
   return (
     <div className="page-container">
-      <div>Created Recipes</div>
       <div id="manage-recipe-buttons">
         <button
           onClick={() => {
@@ -47,7 +46,7 @@ function ManageRecipes() {
           }}
           className="add-button"
         >
-          <IoIosAdd />
+          Create Recipe <IoIosAdd />
         </button>
       </div>
 

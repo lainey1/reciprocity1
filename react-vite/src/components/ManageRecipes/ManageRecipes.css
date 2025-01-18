@@ -1,3 +1,19 @@
+#manage-recipe-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.add-button {
+  border-radius: 20px;
+  font-size: 1.15em;
+  background-color: #465775;
+  padding: 10px;
+}
+
+.add-button:hover {
+  background-color: rgb(70, 87, 117, 0.7);
+}
+
 .recipe-tile {
   position: relative;
 }

@@ -1,0 +1,72 @@
+#user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#user-info > h2 {
+  font-size: 2em;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+#user-info > h3,
+p {
+  font-weight: 100;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#user-info > h3,
+p {
+  font-weight: 100;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+#user-info button {
+  margin-top: 1em;
+}
+
+.name {
+  margin-bottom: 0px;
+}
+
+.icon-username {
+  display: flex;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#reciprocity-icon {
+  height: 24px;
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+}
+
+.menu > button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 3em;
+}
+
+.menu > button:hover {
+  background-color: rgb(156, 159, 119, 0.5);
+  border: none;
+  border-radius: 20px;
+}
+
+.menu > button:active {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  border-bottom: black solid 3px;
+  margin: 3em;
+}

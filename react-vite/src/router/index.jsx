@@ -6,11 +6,12 @@ import {
   LoginFormModal,
   SignupFormModal,
 } from "../components/AuthenticationForms";
-import AllRecipes from "../components/AllRecipes/AllRecipes";
+import AllRecipes from "../components/ManageRecipes/AllRecipes";
 import ReadRecipe from "../components/ManageRecipes/ReadRecipe";
 import ManageRecipes from "../components/ManageRecipes/ManageRecipes";
 import CreateRecipe from "../components/ManageRecipes/CreateRecipe";
 import UpdateRecipe from "../components/ManageRecipes/UpdateRecipe";
+import UserProfile from "../components/UserProfile/UserProfile";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: "/recipes/:recipe_id/edit",
         element: <UpdateRecipe />,
+      },
+      {
+        path: "/user/:userId",
+        element: <UserProfile />,
       },
     ],
   },

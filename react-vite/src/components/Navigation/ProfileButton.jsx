@@ -59,7 +59,12 @@ function ProfileButton() {
           <ul className={"profile-menu-dropdown"} ref={ulRef}>
             {user ? (
               <>
-                <li className="profile-details no-click">
+                <li
+                  className="profile-details no-click"
+                  onClick={() =>
+                    navigate("/user/:user_id?section=created_recipes")
+                  }
+                >
                   <img
                     src={user.profile_image_url || logo}
                     alt={`${user.first_name}'s profile`}
@@ -72,7 +77,11 @@ function ProfileButton() {
                   </div>
                 </li>
                 <hr className="menu-separator" /> {/* Horizontal line */}
-                <li onClick={() => navigate("recipes/owner/:owner_id")}>
+                <li
+                  onClick={() =>
+                    navigate("/user/:user_id?section=created_recipes")
+                  }
+                >
                   Manage Recipes
                 </li>
                 <li onClick={logout}>Logout</li>
