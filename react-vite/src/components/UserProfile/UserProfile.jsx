@@ -37,6 +37,9 @@ function UserProfile() {
     <div id="profile-page">
       {/* Main Profile Details*/}
       <div id="main-profile">
+        <div id="user-profile-pic">
+          <img src={currentUser.profile_image_url} />
+        </div>
         <div id="user-info">
           <h2 className="name">{currentUser.first_name}</h2>
           <span className="icon-username">
@@ -46,7 +49,10 @@ function UserProfile() {
           <p>{currentUser.bio}</p>
 
           {/* user/:userId/edit */}
-          <button onClick={() => navigate(`/user/${currentUser.id}/edit`)}>
+          <button
+            id="edit-profile-button"
+            onClick={() => navigate(`/user/${currentUser.id}/edit`)}
+          >
             Edit Profile
           </button>
         </div>
@@ -54,6 +60,7 @@ function UserProfile() {
 
       <nav className="menu">
         <button
+          className={activeSection === "created_recipes" ? "active" : ""}
           onClick={() =>
             navigate(`/user/${currentUser.id}?section=created_recipes`)
           }
@@ -61,12 +68,16 @@ function UserProfile() {
           Created Recipes
         </button>
         <button
+          className={activeSection === "created" ? "active" : ""}
           onClick={() => navigate(`/user/${currentUser.id}?section=created`)}
         >
           Collections
         </button>
         <button
-          onClick={() => navigate(`/user/${currentUser.id}?section=created`)}
+          className={activeSection === "saved_recipes" ? "active" : ""}
+          onClick={() =>
+            navigate(`/user/${currentUser.id}?section=saved_recipes`)
+          }
         >
           Saved Recipes
         </button>

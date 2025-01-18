@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteProfile from "./DeleteProfile.jsx";
 import { thunkUpdateProfile } from "../../redux/session";
+
+import "./EditProfile.css";
 
 function EditProfile() {
   const dispatch = useDispatch();
@@ -112,9 +116,18 @@ function EditProfile() {
           <div className="error-message">Location is required.</div>
         )}
 
-        <button className="submit-button" type="submit">
-          Save
-        </button>
+        <div className="edit-profile-buttons">
+          {/* Open Delete Modal Button */}
+          <OpenModalButton
+            buttonText="Delete"
+            id="delete-profile-button"
+            modalComponent={<DeleteProfile user_id={currentUser.id} />}
+          />
+
+          <button id="save-profile-button" type="submit">
+            Save
+          </button>
+        </div>
       </form>
     </div>
   );

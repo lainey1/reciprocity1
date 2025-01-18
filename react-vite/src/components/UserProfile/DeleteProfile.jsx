@@ -1,11 +1,10 @@
 import { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProfileThunk } from "../../redux/session";
+import { thunkDeleteProfile, thunkLogout } from "../../redux/session";
 import { useModal } from "../../context/Modal";
-import "./DeleteProfile.css";
 import { useNavigate } from "react-router-dom";
 
-const DeleteProfile = ({ user }) => {
+const DeleteProfile = ({ user_id }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { closeModal } = useModal();
@@ -14,7 +13,7 @@ const DeleteProfile = ({ user }) => {
 
   const formRef = useRef(null); // Reference to the form
 
-  const confirmDelete = (e) => {
+  const handleDelete = (e) => {
     e.preventDefault();
 
     if (!currentUser) {
@@ -22,11 +21,11 @@ const DeleteProfile = ({ user }) => {
       return; // Exit early if currentUser is not available
     }
 
-    // Proceed with deleting the profile if not demo user
-    dispatch(deleteProfileThunk(user))
+    dispatch(thunkDeleteProfile(user_id))
       .then(() => {
+        dispatch(thunkLogout());
         closeModal();
-        navigate(); // Replace `navigate` with the appropriate navigation function and arguments
+        navigate("/");
       })
       .catch((error) => {
         console.error("Failed to delete profile:", error);
@@ -59,7 +58,7 @@ const DeleteProfile = ({ user }) => {
         Are you sure you want to delete your profile? Deletion will remove your
         profile, reviews, reservation, and image data and is not reversible.{" "}
       </p>
-      <button onClick={confirmDelete} className="confirm-delete">
+      <button onClick={handleDelete} className="confirm-delete">
         Yes (Delete Profile)
       </button>
       <button onClick={cancelDelete} className="cancel-delete">

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import { IoIosAdd } from "react-icons/io";
 import { FaEdit } from "react-icons/fa";
 
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -47,7 +46,7 @@ function ManageRecipes() {
           }}
           className="add-button"
         >
-          Create Recipe <IoIosAdd />
+          Create Recipe
         </button>
       </div>
 

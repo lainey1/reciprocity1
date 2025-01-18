@@ -71,48 +71,31 @@ def update_profile(user_id):
         db.session.rollback()
         return jsonify({'message': 'Error saving the data', 'error': str(e)}),
 
-    # if form data is not valid, notify user
-    return jsonify({
-        'message': 'Invalid user data',
-        'errors': form.errors
-    }), 400
 
-@user_routes.route('/<int:user_id>', methods=["POST"])
+@user_routes.route('/<int:user_id>/', methods=['DELETE'])
 @login_required
 def delete_profile(user_id):
-    """Delete the user's profile by user ID."""
-    if user_id != current_user.id:
-        return jsonify({"message": "Only the profile owner can delete their account."}), 403
-
-    # if profile owner, create instance of DeleteProfileForm class
-    form = DeleteUserForm()
-
-    # manually sets the CSRF token in the form from the request's cookies.
-    form['csrf_token'].data = request.cookies['csrf_token']
-
-    if form.validate_on_submit():
-        if form.delete.data:  # If the "Delete Profile" button was pressed
-            user_to_delete = User.query.get(user_id)
-            if user_to_delete:
-                db.session.delete(user_to_delete)
-                db.session.commit()
-                return jsonify({'message': 'User profile deleted successfully'}), 200
-                # return redirect(url_for('home'))  ##when available Redirect to home or login page after deletion
-        elif form.cancel.data:  # If the "Cancel" button was pressed
-            return redirect(url_for('users.user', id=current_user.id))
-
-    return render_template("delete_profile.html", form=form)
-
-
-
-@user_routes.route('/delete_profile', methods=["GET", "POST"])
-@login_required
-def get_delete_profile_form():
     """
-    Delete the user's profile by user ID.
+    Delete user profile by id
     """
+    # Get the user by id
+    user = User.query.get(user_id)
 
-    form = DeleteUserForm()
+    # If user id does not exist, return a 404 not found error
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
 
-    # print("Form errors:", form.errors)  # Debugging output
-    return render_template("delete_profile.html", form=form)
+    # If the user is not the profile owner, return 403 Forbidden
+    if user.id != current_user.id:
+        return jsonify({
+            "message": "Only the profile owner can delete this account."
+        }), 403
+
+    # Attempt to delete the user
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'message': 'User profile deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': 'Error deleting the profile', 'error': str(e)}), 500

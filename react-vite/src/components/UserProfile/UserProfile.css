@@ -1,5 +1,20 @@
 #profile-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 0 50px;
+}
+
+#main-profile {
+  display: flex;
+}
+
+#user-profile-pic > img {
+  width: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 25px 50px;
 }
 
 #user-info {
@@ -13,13 +28,6 @@
 #user-info > h2 {
   font-size: 2em;
   font-weight: 500;
-  margin-bottom: 0;
-}
-
-#user-info > h3,
-p {
-  font-weight: 100;
-  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -51,32 +59,94 @@ p {
 
 .menu {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .menu > button {
+  justify-content: center;
   background-color: transparent;
-  border: none;
-  border-radius: 0;
-  margin: 3em;
+  padding: 15px;
+  border-radius: 20px;
+  border: 1px solid rgb(110, 110, 110);
+  margin: 50px 25px 25px;
+  font-size: 1.25em;
 }
 
 .menu > button:hover {
   background-color: rgb(156, 159, 119, 0.5);
-  border: none;
+  border: 1px solid rgb(110, 110, 110);
   border-radius: 20px;
 }
 
-.menu > button:active {
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-  border-bottom: black solid 3px;
-  margin: 3em;
+/* Highlight active section with a black bottom border */
+.menu > button.active {
+  background-color: #9c9f77;
+  border: 2px solid rgb(110, 110, 110);
 }
 
-@media (max-width: 480px) {
+#edit-profile-button {
+  border-radius: 20px;
+  font-size: 1.15em;
+  background-color: #465775;
+  color: white;
+  padding: 15px;
+  border: none;
+}
+
+#edit-profile-button:hover {
+  background-color: rgb(70, 87, 117, 0.7);
+}
+.main-content {
+  margin: 0px;
+}
+
+@media (max-width: 768px) {
+  /* Profile Layout Adjustments for Mobile */
+
+  #main-profile {
+    display: flex;
+    flex-direction: column;
+  }
+
   #profile-page {
-    margin: 0 5%;
+    padding: 20px; /* Less padding on smaller screens */
+  }
+
+  #user-info {
+    max-width: 100%; /* Allow user info to take full width on small screens */
+    margin-bottom: 25px;
+    text-align: center; /* Center text for mobile */
+  }
+
+  #user-info > h2 {
+    font-size: 1.5em; /* Reduce font size for small screens */
+  }
+
+  .menu {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .menu > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Make buttons take full width */
+    height: 50px;
+    margin: 10px; /* Adjust button margin */
+    padding: 12px; /* Reduce padding for mobile */
+    font-size: 1em; /* Adjust font size for mobile */
+  }
+
+  #edit-profile-button {
+    width: 30%; /* Make the edit button full width on mobile */
+    padding: 12px; /* Adjust padding */
+    font-size: 1em; /* Adjust font size */
+  }
+
+  /* Adjust the profile icon for mobile */
+  #reciprocity-icon {
+    height: 30px; /* Increase icon size for better visibility on mobile */
   }
 }

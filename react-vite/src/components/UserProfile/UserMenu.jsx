@@ -8,7 +8,7 @@ const UserMenu = ({ currentUser }) => {
   const currentSection = searchParams.get("section");
 
   return (
-    <nav className="menu">
+    <nav className="user-menu">
       <button
         onClick={() =>
           navigate(`/user/${currentUser.id}?section=created_recipes`)
