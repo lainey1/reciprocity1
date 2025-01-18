@@ -34,7 +34,7 @@ function UserProfile() {
   }
 
   return (
-    <div className="profile-page">
+    <div id="profile-page">
       {/* Main Profile Details*/}
       <div id="main-profile">
         <div id="user-info">

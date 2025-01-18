@@ -13,19 +13,6 @@ body {
   color: #2a3439;
 }
 
-button {
-  font-size: 1.15em;
-  border-radius: 20px;
-  padding: 10px;
-  background-color: rgb(156, 159, 119, 0.7);
-  border: none;
-}
-
-button:hover {
-  background-color: #9c9f77;
-  cursor: pointer;
-}
-
 .page-container {
   max-width: 1300px;
   margin: 15px;

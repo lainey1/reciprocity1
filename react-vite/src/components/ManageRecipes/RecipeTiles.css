@@ -1,0 +1,119 @@
+#manage-recipe-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.add-button {
+  border-radius: 20px;
+  font-size: 1.15em;
+  background-color: #465775;
+  padding: 10px;
+}
+
+.add-button:hover {
+  background-color: rgb(70, 87, 117, 0.7);
+}
+
+.recipe-tile {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+}
+
+.recipe-action-buttons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  height: 40px;
+}
+
+.recipe-action-buttons > button {
+  font-size: 1.15em;
+  border-radius: 10%;
+  background-color: rgb(156, 159, 119, 0.5);
+  border: none;
+  padding: 10px;
+}
+
+.recipe-action-buttons > button:hover {
+  background-color: rgb(156, 159, 119);
+  color: white;
+}
+
+#delete-button {
+  color: black;
+}
+
+#delete-button:hover {
+  background-color: #f4a6a6;
+  color: white;
+}
+.recipe-tile:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-tile:hover .recipe-action-buttons {
+  opacity: 1;
+}
+
+.recipe-image-container {
+  position: relative;
+}
+
+.recipe-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.recipe-highlight {
+  padding: 10px;
+  text-align: center;
+}
+
+.recipe-tile {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.recipe-tile:hover {
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .page-form-container {
+    margin: 0 5%;
+  }
+  .recipe-action-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    opacity: 1; /* Always show buttons on mobile */
+  }
+
+  .recipe-action-buttons > button {
+    font-size: 1em; /* Adjust font size for mobile */
+    padding: 8px; /* Adjust padding for mobile */
+  }
+
+  #manage-recipe-buttons {
+    flex-direction: column; /* Stack the buttons vertically */
+    gap: 10px; /* Add space between buttons */
+  }
+
+  .add-button {
+    font-size: 1.1em;
+    padding: 12px;
+  }
+}

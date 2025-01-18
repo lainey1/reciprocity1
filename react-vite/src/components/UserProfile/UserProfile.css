@@ -1,3 +1,7 @@
+#profile-page {
+  padding: 0 50px;
+}
+
 #user-info {
   display: flex;
   flex-direction: column;
@@ -69,4 +73,10 @@ p {
   border-radius: 0;
   border-bottom: black solid 3px;
   margin: 3em;
+}
+
+@media (max-width: 480px) {
+  #profile-page {
+    margin: 0 5%;
+  }
 }
