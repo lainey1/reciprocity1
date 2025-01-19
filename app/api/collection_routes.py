@@ -159,6 +159,14 @@ def collections_by_owner(owner_id):
             collection_data = collection.to_dict()
 
 
+            # Grab its collection image
+            collection_image = CollectionImage.query.filter_by(collection_id=collection.id).first()
+            collection_image_url = collection_image.image_url if collection_image else None
+            print("COLLECTION IMAGE ====>", collection_image_url)
+
+            # Add collection image to recipe's dictionary
+            collection_data['collection_image'] = collection_image_url
+
             # Append the collection dictionary to the owner's collections list
             owners_collections_list.append(collection_data)
 

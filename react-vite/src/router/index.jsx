@@ -13,6 +13,8 @@ import CreateRecipe from "../components/ManageRecipes/CreateRecipe";
 import UpdateRecipe from "../components/ManageRecipes/UpdateRecipe";
 import UserProfile from "../components/UserProfile/UserProfile";
 import EditProfile from "../components/UserProfile/EditProfile";
+import CreateCollection from "../components/Collections/CreateCollection";
+import EditCollection from "../components/Collections/EditCollection";
 
 export const router = createBrowserRouter([
   {
@@ -62,10 +64,14 @@ export const router = createBrowserRouter([
         path: "/user/:user_id/edit",
         element: <EditProfile />,
       },
-      // {
-      //   path: "user/:userId/delete",
-      //   element: <DeleteProfile />,
-      // },
+      {
+        path: "/collections/new",
+        element: <CreateCollection />,
+      },
+      {
+        path: "/collections/:collection_id/edit",
+        element: <EditCollection />,
+      },
     ],
   },
 ]);

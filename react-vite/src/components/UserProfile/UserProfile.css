@@ -10,6 +10,11 @@
   display: flex;
 }
 
+#user-profile-pic {
+  display: flex;
+  justify-content: center;
+}
+
 #user-profile-pic > img {
   width: 250px;
   border-radius: 50%;
