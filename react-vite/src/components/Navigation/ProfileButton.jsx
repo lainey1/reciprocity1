@@ -47,12 +47,18 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu} id="profile-dropdown-button">
+      <button
+        onClick={() => navigate("/user/:user_id?section=created_recipes")}
+        id="profile-dropdown-button"
+      >
         <img
           src={user.profile_image_url || logo}
           alt={`${user.first_name}'s profile`}
           className="profile-image"
         />
+      </button>
+      <button onClick={toggleMenu} id="profile-dropdown-button">
+        ☰
       </button>
       <div className="drop-down-container">
         {showMenu && (
@@ -77,13 +83,6 @@ function ProfileButton() {
                   </div>
                 </li>
                 <hr className="menu-separator" /> {/* Horizontal line */}
-                <li
-                  onClick={() =>
-                    navigate("/user/:user_id?section=created_recipes")
-                  }
-                >
-                  Manage Recipes
-                </li>
                 <li onClick={logout}>Logout</li>
               </>
             ) : (

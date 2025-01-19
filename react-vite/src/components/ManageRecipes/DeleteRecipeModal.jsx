@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkDeleteRecipe } from "../../redux/recipes";
 
-function DeleteRecipeModal({ recipe_id }) {
+function DeleteRecipeModal({ recipe_id, recipe_name }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
@@ -18,7 +18,11 @@ function DeleteRecipeModal({ recipe_id }) {
   return (
     <div className="page-form-container">
       <h3>Confirm Deletion</h3>
-      <p>Are you sure you want to delete this recipe?</p>
+      <p>
+        {" "}
+        Are you sure you want to delete this recipe:{" "}
+        <span style={{ fontWeight: "bold" }}>{recipe_name}</span>?
+      </p>
       <button onClick={handleDelete}>Delete</button>
       <button onClick={closeModal}>Cancel</button>
     </div>

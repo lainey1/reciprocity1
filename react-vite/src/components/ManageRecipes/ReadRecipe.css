@@ -53,24 +53,25 @@
 
 /* Image slider container */
 .image-slider {
+  max-width: 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 0;
 }
 
 .image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 375px;
-  height: 500px;
+  width: 100%;
+  max-width: 375px;
+  height: auto;
   position: relative;
+  aspect-ratio: 4/3;
 }
 
 .image-container img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
 }
 
@@ -108,12 +109,11 @@ button:focus {
   outline: none;
 }
 
-.prev-button {
-  margin-right: 20px;
-}
-
+/* Adjust navigation buttons for mobile */
+.prev-button,
 .next-button {
-  margin-left: 20px;
+  font-size: 1.5rem;
+  margin: 5px;
 }
 
 /* Modal Background */
@@ -212,27 +212,25 @@ button:focus {
   }
 }
 
-/* For mobile screens */
+/* Mobile-specific adjustments */
 @media (max-width: 480px) {
   .recipe-details-container {
-    padding: 30px;
+    padding: 20px;
     margin: 5%;
   }
 
-  .recipe-header h2 {
-    font-size: 1.5rem;
+  .image-slider {
+    flex-direction: column; /* Stack buttons and slider vertically */
+    align-items: center;
   }
 
-  .recipe-highlights p {
-    font-size: 0.9rem;
+  .prev-button,
+  .next-button {
+    font-size: 1.2rem;
   }
 
   .image-container {
-    aspect-ratio: 1 / 1;
-  }
-
-  .ingredients-list,
-  .instructions-list {
-    padding: 0 10px;
+    width: 90%; /* Restrict width on smaller screens */
+    max-width: none; /* Remove fixed width cap */
   }
 }

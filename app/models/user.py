@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
         back_populates='user',
         lazy=True
     )
+
     connected_users = db.relationship(
         'Connection',
         foreign_keys='Connection.connected_user_id',  # FIX: Specify the foreign key to avoid parent/child confusion
@@ -40,6 +41,47 @@ class User(db.Model, UserMixin):
         back_populates='connected_user',
         lazy=True
     )
+
+    collection_images = db.relationship(
+        'CollectionImage',
+        foreign_keys='CollectionImage.user_id',
+        backref='user',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+
+    collection_recipes = db.relationship(
+        'CollectionRecipe',
+        foreign_keys='CollectionRecipe.owner_id',
+        backref='user',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+
+    collection = db.relationship(
+        'Collection',
+        cascade="all, delete-orphan",
+        foreign_keys='Collection.user_id',
+        backref='user',
+        lazy=True
+    )
+
+    recipe = db.relationship(
+        'Recipe',
+        cascade="all, delete-orphan",
+        foreign_keys="Recipe.owner_id",
+        backref="user",
+        lazy=True
+    )
+
+    recipe_images = db.relationship(
+        'RecipeImage',
+        foreign_keys='RecipeImage.user_id',
+        backref='user',
+        lazy=True,
+        cascade='all, delete-orphan'
+    )
+
 
     @property
     def password(self):

@@ -1,9 +1,7 @@
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
-const SET_USER = "session/setUser";
-const REMOVE_USER = "session/removeUser";
 const UPDATE_USER = "session/updateUser";
-const DELETE_USER = "session/deleteUser";
+// const DELETE_USER = "session/deleteUser";
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -12,7 +10,6 @@ const setUser = (user) => ({
 
 const removeUser = () => ({
   type: REMOVE_USER,
-  type: REMOVE_USER,
 });
 
 const updateUser = (user) => ({
@@ -20,10 +17,10 @@ const updateUser = (user) => ({
   payload: user,
 });
 
-const deleteUser = (user) => ({
-  type: DELETE_USER,
-  payload: user,
-});
+// const deleteUser = (user) => ({
+//   type: DELETE_USER,
+//   payload: user,
+// });
 
 export const thunkAuthenticate = () => async (dispatch) => {
   const response = await fetch("/api/auth/");
@@ -66,7 +63,6 @@ export const thunkLogin = (credentials) => async (dispatch) => {
     dispatch(setUser(data));
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    return errorMessages;
     return errorMessages.errors;
   } else {
     return { server: "Something went wrong. Please try again" };
@@ -85,7 +81,6 @@ export const thunkSignup = (user) => async (dispatch) => {
     dispatch(setUser(data));
   } else if (response.status < 500) {
     const errorMessages = await response.json();
-    return errorMessages;
     return errorMessages.errors;
   } else {
     return { server: "Something went wrong. Please try again" };
@@ -113,16 +108,34 @@ export const thunkUpdateProfile = (user_id, userData) => async (dispatch) => {
   return updatedProfile;
 };
 
-export const deleteProfileThunk = (userId) => async (dispatch) => {
+// actions/userActions.js
+export const thunkDeleteProfile = (userId) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/users/${userId}`, {
+    const response = await fetch(`/api/users/${userId}/`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
+
     if (response.ok) {
-      dispatch(deleteUser(userId));
+      const message = await response.json();
+      dispatch({
+        type: "DELETE_USER_SUCCESS",
+        payload: message,
+      });
+    } else {
+      const error = await response.json();
+      dispatch({
+        type: "DELETE_USER_FAILURE",
+        payload: error.message || "Failed to delete user.",
+      });
     }
   } catch (err) {
-    console.error("Error deleting restaurant:", err);
+    dispatch({
+      type: "DELETE_USER_FAILURE",
+      payload: err.message || "An unexpected error occurred.",
+    });
   }
 };
 
@@ -138,8 +151,11 @@ function sessionReducer(state = initialState, action) {
     case UPDATE_USER:
       return { ...state, user: { ...state.user, ...action.payload } };
 
-    case DELETE_USER:
-      return { ...state, user: null };
+    case "DELETE_USER_SUCCESS":
+      return { ...state, successMessage: action.payload };
+
+    case "DELETE_USER_FAILURE":
+      return { ...state, errorMessage: action.payload };
 
     default:
       return state;

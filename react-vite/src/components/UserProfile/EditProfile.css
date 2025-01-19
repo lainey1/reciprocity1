@@ -1,0 +1,22 @@
+.edit-profile-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.edit-profile-buttons > button {
+  width: 150px;
+  margin-right: 25px;
+  font-size: 1.15em;
+  color: white;
+  font-weight: 800;
+  border: none;
+  border-radius: 20px;
+}
+
+#delete-profile-button {
+  background-color: red;
+}
+
+#delete-profile-button:hover {
+  background-color: rgb(182, 5, 5);
+}
