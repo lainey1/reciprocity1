@@ -6,25 +6,27 @@ function DeleteCollectionModal({ collection_id, collection_name }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     try {
-      await dispatch(deleteCollectionById(collection_id)); // Ensure this returns a promise
+      dispatch(deleteCollectionById(collection_id)); // Ensure this returns a promise
       window.location.reload(); // Force reload after deletion
       closeModal();
     } catch (err) {
-      console.error("Error deleting recipe:", err);
+      console.error("Error deleting collection:", err);
     }
   };
 
   return (
     <div className="page-form-container">
-      <h3>Confirm Deletion</h3>
-      <p>
-        Are you sure you want to delete this collection:{" "}
-        <span style={{ fontWeight: "bold" }}>{collection_name}</span>?
-      </p>
-      <button onClick={handleDelete}>Delete</button>
-      <button onClick={closeModal}>Cancel</button>
+      <h2>Confirm Deletion</h2>
+      <form>
+        <p>
+          Are you sure you want to delete this collection:{" "}
+          <span style={{ fontWeight: "bold" }}>{collection_name}</span>?
+        </p>
+        <button onClick={handleDelete}>Delete</button>
+        <button onClick={closeModal}>Cancel</button>
+      </form>
     </div>
   );
 }

@@ -8,6 +8,7 @@ const DELETE_COLLECTION = "collections/DELETE_COLLECTION";
 const ADD_RECIPE_TO_COLLECTION = "collections/ADD_RECIPE_TO_COLLECTION";
 const REMOVE_RECIPE_FROM_COLLECTION =
   "collections/REMOVE_RECIPE_FROM_COLLECTION";
+const SET_ERRORS = "recipes/setError";
 
 // Action Creators
 const getCollections = (collections) => ({
@@ -49,6 +50,11 @@ const removeRecipeFromCollection = (recipeId, collectionId) => ({
   type: REMOVE_RECIPE_FROM_COLLECTION,
   recipeId,
   collectionId,
+});
+
+const setErrors = (error) => ({
+  type: SET_ERRORS,
+  payload: error,
 });
 
 // Thunks
@@ -103,12 +109,21 @@ export const editCollection = (id, collectionData) => async (dispatch) => {
 };
 
 export const deleteCollectionById = (id) => async (dispatch) => {
-  const response = await fetch(`/api/collections/${id}`, {
-    method: "DELETE",
-  });
+  console.log("COLLECTION ID ===>", id);
+  try {
+    const response = await fetch(`/api/collections/${id}`, {
+      method: "DELETE",
+    });
 
-  if (response.ok) {
-    dispatch(deleteCollection(id));
+    if (response.ok) {
+      dispatch(deleteCollection(id));
+    } else {
+      const errorData = await response.json();
+      dispatch(setErrors(errorData)); // Dispatch errors if deletion failed
+    }
+  } catch (error) {
+    console.error("Error deleting recipe:", error);
+    dispatch(setErrors({ message: "Error deleting recipe" }));
   }
 };
 

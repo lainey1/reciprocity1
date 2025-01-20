@@ -6,7 +6,7 @@ import no_image_available from "../../../public/no_image_available.png";
 
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
-import DeleteRecipeModal from "../ManageRecipes/DeleteRecipeModal";
+import DeleteCollectionModal from "./DeleteCollectionModal";
 
 import {
   fetchCollections,
@@ -74,9 +74,9 @@ const ManageCollections = () => {
                   buttonText="Delete"
                   id="delete-button"
                   modalComponent={
-                    <DeleteRecipeModal
-                      recipe_id={collection.id}
-                      recipe_name={collection.name}
+                    <DeleteCollectionModal
+                      collection_id={collection.id}
+                      collection_name={collection.name}
                     />
                   }
                 />

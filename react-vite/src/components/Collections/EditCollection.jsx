@@ -24,10 +24,6 @@ const EditCollection = () => {
     dispatch(fetchCollectionById(collection_id));
   }, [dispatch, collection_id]);
 
-  // useEffect(() => {
-  //   console.log("Collection fetched from Redux:", currentCollection);
-  // }, [currentCollection]);
-
   // Update form data when collection is fetched
   useEffect(() => {
     if (currentCollection) {
@@ -56,7 +52,7 @@ const EditCollection = () => {
         description: formData.description,
       };
 
-      await dispatch(editCollection(payload));
+      await dispatch(editCollection(currentCollection.id, payload));
       navigate(`/collections/${collection_id}`);
     } catch (error) {
       console.error("Failed to update collection:", error);
