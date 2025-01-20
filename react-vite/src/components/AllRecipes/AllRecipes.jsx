@@ -3,22 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { thunkFetchRecipes } from "../../redux/recipes";
 import no_image_available from "../../../public/no_image_available.png";
+
 import "./AllRecipes.css";
 
 function AllRecipes() {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes.recipes);
+  const recipes = useSelector((state) => state.recipes?.recipes);
+  const recipesArr = Object.values(recipes);
+
   useEffect(() => {
     dispatch(thunkFetchRecipes());
   }, [dispatch]);
 
   return (
     <div id="all-recipes-page-container">
-      <div className="recipes-grid">
-        {recipes?.recipes?.map((recipe) => {
+      <div className="all-recipes-grid">
+        {recipesArr.map((recipe) => {
           return (
             <div key={recipe.id} className="recipe-tile">
-              <Link to={`${recipe.id}`} className="recipe-link">
+              <Link to={`${recipe.id}`} className="all-recipes-link">
                 <div className="recipe-image-container">
                   {recipe.preview_image ? (
                     <img

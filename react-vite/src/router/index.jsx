@@ -6,7 +6,7 @@ import {
   LoginFormModal,
   SignupFormModal,
 } from "../components/AuthenticationForms";
-import AllRecipes from "../components/ManageRecipes/AllRecipes";
+import AllRecipes from "../components/AllRecipes/AllRecipes.jsx";
 import ReadRecipe from "../components/ManageRecipes/ReadRecipe";
 import ManageRecipes from "../components/ManageRecipes/ManageRecipes";
 import CreateRecipe from "../components/ManageRecipes/CreateRecipe";

@@ -24,22 +24,30 @@ const CreateCollection = () => {
   };
 
   return (
-    <div className="manage-collections">
+    <div className="form-page-container">
       {/* Create New Collection */}
       <div className="create-collection">
         <h2>Create New Collection</h2>
-        <input
-          type="text"
-          placeholder="Collection Name"
-          value={newCollectionName}
-          onChange={(e) => setNewCollectionName(e.target.value)}
-        />
-        <textarea
-          placeholder="Collection Description"
-          value={newCollectionDescription}
-          onChange={(e) => setNewCollectionDescription(e.target.value)}
-        ></textarea>
-        <button onClick={handleCreate}>Create Collection</button>
+        <form>
+          <label>
+            Name
+            <input
+              type="text"
+              // placeholder="name your collection something memorable"
+              value={newCollectionName}
+              onChange={(e) => setNewCollectionName(e.target.value)}
+            />
+          </label>
+          <label>
+            Description
+            <textarea
+              // placeholder="Collection Description"
+              value={newCollectionDescription}
+              onChange={(e) => setNewCollectionDescription(e.target.value)}
+            ></textarea>
+          </label>
+          <button onClick={handleCreate}>Create Collection</button>
+        </form>
       </div>
     </div>
   );
