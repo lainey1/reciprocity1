@@ -61,15 +61,6 @@ function UserProfile() {
 
       <nav className="menu">
         <button
-          className={activeSection === "collections" ? "active" : ""}
-          onClick={() =>
-            navigate(`/user/${currentUser.id}?section=collections`)
-          }
-        >
-          Collections
-        </button>
-
-        <button
           className={activeSection === "created_recipes" ? "active" : ""}
           onClick={() =>
             navigate(`/user/${currentUser.id}?section=created_recipes`)
@@ -85,6 +76,15 @@ function UserProfile() {
           }
         >
           Saved
+        </button>
+
+        <button
+          className={activeSection === "collections" ? "active" : ""}
+          onClick={() =>
+            navigate(`/user/${currentUser.id}?section=collections`)
+          }
+        >
+          Collections
         </button>
       </nav>
 

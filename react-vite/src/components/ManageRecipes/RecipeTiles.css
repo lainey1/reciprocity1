@@ -1,3 +1,10 @@
+#all-recipes-page-container {
+  display: flex;
+  min-height: 100vh;
+  margin: 0 20px;
+  padding: 0 15px;
+}
+
 #manage-recipe-buttons {
   display: flex;
   justify-content: flex-end;
@@ -94,7 +101,18 @@
 }
 
 /* Media Query for Mobile Devices */
+@media (max-width: 1200px) {
+  .recipes-grid {
+    column-count: 4;
+  }
+}
+
+/* Media Query for Mobile Devices */
 @media (max-width: 768px) {
+  .recipes-grid {
+    column-count: 3;
+  }
+
   .page-form-container {
     margin: 0 5%;
   }

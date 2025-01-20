@@ -15,6 +15,7 @@ import UserProfile from "../components/UserProfile/UserProfile";
 import EditProfile from "../components/UserProfile/EditProfile";
 import CreateCollection from "../components/Collections/CreateCollection";
 import EditCollection from "../components/Collections/EditCollection";
+import ViewCollection from "../components/Collections/ViewCollection.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
       {
         path: "/collections/:collection_id/edit",
         element: <EditCollection />,
+      },
+      {
+        path: "/collections/:collection_id/",
+        element: <ViewCollection />,
       },
     ],
   },

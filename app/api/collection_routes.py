@@ -222,8 +222,6 @@ def add_collection():
             updated_at=now   # Pass datetime object directly
         )
 
-        print(f"Attempting to add collection with name ==========> {new_collection}")
-
         try:
             db.session.add(new_collection)
             db.session.commit()

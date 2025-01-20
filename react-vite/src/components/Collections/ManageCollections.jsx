@@ -11,7 +11,6 @@ import DeleteRecipeModal from "../ManageRecipes/DeleteRecipeModal";
 import {
   fetchCollections,
   fetchCollectionsByOwner,
-  // editCollection,
   // deleteCollectionById,
 } from "../../../src/redux/collections";
 import "./CollectionTiles.css";
@@ -25,32 +24,10 @@ const ManageCollections = () => {
     (state) => state.collections.ownerCollections
   );
 
-  // const [editCollectionId, setEditCollectionId] = useState(null);
-  // const [editCollectionName, setEditCollectionName] = useState("");
-  // const [editCollectionDescription, setEditCollectionDescription] = useState("");
-
   useEffect(() => {
     dispatch(fetchCollections());
     dispatch(fetchCollectionsByOwner(userId));
   }, [dispatch, userId]);
-
-  // const handleEdit = (collection) => {
-  //   setEditCollectionId(collection.id);
-  //   setEditCollectionName(collection.name);
-  //   setEditCollectionDescription(collection.description);
-  // };
-
-  // const handleUpdate = () => {
-  //   const payload = {
-  //     id: editCollectionId,
-  //     name: editCollectionName,
-  //     description: editCollectionDescription,
-  //   };
-  //   dispatch(editCollection(payload));
-  //   setEditCollectionId(null);
-  //   setEditCollectionName("");
-  //   setEditCollectionDescription("");
-  // };
 
   return (
     <div className="page-container">

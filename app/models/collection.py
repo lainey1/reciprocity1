@@ -19,6 +19,8 @@ class Collection(db.Model):
 
     # Relationships
     collection_images = db.relationship('CollectionImage', backref='collection', lazy=True)
+    recipes = db.relationship('CollectionRecipe', backref='collection', lazy=True)
+
 
     def to_dict(self):
         return {
@@ -26,6 +28,7 @@ class Collection(db.Model):
             'name': self.name,
             'user_id': self.user_id,
             'description': self.description,
+
             'created_at': self.created_at.isoformat(),
             'updated_at': self.updated_at.isoformat()
         }
